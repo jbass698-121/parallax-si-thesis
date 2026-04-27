@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>AI-First Industrial Automation Platform — Investment Thesis</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#0F1A2E',
+          navy: '#1F3A5F',
+          accent: '#2E75B6',
+          warmwhite: '#FAFAF7',
+          subtle: '#6B7280',
+          highlight: '#FEF3C7',
+        },
+        fontFamily: {
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+          serif: ['Lora', 'Georgia', 'serif'],
+          mono: ['JetBrains Mono', 'Consolas', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  body { background: #FAFAF7; color: #0F1A2E; font-family: 'Inter', system-ui, sans-serif; }
+  h1, h2, h3, .display { font-family: 'Lora', Georgia, serif; }
+  .section-title { font-family: 'Lora', Georgia, serif; }
+  .num-tabular { font-variant-numeric: tabular-nums; }
+  .citation { cursor: pointer; color: #2E75B6; border-bottom: 1px dotted #2E75B6; font-size: 0.75em; vertical-align: super; padding: 0 2px; }
+  .citation:hover { background: #FEF3C7; }
+  .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #2E75B6, #1F3A5F); z-index: 60; transition: width 0.1s; }
+  .nav-link.active { color: #1F3A5F; font-weight: 600; border-left: 2px solid #1F3A5F; }
+  details summary { cursor: pointer; list-style: none; }
+  details summary::-webkit-details-marker { display: none; }
+  details[open] summary .chev { transform: rotate(180deg); }
+  .chev { transition: transform 0.2s; }
+  table th, table td { padding: 10px 14px; }
+  .hero-grid { background-image: linear-gradient(rgba(31,58,95,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(31,58,95,0.04) 1px, transparent 1px); background-size: 24px 24px; }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; }
+  .slider { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; background: #E5E7EB; border-radius: 2px; outline: none; }
+  .slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: #1F3A5F; cursor: pointer; border-radius: 50%; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+  .slider::-moz-range-thumb { width: 20px; height: 20px; background: #1F3A5F; cursor: pointer; border-radius: 50%; border: 2px solid white; }
+  pre { font-family: 'JetBrains Mono', monospace; }
+  .gate-bg { background: linear-gradient(135deg, #0F1A2E 0%, #1F3A5F 100%); }
+  /* Print */
+  @media print {
+    .no-print { display: none !important; }
+    body { background: white; font-size: 10pt; }
+    .page-break { page-break-before: always; }
+    section { break-inside: avoid; }
+    .scroll-progress, nav { display: none !important; }
+    .hero-grid { background: none; }
+    main { padding: 0 !important; }
+  }
+  /* Smooth scroll for anchor nav */
+  html { scroll-behavior: smooth; }
+  /* Sortable table indicator */
+  .sort-indicator { font-size: 0.7em; opacity: 0.4; margin-left: 2px; }
+  th.sorted .sort-indicator { opacity: 1; color: #1F3A5F; }
+</style>
+</head>
+<body x-data="thesis()" x-init="init()" class="antialiased">
+
+<!-- ============================================ PASSWORD GATE ============================================ -->
+<div x-show="!unlocked" x-cloak class="fixed inset-0 z-50 gate-bg flex items-center justify-center p-6 no-print">
+  <div class="max-w-md w-full bg-warmwhite rounded-lg shadow-2xl p-10">
+    <p class="pill bg-accent/10 text-accent mb-6">CONFIDENTIAL · INVESTOR DOCUMENT</p>
+    <h1 class="text-3xl font-serif font-bold text-navy mb-2">AI-First Industrial Automation Platform</h1>
+    <p class="text-subtle text-sm mb-1">Business Plan & Investment Thesis · v2 (PE Sharpened)</p>
+    <p class="text-subtle text-sm mb-8">Prepared by Jason Bass · Parallax Private Holdings · April 26, 2026</p>
+    <form @submit.prevent="checkPassword()" class="space-y-4">
+      <div>
+        <label class="block text-xs font-medium text-subtle uppercase tracking-wider mb-2">Access Code</label>
+        <input type="password" x-model="passwordInput" autofocus
+          class="w-full px-4 py-3 bg-white border border-gray-200 rounded text-ink focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy"
+          placeholder="Enter access code">
+        <p x-show="passwordError" x-cloak class="text-red-600 text-xs mt-2">Incorrect access code.</p>
+      </div>
+      <button type="submit" class="w-full bg-navy text-white py-3 rounded font-medium hover:bg-ink transition">
+        Open Thesis
+      </button>
+    </form>
+    <p class="text-xs text-subtle mt-6 leading-relaxed">
+      This document contains confidential financial projections, target identification, and a proprietary delivery framework. Access by invitation only. By proceeding you acknowledge the contents are for evaluation purposes and not for redistribution.
+    </p>
+  </div>
+</div>
+
+<!-- ============================================ MAIN CONTENT ============================================ -->
+<div x-show="unlocked" x-cloak>
+
+<!-- Scroll progress bar -->
+<div class="scroll-progress no-print" :style="`width: ${progress}%`"></div>
+
+<!-- Sticky left nav -->
+<nav class="fixed left-0 top-0 h-screen w-56 px-6 py-10 hidden lg:block no-print overflow-y-auto" style="background: #FAFAF7;">
+  <div class="mb-8">
+    <p class="text-xs font-semibold text-navy uppercase tracking-wider mb-1">Parallax</p>
+    <p class="text-[10px] text-subtle leading-tight">SI Investment Thesis · v2</p>
+  </div>
+  <ul class="space-y-3 text-sm text-subtle">
+    <template x-for="link in navLinks" :key="link.id">
+      <li>
+        <a :href="`#${link.id}`" class="nav-link block pl-3 py-1 transition" :class="activeSection === link.id ? 'active' : ''" x-text="link.label"></a>
+      </li>
+    </template>
+  </ul>
+  <div class="mt-10 pt-6 border-t border-gray-200 text-[10px] text-subtle space-y-1">
+    <p>Confidence: MEDIUM-HIGH</p>
+    <p>Updated 2026-04-26</p>
+    <button @click="window.print()" class="mt-3 text-accent underline hover:text-navy">Print version</button>
+  </div>
+</nav>
+
+<main class="lg:ml-56 px-6 lg:px-16 py-12 max-w-5xl mx-auto">
+
+<!-- ============================================ HERO ============================================ -->
+<section id="hero" class="hero-grid -mx-6 lg:-mx-16 px-6 lg:px-16 py-16 mb-16 border-b border-gray-200">
+  <p class="pill bg-accent/10 text-accent mb-6">CONFIDENTIAL · PRIVATE EQUITY CO-INVESTOR / FAMILY OFFICE</p>
+  <h1 class="text-5xl lg:text-6xl font-serif font-bold text-navy leading-tight mb-4">AI-First Industrial Automation Platform</h1>
+  <p class="text-2xl text-subtle font-serif mb-8">Business Plan & Investment Thesis · v2</p>
+  <div class="flex flex-wrap gap-3 text-sm text-subtle mb-12">
+    <span><strong class="text-ink">Operator:</strong> Jason Bass</span>
+    <span class="text-gray-300">|</span>
+    <span>President / GM (former), Wonderware West</span>
+    <span class="text-gray-300">|</span>
+    <span>Parallax Private Holdings</span>
+    <span class="text-gray-300">|</span>
+    <span>April 26, 2026</span>
+  </div>
+
+  <!-- Live counter strip - the proof -->
+  <div class="bg-white border border-gray-200 rounded-lg p-6 mb-8">
+    <p class="text-xs font-semibold text-navy uppercase tracking-wider mb-4">The framework, operating in production today</p>
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-6">
+      <template x-for="(stat, i) in heroStats" :key="i">
+        <div>
+          <p class="text-3xl lg:text-4xl font-serif font-bold text-navy num-tabular" x-text="counters[i]"></p>
+          <p class="text-xs text-subtle mt-1 leading-tight" x-text="stat.label"></p>
+        </div>
+      </template>
+    </div>
+    <p class="text-[11px] text-subtle mt-5 italic">Verified from the live UCWH workspace, 2026-04-26. Full inventory in Appendix A.</p>
+  </div>
+
+  <p class="text-lg text-ink leading-relaxed max-w-3xl">
+    This is not a thesis paper. The AI delivery framework that this plan proposes to deploy at a Gulf Coast AVEVA System Integrator <strong>is already in production today</strong>, operating a multi-site retail business under the same operator's direct ownership. Twenty-five autonomous orchestrators, a single-source-of-truth data layer, and a Claude-API-driven analysis engine generate executive briefings, operations reports, and CEO-grade insights every morning, every week, and every month — with the same engineering discipline required to industrialize AVEVA delivery at scale.
+  </p>
+</section>
+
+<!-- ============================================ EXECUTIVE SUMMARY ============================================ -->
+<section id="exec" class="mb-20">
+  <h2 class="section-title text-3xl font-bold text-navy mb-8">Executive Summary</h2>
+
+  <p class="text-base leading-relaxed text-ink mb-6 max-w-3xl">
+    The industrial automation system integrator (SI) market is fragmented, growing at ~8% CAGR, and structurally ripe for disruption by a well-capitalized, AI-native operator with deep domain expertise. This plan outlines the acquisition and transformation of a Gulf Coast-based AVEVA System Platform and MES integrator into a high-margin, AI-accelerated delivery platform capable of compressing project engineering hours by approximately 30–60% on factory-aligned scope (with case-specific upside to 70% by Year 2), expanding EBITDA from $2.7M to $9.5M over three years, and generating an estimated 8.5x–10.3x MOIC at exit.
+  </p>
+
+  <h3 class="text-lg font-semibold text-navy mb-4 mt-10">What is different about this plan</h3>
+  <div class="space-y-5">
+    <div class="flex gap-4">
+      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-navy text-white text-sm font-bold flex items-center justify-center">1</div>
+      <div>
+        <p class="font-semibold text-navy mb-1">The operator has run AVEVA's delivery side at scale.</p>
+        <p class="text-ink text-sm leading-relaxed">25 years across the AVEVA / Wonderware / Schneider Electric ecosystem, including President / General Manager of Wonderware West — the entity that became Q-mation, an AVEVA-certified SI with public revenue ~$33M and 159 employees<span class="citation" @mouseenter="showCite($event, 'q-mation-rocketreach')" @mouseleave="hideCite()">[2]</span>. Personally sold, scoped, and delivered the exact class of System Platform and MES projects this plan targets.</p>
+      </div>
+    </div>
+    <div class="flex gap-4">
+      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-navy text-white text-sm font-bold flex items-center justify-center">2</div>
+      <div>
+        <p class="font-semibold text-navy mb-1">The AI delivery framework is operating in production today, not on a slide.</p>
+        <p class="text-ink text-sm leading-relaxed">25-orchestrator AI operations platform for a multi-site retail business (UCWH / Tommy's Express, three Houston- and Utah-based locations). Integrates Claude API, n8n, Supabase, PostgreSQL, GitHub Pages, Slack, Tiller, and Ramp. Strict cache-freshness contracts, two-surface communication discipline, per-task model-effort allocation. <a href="#framework" class="text-accent underline">See the framework section</a>.</p>
+      </div>
+    </div>
+    <div class="flex gap-4">
+      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-navy text-white text-sm font-bold flex items-center justify-center">3</div>
+      <div>
+        <p class="font-semibold text-navy mb-1">The compression thesis has live evidence behind it.</p>
+        <p class="text-ink text-sm leading-relaxed">UCWH operations are run by 1.5 FTE on the analytics side because the AI stack absorbs the synthesis, monitoring, and reporting load that would otherwise require a 5-person analyst team. That 3x–4x compression on knowledge work in a non-industrial domain is the same compression mechanic that AVEVA's own model-driven MES architecture is designed to enable for SI delivery.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Return profile card -->
+  <div class="mt-12 grid grid-cols-2 lg:grid-cols-3 gap-px bg-gray-200 border border-gray-200 rounded-lg overflow-hidden">
+    <template x-for="r in returnProfile" :key="r.label">
+      <div class="bg-white p-5">
+        <p class="text-xs text-subtle uppercase tracking-wider mb-1" x-text="r.label"></p>
+        <p class="text-xl font-bold text-navy num-tabular" x-text="r.value"></p>
+      </div>
+    </template>
+  </div>
+  <p class="text-xs text-subtle italic mt-3">3-year hold, base case. Sensitivity analysis in <a href="#financial" class="text-accent underline">Section 8</a>. Returns sensitive to EBITDA execution and exit-multiple realization.</p>
+</section>
+
+<!-- ============================================ THE OPERATOR ============================================ -->
+<section id="operator" class="mb-20">
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">The Operator</h2>
+  <p class="text-subtle text-base mb-8">Why this person, why now</p>
+
+  <p class="text-base leading-relaxed text-ink mb-6 max-w-3xl">
+    Jason Bass has spent a quarter century at the operating center of the industrial automation ecosystem — from field-level systems integration through executive leadership of one of AVEVA's most significant regional distribution and services organizations.
+  </p>
+
+  <!-- Career timeline -->
+  <div class="border-l-2 border-navy ml-2 pl-6 space-y-6 my-10 max-w-3xl">
+    <div>
+      <div class="absolute w-3 h-3 bg-navy rounded-full -ml-[31px] mt-1.5"></div>
+      <p class="text-xs font-semibold text-navy uppercase tracking-wider">2000s – 2022</p>
+      <p class="font-semibold text-ink mt-1">President / General Manager, Wonderware West (Standard Automation and Control LP)</p>
+      <p class="text-sm text-subtle mt-1">Built and scaled a delivery organization. Managed AVEVA vendor relationship at executive level. Full project lifecycle from pre-sales through commissioning across the Gulf Coast, Southwest, and Western US markets.</p>
+    </div>
+    <div>
+      <div class="absolute w-3 h-3 bg-navy rounded-full -ml-[31px] mt-1.5"></div>
+      <p class="text-xs font-semibold text-navy uppercase tracking-wider">September 2022</p>
+      <p class="font-semibold text-ink mt-1">Wonderware West acquired by Q-mation Inc.</p>
+      <p class="text-sm text-subtle mt-1">Acquisition expanded Q-mation's footprint into 10 additional states (TX, OK, LA, CO, WY, MT, NV, UT, NM, AZ). Public-record revenue ~$33M, 159 employees<span class="citation" @mouseenter="showCite($event, 'q-mation-acq')" @mouseleave="hideCite()">[1]</span>.</p>
+    </div>
+    <div>
+      <div class="absolute w-3 h-3 bg-navy rounded-full -ml-[31px] mt-1.5"></div>
+      <p class="text-xs font-semibold text-navy uppercase tracking-wider">2024 – Present</p>
+      <p class="font-semibold text-ink mt-1">Founder / GM-VP, Parallax Private Holdings</p>
+      <p class="text-sm text-subtle mt-1">Three Tommy's Express car wash locations (TX190 Webster, TX160 Houston FM 1960, UT426 Saratoga Springs UT). Built the AI-first operations stack (live in production — see Framework section).</p>
+    </div>
+  </div>
+
+  <h3 class="text-lg font-semibold text-navy mb-4 mt-12">Why "why now" matters</h3>
+  <div class="grid lg:grid-cols-3 gap-6">
+    <div class="bg-white border border-gray-200 p-5 rounded">
+      <p class="pill bg-accent/10 text-accent mb-3">CONVERGENCE 1</p>
+      <p class="font-semibold text-navy text-sm mb-2">AI compression is real and arriving in industrial automation delivery</p>
+      <p class="text-xs text-ink leading-relaxed">Google publicly reported in April 2026 that 75% of new code is AI-generated<span class="citation" @mouseenter="showCite($event, 'google-ai')" @mouseleave="hideCite()">[16]</span>. AVEVA's model-driven MES and System Platform architectures are explicitly designed around templates, libraries, and reusable engineering objects — meaning the substrate for AI-accelerated delivery is already in the product.</p>
+    </div>
+    <div class="bg-white border border-gray-200 p-5 rounded">
+      <p class="pill bg-accent/10 text-accent mb-3">CONVERGENCE 2</p>
+      <p class="font-semibold text-navy text-sm mb-2">The Gulf Coast SI market is fragmented and approaching succession</p>
+      <p class="text-xs text-ink leading-relaxed">Hundreds of regional SIs operate below $50M revenue, founder-led, with little standardization. Industrial PE deal value rose <strong>37.8% YoY in 2025 to $260.6B</strong>, with automation and digital manufacturing assets commanding the highest multiples<span class="citation" @mouseenter="showCite($event, 'cherry-bekaert')" @mouseleave="hideCite()">[10]</span>.</p>
+    </div>
+    <div class="bg-white border border-gray-200 p-5 rounded">
+      <p class="pill bg-accent/10 text-accent mb-3">CONVERGENCE 3</p>
+      <p class="font-semibold text-navy text-sm mb-2">The operator has built the framework on his own time and dime</p>
+      <p class="text-xs text-ink leading-relaxed">The UCWH / Parallax Holdings AI operations stack is currently producing 27 active scheduled tasks across daily, weekly, and monthly cadences, integrated with 8 Slack channels, GitHub Pages CI/CD, and PostgreSQL + Supabase data layers.</p>
+    </div>
+  </div>
+
+  <div class="bg-highlight border-l-4 border-accent p-5 rounded-r mt-10">
+    <p class="text-sm text-ink leading-relaxed"><strong>The combination is genuinely uncommon.</strong> It is not unusual to find a 25-year AVEVA operator. It is not unusual to find a technologist building AI workflows. It is uncommon to find both in one person who has also already operationalized the framework against a real P&L and is ready to deploy it inside an acquired SI. <em>That combination is the moat.</em></p>
+  </div>
+</section>
+
+<!-- ============================================ THE FRAMEWORK ============================================ -->
+<section id="framework" class="mb-20">
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">The Framework, Already in Production</h2>
+  <p class="text-subtle text-base mb-8">This section is the differentiator from a normal SI buyout pitch. The financials are credible because the framework is not theoretical.</p>
+
+  <h3 class="text-lg font-semibold text-navy mb-4">Six-layer pipeline (executed in strict order)</h3>
+  <div class="bg-ink text-warmwhite font-mono text-sm p-5 rounded mb-8 leading-relaxed overflow-x-auto">
+<pre>Layer 1: DATA ACQUISITION
+   Sources: Tommy's Manager API, UCWH Dashboard, Power BI, Tiller, Yext, Ramp, QBO
+                              ↓
+Layer 2: LOCAL CACHE
+   ~405 cached JSON files; freshness contracts (daily &lt;24h, weekly &lt;7d)
+                              ↓
+Layer 3: DATABASE WRITE
+   PostgreSQL fact_daily_metrics (single source of truth)
+   Supabase (write-only archival + incentive system)
+                              ↓
+Layer 4: REPORT GENERATION
+   25 PowerShell orchestrators · Claude API (Sonnet 4.6 / Opus 4.7) · Vision QA
+                              ↓
+Layer 5: DELIVERY
+   GitHub Pages → Netlify portal (auto-discovery)
+                              ↓
+Layer 6: NOTIFICATION
+   8 Slack audience channels + ops plumbing channel</pre>
+  </div>
+
+  <h3 class="text-lg font-semibold text-navy mb-4">Production inventory (verified 2026-04-26)</h3>
+  <div class="overflow-x-auto mb-10">
+    <table class="w-full text-sm border-collapse">
+      <thead class="bg-accent/5">
+        <tr class="border-b-2 border-accent">
+          <th class="text-left text-xs uppercase tracking-wider text-navy">Component</th>
+          <th class="text-right text-xs uppercase tracking-wider text-navy">Count</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        <template x-for="row in productionInventory" :key="row.label">
+          <tr class="hover:bg-warmwhite">
+            <td class="text-ink" x-text="row.label"></td>
+            <td class="text-right font-semibold text-navy num-tabular" x-text="row.count"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="text-lg font-semibold text-navy mb-4">Engineering discipline applied</h3>
+  <div class="grid lg:grid-cols-2 gap-4 mb-10">
+    <div class="border-l-2 border-navy pl-4">
+      <p class="font-semibold text-navy text-sm">Single source of truth</p>
+      <p class="text-xs text-ink mt-1">All operational metrics read from PostgreSQL <code class="bg-gray-100 px-1 rounded text-[11px]">fact_daily_metrics</code>. Supabase is intentionally write-only archival.</p>
+    </div>
+    <div class="border-l-2 border-navy pl-4">
+      <p class="font-semibold text-navy text-sm">Cache-freshness contracts</p>
+      <p class="text-xs text-ink mt-1">Daily reports require cache <strong>&lt;24h</strong>; weekly &lt;7d. If stale, the upstream pull runs first — never an exception.</p>
+    </div>
+    <div class="border-l-2 border-navy pl-4">
+      <p class="font-semibold text-navy text-sm">Dependency chains with HOLD semantics</p>
+      <p class="text-xs text-ink mt-1">Exit code 2 (HOLD) distinct from exit 1 (FATAL). Daily Pull fails → all downstream daily reports HOLD. No garbage publishes.</p>
+    </div>
+    <div class="border-l-2 border-navy pl-4">
+      <p class="font-semibold text-navy text-sm">Two-surface Slack communication</p>
+      <p class="text-xs text-ink mt-1"><code class="bg-gray-100 px-1 rounded text-[11px]">Send-WashAudience</code> for team-facing notifications; <code class="bg-gray-100 px-1 rounded text-[11px]">Send-WashOps</code> for plumbing. Hardcoded fail-safe.</p>
+    </div>
+    <div class="border-l-2 border-navy pl-4">
+      <p class="font-semibold text-navy text-sm">Per-task model-effort allocation</p>
+      <p class="text-xs text-ink mt-1">Sonnet 4.6 medium for templated work; Opus 4.7 high for standard reports; Opus 4.7 xhigh for strategic synthesis. Cost: $0.05–$2.00/task.</p>
+    </div>
+    <div class="border-l-2 border-navy pl-4">
+      <p class="font-semibold text-navy text-sm">Vision QA auto-correct</p>
+      <p class="text-xs text-ink mt-1">Scheduled task uses Opus 4.7 vision (up to 2576px) to inspect rendered HTML reports and auto-flag rendering defects.</p>
+    </div>
+  </div>
+
+  <div class="bg-warmwhite border border-gray-300 p-5 rounded mt-10">
+    <p class="font-semibold text-navy text-sm mb-2">Why this evidence matters for an SI investment</p>
+    <p class="text-sm text-ink leading-relaxed">The architectural patterns above — orchestrator-per-task with strict exit semantics, dependency chains, cache contracts, two-surface communication, model-effort allocation by task tier — are the <strong>same patterns</strong> that an AVEVA System Integrator must apply to industrialize delivery at scale. The objects are different (Galaxy templates and FDS docs instead of Slack channels and HTML reports), but the engineering discipline is identical. The operator has spent 12+ months building, debugging, and operating this discipline against a real P&L with real consequences. <em>He has the scar tissue.</em></p>
+  </div>
+</section>
+
+<!-- ============================================ MARKET CONTEXT ============================================ -->
+<section id="market" class="mb-20">
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">Market Context</h2>
+  <p class="text-subtle text-base mb-8">Durable, growing, fragmented — and at an AI-compression inflection</p>
+
+  <div class="grid lg:grid-cols-3 gap-6 mb-10">
+    <div class="bg-white border border-gray-200 p-6 rounded">
+      <p class="text-4xl font-serif font-bold text-navy num-tabular">$19B</p>
+      <p class="text-xs text-subtle uppercase tracking-wider mt-1">N. America SI market by 2030</p>
+      <p class="text-xs text-ink mt-3 leading-relaxed">~8.3% CAGR through 2030, driven by Industry 4.0, reshoring, infrastructure modernization<span class="citation" @mouseenter="showCite($event, 'gvr')" @mouseleave="hideCite()">[9]</span>.</p>
+    </div>
+    <div class="bg-white border border-gray-200 p-6 rounded">
+      <p class="text-4xl font-serif font-bold text-navy num-tabular">+37.8%</p>
+      <p class="text-xs text-subtle uppercase tracking-wider mt-1">Industrial PE deal value YoY 2025</p>
+      <p class="text-xs text-ink mt-3 leading-relaxed">$260.6B in industrial PE deal value. Automation and digital manufacturing assets command the highest multiples<span class="citation" @mouseenter="showCite($event, 'cherry-bekaert')" @mouseleave="hideCite()">[10]</span>.</p>
+    </div>
+    <div class="bg-white border border-gray-200 p-6 rounded">
+      <p class="text-4xl font-serif font-bold text-navy num-tabular">75%</p>
+      <p class="text-xs text-subtle uppercase tracking-wider mt-1">New code AI-generated at Google</p>
+      <p class="text-xs text-ink mt-3 leading-relaxed">April 2026, up from 50% prior year<span class="citation" @mouseenter="showCite($event, 'google-ai')" @mouseleave="hideCite()">[16]</span>. Same compression mechanic arriving in AVEVA delivery.</p>
+    </div>
+  </div>
+
+  <h3 class="text-lg font-semibold text-navy mb-4">The AI compression thesis</h3>
+  <p class="text-base text-ink leading-relaxed mb-4 max-w-3xl">
+    AVEVA's own model-driven MES and System Platform workflows are structured around templates, libraries, and reusable engineering objects precisely because repeatability drives delivery efficiency. An operator who layers a mature AI framework on top of AVEVA's native tooling can compress engineering hours by approximately <strong>30–60% on framework-aligned projects in Year 1, ramping to 50–70% by Year 2</strong> — reducing project team size from 6–8 engineers to 2–3 while maintaining or improving delivery quality and schedule<span class="citation" @mouseenter="showCite($event, 'aveva-mes')" @mouseleave="hideCite()">[6]</span>.
+  </p>
+  <p class="text-sm text-ink leading-relaxed italic max-w-3xl">
+    This is not a forecast — it is the same compression mechanic the operator has already realized on knowledge work in a different domain (see Framework section).
+  </p>
+</section>
+
+<!-- ============================================ THE DEAL: ARCHETYPE ============================================ -->
+<section id="archetype" class="mb-20">
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">The Acquisition Archetype</h2>
+  <p class="text-subtle text-base mb-8">Gulf Coast Automation Partners (GCAP) — a representative profile</p>
+
+  <div class="bg-highlight border-l-4 border-accent p-5 rounded-r mb-8">
+    <p class="text-sm text-ink leading-relaxed"><em>GCAP is a representative archetype based on publicly available market data for mid-size Houston AVEVA SIs. A confidential <a href="#houston-shortlist" class="text-accent underline">Appendix B</a> contains a preliminary public-information shortlist; the operator's network and direct market knowledge will refine this to a final priority target list.</em></p>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm border-collapse">
+      <tbody class="divide-y divide-gray-100">
+        <template x-for="row in archetype" :key="row.label">
+          <tr class="hover:bg-warmwhite">
+            <td class="text-subtle font-medium w-1/3" x-text="row.label"></td>
+            <td class="text-ink" x-text="row.value"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================ THE DEAL: TRANSACTION + FINANCIAL ============================================ -->
+<section id="financial" class="mb-20 page-break">
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">The Deal</h2>
+  <p class="text-subtle text-base mb-8">Transaction structure, financial model, and live scenario modeler</p>
+
+  <h3 class="text-lg font-semibold text-navy mb-4">Sources and uses (ties at $18.7M)</h3>
+  <div class="grid lg:grid-cols-2 gap-6 mb-10">
+    <div>
+      <p class="text-xs font-semibold text-subtle uppercase tracking-wider mb-3">Sources of capital</p>
+      <table class="w-full text-sm">
+        <tbody class="divide-y divide-gray-100">
+          <tr><td class="py-2">Operator + Co-investor Equity</td><td class="text-right font-semibold num-tabular">~$10.6M</td></tr>
+          <tr><td class="py-2">SBA / Senior Debt (~3.0x EBITDA)</td><td class="text-right font-semibold num-tabular">~$8.1M</td></tr>
+          <tr class="bg-accent/5 font-bold"><td class="py-2 text-navy">Total Sources</td><td class="text-right text-navy num-tabular">~$18.7M</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <p class="text-xs font-semibold text-subtle uppercase tracking-wider mb-3">Uses of capital at close</p>
+      <table class="w-full text-sm">
+        <tbody class="divide-y divide-gray-100">
+          <tr><td class="py-2">Cash to seller (purchase price)</td><td class="text-right font-semibold num-tabular">~$17.6M</td></tr>
+          <tr><td class="py-2">Closing transaction expenses</td><td class="text-right font-semibold num-tabular">~$0.4M</td></tr>
+          <tr><td class="py-2">AI framework initial deployment</td><td class="text-right font-semibold num-tabular">~$0.5M</td></tr>
+          <tr><td class="py-2">Talent retention escrow (Day-1)</td><td class="text-right font-semibold num-tabular">~$0.2M</td></tr>
+          <tr class="bg-accent/5 font-bold"><td class="py-2 text-navy">Total Uses</td><td class="text-right text-navy num-tabular">~$18.7M</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="text-xs text-subtle italic mb-10">Year-1 transformation budget (~$2.4M) — working capital top-up, AI framework expansion, additional retention, integration consulting — is funded from operating cash flow, not closing capital.</p>
+
+  <!-- ============================ INTERACTIVE SCENARIO MODELER (centerpiece) ============================ -->
+  <div class="bg-white border-2 border-navy rounded-lg p-6 lg:p-8 mb-10 no-print">
+    <div class="flex items-center justify-between mb-2">
+      <h3 class="text-2xl font-serif font-bold text-navy">Live scenario modeler</h3>
+      <span class="pill bg-accent/10 text-accent">INTERACTIVE</span>
+    </div>
+    <p class="text-sm text-subtle mb-8">Move the assumptions. Watch the math.</p>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <!-- Sliders -->
+      <div class="space-y-6">
+        <div>
+          <div class="flex justify-between text-sm mb-2">
+            <label class="font-medium text-ink">Engineering hours compression by Year 3</label>
+            <span class="font-semibold text-navy num-tabular" x-text="`${model.compression}%`"></span>
+          </div>
+          <input type="range" min="0" max="70" step="5" x-model.number="model.compression" class="slider">
+          <div class="flex justify-between text-[10px] text-subtle mt-1"><span>None (0%)</span><span>Plan target (50%)</span><span>Bull (70%)</span></div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-sm mb-2">
+            <label class="font-medium text-ink">Recurring revenue mix at exit</label>
+            <span class="font-semibold text-navy num-tabular" x-text="`${model.recurring}%`"></span>
+          </div>
+          <input type="range" min="35" max="70" step="5" x-model.number="model.recurring" class="slider">
+          <div class="flex justify-between text-[10px] text-subtle mt-1"><span>Today (35%)</span><span>Plan (55%)</span><span>Stretch (70%)</span></div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-sm mb-2">
+            <label class="font-medium text-ink">Exit multiple</label>
+            <span class="font-semibold text-navy num-tabular" x-text="`${model.multiple}x`"></span>
+          </div>
+          <input type="range" min="7" max="13" step="0.5" x-model.number="model.multiple" class="slider">
+          <div class="flex justify-between text-[10px] text-subtle mt-1"><span>Bear (7x)</span><span>Base (11x)</span><span>Bull (13x)</span></div>
+        </div>
+
+        <div>
+          <div class="flex justify-between text-sm mb-2">
+            <label class="font-medium text-ink">Hold period (years)</label>
+            <span class="font-semibold text-navy num-tabular" x-text="`${model.years} yrs`"></span>
+          </div>
+          <input type="range" min="3" max="6" step="1" x-model.number="model.years" class="slider">
+          <div class="flex justify-between text-[10px] text-subtle mt-1"><span>3 yrs (plan)</span><span>4 yrs</span><span>5 yrs</span><span>6 yrs</span></div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <label class="font-medium text-ink text-sm">Phase 3 bolt-on completed?</label>
+          <button @click="model.boltOn = !model.boltOn" :class="model.boltOn ? 'bg-navy text-white' : 'bg-gray-200 text-gray-500'" class="text-xs font-semibold px-3 py-1 rounded transition" x-text="model.boltOn ? 'Yes' : 'No'"></button>
+        </div>
+
+        <button @click="resetModel()" class="text-xs text-accent underline">Reset to plan defaults</button>
+      </div>
+
+      <!-- Output panel -->
+      <div class="bg-warmwhite p-6 rounded-lg space-y-5">
+        <div>
+          <p class="text-xs text-subtle uppercase tracking-wider">Year 3 EBITDA</p>
+          <p class="text-3xl font-serif font-bold text-navy num-tabular" x-text="`$${output.ebitda.toFixed(1)}M`"></p>
+        </div>
+        <div class="border-t border-gray-200 pt-4">
+          <p class="text-xs text-subtle uppercase tracking-wider">Exit equity (after debt paydown)</p>
+          <p class="text-3xl font-serif font-bold text-navy num-tabular" x-text="`$${output.exitEquity.toFixed(0)}M`"></p>
+        </div>
+        <div class="border-t border-gray-200 pt-4">
+          <p class="text-xs text-subtle uppercase tracking-wider">MOIC</p>
+          <p class="text-3xl font-serif font-bold text-navy num-tabular" x-text="`${output.moic.toFixed(1)}x`"></p>
+        </div>
+        <div class="border-t border-gray-200 pt-4">
+          <p class="text-xs text-subtle uppercase tracking-wider">IRR (gross, annualized)</p>
+          <p class="text-3xl font-serif font-bold num-tabular" :class="output.irr >= 50 ? 'text-navy' : (output.irr >= 25 ? 'text-accent' : 'text-subtle')" x-text="`${output.irr.toFixed(0)}%`"></p>
+        </div>
+        <div class="border-t border-gray-200 pt-4 flex items-center gap-2">
+          <p class="text-xs text-subtle uppercase tracking-wider">Scenario reads as</p>
+          <span class="pill" :class="output.label === 'Bull' ? 'bg-green-100 text-green-800' : output.label === 'Bear' ? 'bg-red-100 text-red-800' : 'bg-accent/10 text-accent'" x-text="output.label"></span>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-[11px] text-subtle italic mt-8">Modeler computes EBITDA = entry-EBITDA × (1 + compression × 1.7) using a 1.7x leverage between compression and EBITDA expansion (calibrated from the planned 50% compression → 3.5x EBITDA growth in the base case). Recurring revenue mix at exit applies a multiple bonus of up to +1.5x at 70%. IRR computed from MOIC and hold period. Numbers ignore management fees and carry. For modeling discussion only — not investment advice.</p>
+  </div>
+
+  <h3 class="text-lg font-semibold text-navy mb-4">Sensitivity (static reference scenarios)</h3>
+  <div class="overflow-x-auto mb-6">
+    <table class="w-full text-sm border-collapse">
+      <thead class="bg-accent/5">
+        <tr class="border-b-2 border-accent">
+          <th class="text-left text-xs uppercase tracking-wider text-navy">Scenario</th>
+          <th class="text-right text-xs uppercase tracking-wider text-navy">Y3 EBITDA</th>
+          <th class="text-right text-xs uppercase tracking-wider text-navy">Exit Multiple</th>
+          <th class="text-right text-xs uppercase tracking-wider text-navy">Exit Equity</th>
+          <th class="text-right text-xs uppercase tracking-wider text-navy">MOIC</th>
+          <th class="text-right text-xs uppercase tracking-wider text-navy">IRR</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        <tr class="hover:bg-warmwhite">
+          <td class="text-ink"><strong>Bear</strong> <span class="text-xs text-subtle">— 50% of plan compression</span></td>
+          <td class="text-right num-tabular">$5.5M</td>
+          <td class="text-right num-tabular">8x</td>
+          <td class="text-right num-tabular">~$39M</td>
+          <td class="text-right font-semibold num-tabular">~3.7x</td>
+          <td class="text-right num-tabular">~55%</td>
+        </tr>
+        <tr class="bg-warmwhite hover:bg-yellow-50">
+          <td class="text-ink"><strong>Base</strong> <span class="text-xs text-subtle">— plan</span></td>
+          <td class="text-right num-tabular">$9.5M</td>
+          <td class="text-right num-tabular">11x (mid)</td>
+          <td class="text-right num-tabular">~$99M</td>
+          <td class="text-right font-semibold num-tabular">9.3x</td>
+          <td class="text-right num-tabular">~111%</td>
+        </tr>
+        <tr class="hover:bg-warmwhite">
+          <td class="text-ink"><strong>Bull</strong> <span class="text-xs text-subtle">— full compression + bolt-on</span></td>
+          <td class="text-right num-tabular">$12.5M</td>
+          <td class="text-right num-tabular">12x</td>
+          <td class="text-right num-tabular">~$145M</td>
+          <td class="text-right font-semibold num-tabular">13.7x</td>
+          <td class="text-right num-tabular">~139%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="text-xs text-subtle italic">The bear case still produces a credible PE return (~55% IRR) because the entry multiple is conservative and the recurring-revenue floor protects downside.</p>
+
+  <h3 class="text-lg font-semibold text-navy mt-12 mb-4">EBITDA margin bridge (Y0 → Y3, 19 percentage points)</h3>
+  <div class="bg-white border border-gray-200 rounded p-6">
+    <canvas id="bridgeChart" height="80"></canvas>
+    <p class="text-xs text-subtle italic mt-4">The 15% → 34% EBITDA margin expansion decomposes as: ~9 pts labor compression, ~6 pts revenue mix shift toward MSAs / managed services / AVEVA Flex, ~3 pts architect-substitution, ~1 pt G&A leverage. Drivers are independent and additive; downside cases stress-test what happens if any one delivers half its projected contribution.</p>
+  </div>
+</section>
+
+<!-- ============================================ MULTIPLE EXPANSION + INFLEXIONPOINT ============================================ -->
+<section id="multiple" class="mb-20">
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">Why the Multiple Expands</h2>
+  <p class="text-subtle text-base mb-8">Three structural shifts plus a live PE-backed comp</p>
+
+  <div class="grid lg:grid-cols-3 gap-5 mb-10">
+    <div class="bg-white border border-gray-200 rounded p-5">
+      <p class="pill bg-accent/10 text-accent mb-3">SHIFT 1</p>
+      <p class="font-semibold text-navy mb-2">Recurring revenue</p>
+      <p class="text-sm text-ink leading-relaxed">A 50%+ recurring services business commands a fundamentally different risk profile. Strategics and PE pay <strong>10–13x</strong> for recurring-heavy services; <strong>5–7x</strong> for project-only.</p>
+    </div>
+    <div class="bg-white border border-gray-200 rounded p-5">
+      <p class="pill bg-accent/10 text-accent mb-3">SHIFT 2</p>
+      <p class="font-semibold text-navy mb-2">AI-enabled delivery as proprietary IP</p>
+      <p class="text-sm text-ink leading-relaxed">Not a tool, an asset. Defensible delivery cost advantages, faster time-to-value, scalable engine. Autonomous Systems and AI-Driven Automation subsectors saw <strong>3–4x multiple expansion</strong> 2023–2025.</p>
+    </div>
+    <div class="bg-white border border-gray-200 rounded p-5">
+      <p class="pill bg-accent/10 text-accent mb-3">SHIFT 3</p>
+      <p class="font-semibold text-navy mb-2">Platform optionality</p>
+      <p class="text-sm text-ink leading-relaxed">A 3-year-old, $28M-revenue, AI-native AVEVA delivery platform with 55%+ recurring revenue is attractive for further roll-up — PE platform OR strategic tuck-in.</p>
+    </div>
+  </div>
+
+  <div class="bg-warmwhite border border-gray-300 rounded p-6 mb-10">
+    <p class="font-semibold text-navy mb-2">Honest framing on the exit multiple</p>
+    <p class="text-sm text-ink leading-relaxed">A $9.5M EBITDA business is at the small end of what most PE platforms underwrite at 10–12x in standalone form — true platform multiples typically unlock at $15M+ EBITDA. The 10–12x exit range therefore assumes either (a) a Year-2 or Year-3 bolt-on lifts the business above $15M EBITDA, or (b) a strategic acquirer (such as the InflexionPoint / Sverica platform discussed below) pays a premium for geographic and vertical fit. Base case where neither happens: 9–11x exit, 7.5x–9.5x MOIC — still a strong PE return.</p>
+  </div>
+
+  <h3 class="text-lg font-semibold text-navy mb-4">Live comp validating the thesis</h3>
+  <div class="bg-white border-2 border-accent rounded-lg p-6">
+    <div class="flex flex-wrap items-start gap-4 mb-4">
+      <div class="flex-1 min-w-[280px]">
+        <p class="pill bg-green-100 text-green-800 mb-2">PE-BACKED · OPERATING TODAY</p>
+        <p class="text-2xl font-serif font-bold text-navy">InflexionPoint</p>
+        <p class="text-sm text-subtle">formerly Automated Control Concepts (ACC), founded 1983 · rebranded 2023 · Red Bank, NJ HQ</p>
+      </div>
+      <div class="text-xs text-subtle">
+        <p><strong class="text-ink">Backed by:</strong> Sverica Capital</p>
+        <p><strong class="text-ink">Source:</strong> <a href="https://inflexionpoint.ai/" class="text-accent underline" target="_blank">inflexionpoint.ai</a></p>
+      </div>
+    </div>
+    <p class="text-sm text-ink leading-relaxed mb-4">Four-pillar architecture (Strategy / Automation / Intelligence / Infrastructure) with deep AVEVA PI practice, recurring managed services, and AI/ML-augmented industrial automation positioning. Sophisticated PE capital has already underwritten the archetype.</p>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-5 pt-4 border-t border-gray-200">
+      <div>
+        <p class="text-[11px] text-subtle uppercase tracking-wider">Their geography</p>
+        <p class="text-sm font-semibold text-ink">Northeast / global</p>
+      </div>
+      <div>
+        <p class="text-[11px] text-subtle uppercase tracking-wider">Their verticals</p>
+        <p class="text-sm font-semibold text-ink">Critical infrastructure, life sciences, F&B, CPG</p>
+      </div>
+      <div>
+        <p class="text-[11px] text-subtle uppercase tracking-wider">Our white space</p>
+        <p class="text-sm font-semibold text-navy">Gulf Coast / petrochem / midstream</p>
+      </div>
+      <div>
+        <p class="text-[11px] text-subtle uppercase tracking-wider">Implication</p>
+        <p class="text-sm font-semibold text-accent">Tuck-in target at exit</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ MOAT + RISKS ============================================ -->
+<section id="moat" class="mb-20">
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">Competitive Moat</h2>
+  <p class="text-subtle text-base mb-8">Five components, only the combination is rare</p>
+
+  <div class="space-y-3">
+    <template x-for="m in moat" :key="m.label">
+      <div class="bg-white border border-gray-200 rounded p-5 flex gap-4 items-start">
+        <div class="flex-shrink-0 w-12 h-12 bg-navy text-white rounded flex items-center justify-center font-mono text-sm" x-text="m.score"></div>
+        <div>
+          <p class="font-semibold text-navy" x-text="m.label"></p>
+          <p class="text-sm text-ink mt-1 leading-relaxed" x-text="m.desc"></p>
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <div class="bg-highlight border-l-4 border-accent p-5 rounded-r mt-8">
+    <p class="text-sm text-ink leading-relaxed"><strong>The framework + the operator together is the asset.</strong> Either alone is replicable on a 24–36 month timeline. The combination, deployed against an acquired AVEVA SI's installed base, is a 5+ year head start on any competitor that tries to assemble the same combination from cold.</p>
+  </div>
+</section>
+
+<section id="risks" class="mb-20">
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">Key Risks and Mitigations</h2>
+  <p class="text-subtle text-base mb-8">Honest reporting; PE readers value transparency more than confidence</p>
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm border-collapse">
+      <thead class="bg-accent/5">
+        <tr class="border-b-2 border-accent">
+          <th class="text-left text-xs uppercase tracking-wider text-navy">Risk</th>
+          <th class="text-left text-xs uppercase tracking-wider text-navy">Severity</th>
+          <th class="text-left text-xs uppercase tracking-wider text-navy">Mitigation</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        <template x-for="r in risks" :key="r.risk">
+          <tr class="hover:bg-warmwhite align-top">
+            <td class="text-ink py-3" x-text="r.risk"></td>
+            <td class="py-3"><span class="pill" :class="r.sev === 'High' ? 'bg-red-100 text-red-800' : r.sev === 'Medium' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'" x-text="r.sev"></span></td>
+            <td class="text-ink py-3 text-xs leading-relaxed" x-text="r.mit"></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================ EXIT PATHS ============================================ -->
+<section id="exits" class="mb-20">
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">Strategic Alternatives & Exit Paths</h2>
+  <p class="text-subtle text-base mb-8">Five exit scenarios — genuine optionality</p>
+
+  <div class="space-y-4">
+    <template x-for="(e, i) in exits" :key="i">
+      <div class="bg-white border border-gray-200 rounded p-5 flex gap-4 items-start">
+        <div class="flex-shrink-0 w-10 h-10 bg-accent/10 text-accent rounded flex items-center justify-center font-mono text-xs font-semibold" x-text="`#${i+1}`"></div>
+        <div>
+          <p class="font-semibold text-navy"><span x-text="e.title"></span> <span class="pill bg-gray-100 text-subtle ml-2" x-text="e.tag"></span></p>
+          <p class="text-sm text-ink mt-1 leading-relaxed" x-text="e.desc"></p>
+        </div>
+      </div>
+    </template>
+  </div>
+</section>
+
+<!-- ============================================ INVESTMENT ASK ============================================ -->
+<section id="ask" class="mb-20">
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">Investment Ask</h2>
+  <p class="text-subtle text-base mb-8">A working draft for refinement with a co-investor partner</p>
+
+  <div class="bg-navy text-warmwhite rounded-lg p-8 mb-10">
+    <p class="text-xs uppercase tracking-wider text-accent mb-2">Headline</p>
+    <p class="text-3xl font-serif font-bold mb-3">~$10.6M equity + ~$8.1M senior debt = $18.7M at-close</p>
+    <p class="text-sm opacity-80">Plus ~$2.4M Year-1 transformation budget funded from operating cash flow.</p>
+  </div>
+
+  <div class="grid lg:grid-cols-2 gap-8">
+    <div>
+      <p class="text-sm font-semibold text-navy uppercase tracking-wider mb-4">What the operator brings</p>
+      <ul class="space-y-3 text-sm text-ink">
+        <li class="flex gap-3"><span class="text-accent">→</span><span>Operator pedigree (25 years, ex-President / GM Wonderware West / Q-mation)</span></li>
+        <li class="flex gap-3"><span class="text-accent">→</span><span>The AI delivery framework (12+ months operational, documented in Appendix A)</span></li>
+        <li class="flex gap-3"><span class="text-accent">→</span><span>Relationship network across the AVEVA / Wonderware ecosystem</span></li>
+        <li class="flex gap-3"><span class="text-accent">→</span><span>Personal capital co-investment (terms to negotiate)</span></li>
+        <li class="flex gap-3"><span class="text-accent">→</span><span>Day-one operating leadership of the acquired entity</span></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-sm font-semibold text-navy uppercase tracking-wider mb-4">What the partner brings</p>
+      <ul class="space-y-3 text-sm text-ink">
+        <li class="flex gap-3"><span class="text-accent">→</span><span>Equity capital</span></li>
+        <li class="flex gap-3"><span class="text-accent">→</span><span>Transaction execution support (legal, M&A advisory, diligence partners)</span></li>
+        <li class="flex gap-3"><span class="text-accent">→</span><span>Optional: Board seat, follow-on capital for bolt-on acquisitions, exit-process leadership</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ APPENDICES ============================================ -->
+<section id="appendices" class="mb-20 page-break">
+  <h2 class="section-title text-3xl font-bold text-navy mb-8">Appendices</h2>
+
+  <!-- Appendix A: Live Stack -->
+  <details class="bg-white border border-gray-200 rounded mb-3">
+    <summary class="p-5 flex justify-between items-center hover:bg-warmwhite">
+      <div>
+        <p class="pill bg-navy text-white mb-2">A</p>
+        <p class="text-lg font-semibold text-navy">Live AI Operations Stack — UCWH / Parallax Holdings</p>
+        <p class="text-xs text-subtle mt-1">Concrete code excerpts, file inventories, and architectural diagrams</p>
+      </div>
+      <span class="chev text-subtle">▼</span>
+    </summary>
+    <div class="p-5 pt-0 border-t border-gray-100">
+      <h4 class="font-semibold text-navy mb-3 mt-5">Two-surface communication discipline (Wash-Utils.psm1 excerpt)</h4>
+      <pre class="bg-ink text-warmwhite p-4 rounded text-xs leading-relaxed overflow-x-auto"><code># Posts to Slack AUDIENCE channel (team-facing publish notifications)
+function Send-WashAudience {
+    param([Parameter(Mandatory)][string]$Text, [string]$Channel)
+    # ... resolves channel from context, sends via chat.postMessage
+}
+
+# Posts to OPS channel (pipeline plumbing)
+# Routes to SLACK_OPS_CHANNEL env var, defaults to hardcoded
+# fallback (#ai-insights-report) so messages never vanish.
+function Send-WashOps {
+    param([Parameter(Mandatory)][string]$Text)
+    # ... uses fail-safe channel resolution
+}</code></pre>
+
+      <h4 class="font-semibold text-navy mb-3 mt-6">Standard orchestrator pattern (run-morning-briefing.ps1)</h4>
+      <pre class="bg-ink text-warmwhite p-4 rounded text-xs leading-relaxed overflow-x-auto"><code>Import-Module "$PSScriptRoot\Wash-Utils.psm1" -Force
+$Workspace = Get-WashWorkspace
+$SlackChan = Get-WashSlackChannel "MorningBriefings"
+Set-WashContext -TaskName $TaskName -LogFile $LogFile -SlackChannel $SlackChan
+
+function Slack([string]$text)       { [void](Send-WashOps -Text $text) }
+function SlackReport([string]$text) { [void](Send-WashAudience -Text $text) }
+
+function Step([string]$name, [string]$script) {
+    # exit=0 -> publish; exit=1 -> FATAL (abort + Slack alert);
+    # exit=2 -> HOLD (skip publish, alert ops, push status="partial")
+}</code></pre>
+
+      <h4 class="font-semibold text-navy mb-3 mt-6">25 production orchestrators</h4>
+      <pre class="bg-warmwhite text-ink p-4 rounded text-[11px] leading-relaxed overflow-x-auto border border-gray-200"><code>run-ceo-insights.ps1                 run-monthly-report.ps1
+run-channel-digest.ps1               run-morning-briefing.ps1
+run-competitive-briefing.ps1         run-nightly-index-optimizer.ps1
+run-customer-success.ps1             run-review-differential.ps1
+run-daily-ai-digest.ps1              run-sales-report.ps1
+run-daily-backup.ps1                 run-tiller-forecast.ps1
+run-daily-coupon-report.ps1          run-tiller-pull.ps1
+run-daily-data-pull.ps1              run-tiller-snapshot.ps1
+run-financial-dashboard.ps1          run-weekly-backup.ps1
+run-hourly-inspection.ps1            run-weekly-data-pull.ps1
+run-incentive-data-push.ps1          run-weekly-report.ps1
+run-incentive-reconciliation.ps1
+run-marketing-report.ps1
+run-member-health.ps1</code></pre>
+
+      <h4 class="font-semibold text-navy mb-3 mt-6">Per-task model-effort allocation</h4>
+      <table class="w-full text-sm">
+        <thead class="bg-accent/5">
+          <tr class="border-b border-accent"><th class="text-left p-2">Tier</th><th class="text-left p-2">Model</th><th class="text-left p-2">Effort</th><th class="text-left p-2">Examples</th></tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr><td class="p-2">Templated enrichment</td><td class="p-2 font-mono text-xs">Sonnet 4.6</td><td class="p-2 font-mono text-xs">medium</td><td class="p-2 text-xs">Coupon Report, Member Health</td></tr>
+          <tr><td class="p-2">Standard reports</td><td class="p-2 font-mono text-xs">Opus 4.7</td><td class="p-2 font-mono text-xs">high</td><td class="p-2 text-xs">Morning Briefing, Weekly Ops</td></tr>
+          <tr><td class="p-2">Exec-facing strategic</td><td class="p-2 font-mono text-xs">Opus 4.7</td><td class="p-2 font-mono text-xs">xhigh</td><td class="p-2 text-xs">CEO Insights, Competitive, Forecast</td></tr>
+          <tr><td class="p-2">Code (shared module)</td><td class="p-2 font-mono text-xs">Opus 4.7</td><td class="p-2 font-mono text-xs">xhigh</td><td class="p-2 text-xs">Wash-Utils, lib/*</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <!-- Appendix B: Houston shortlist (sortable) -->
+  <details class="bg-white border border-gray-200 rounded mb-3" id="houston-shortlist">
+    <summary class="p-5 flex justify-between items-center hover:bg-warmwhite">
+      <div>
+        <p class="pill bg-navy text-white mb-2">B</p>
+        <p class="text-lg font-semibold text-navy">Houston / Gulf Coast AVEVA SI Candidate Scan (Preliminary)</p>
+        <p class="text-xs text-subtle mt-1">Public-information shortlist — requires direct-outreach validation</p>
+      </div>
+      <span class="chev text-subtle">▼</span>
+    </summary>
+    <div class="p-5 pt-0 border-t border-gray-100">
+      <div class="bg-highlight border-l-4 border-accent p-4 rounded-r my-5">
+        <p class="text-xs text-ink"><strong>Status:</strong> Preliminary public-information shortlist requiring confirmatory diligence and operator-network validation. Not a final target list. Founder-led status, AVEVA practice depth as percent of revenue, financial profile, account concentration, and ownership signal must be confirmed via direct outreach and a paid-source business-information pull (PitchBook, ZoomInfo, D&B) before any target is prioritized for LOI.</p>
+      </div>
+
+      <p class="text-xs font-semibold text-subtle uppercase tracking-wider mb-2">Screening criteria applied</p>
+      <ul class="text-xs text-ink space-y-1 mb-5 ml-5 list-disc">
+        <li>Houston / Gulf Coast geographic anchor</li>
+        <li>AVEVA System Platform / Wonderware / MES practice (certified or endorsed where verifiable)</li>
+        <li>Estimated $10–30M revenue (target archetype)</li>
+        <li>Process-industry vertical alignment (oil & gas, petrochem, terminals, midstream, energy infrastructure)</li>
+        <li>Excluded: Q-mation (operator's prior employer); E Tech Group / ENTRUST Solutions (existing PE platforms); Maverick Technologies (Rockwell-owned)</li>
+      </ul>
+
+      <p class="text-xs font-semibold text-subtle uppercase tracking-wider mb-3">Candidate scan (click column to sort)</p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs border-collapse">
+          <thead class="bg-accent/5">
+            <tr class="border-b-2 border-accent">
+              <th class="text-left p-2 cursor-pointer" :class="sortKey === 'rank' ? 'sorted' : ''" @click="sortBy('rank')">#<span class="sort-indicator">↕</span></th>
+              <th class="text-left p-2 cursor-pointer" :class="sortKey === 'company' ? 'sorted' : ''" @click="sortBy('company')">Company<span class="sort-indicator">↕</span></th>
+              <th class="text-left p-2 cursor-pointer" :class="sortKey === 'location' ? 'sorted' : ''" @click="sortBy('location')">Location<span class="sort-indicator">↕</span></th>
+              <th class="text-left p-2">Public Signals</th>
+              <th class="text-left p-2">Archetype Fit</th>
+              <th class="text-left p-2 cursor-pointer" :class="sortKey === 'priority' ? 'sorted' : ''" @click="sortBy('priority')">Priority<span class="sort-indicator">↕</span></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <template x-for="row in sortedHoustonShortlist" :key="row.company">
+              <tr class="hover:bg-warmwhite align-top">
+                <td class="p-2 num-tabular" x-text="row.rank"></td>
+                <td class="p-2 font-semibold" x-text="row.company"></td>
+                <td class="p-2" x-text="row.location"></td>
+                <td class="p-2" x-text="row.signals"></td>
+                <td class="p-2" x-text="row.fit"></td>
+                <td class="p-2"><span class="pill" :class="row.priority === 'High' ? 'bg-green-100 text-green-800' : row.priority === 'Medium' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-700'" x-text="row.priority"></span></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-[11px] text-subtle italic mt-4">Priority levels reflect public-information signal-strength only. All targets require confirmatory diligence and operator-network validation before LOI.</p>
+    </div>
+  </details>
+
+  <!-- Appendix C: Framework→AVEVA mapping -->
+  <details class="bg-white border border-gray-200 rounded mb-3">
+    <summary class="p-5 flex justify-between items-center hover:bg-warmwhite">
+      <div>
+        <p class="pill bg-navy text-white mb-2">C</p>
+        <p class="text-lg font-semibold text-navy">Framework → AVEVA Mapping</p>
+        <p class="text-xs text-subtle mt-1">How UCWH patterns translate directly to AVEVA SI delivery</p>
+      </div>
+      <span class="chev text-subtle">▼</span>
+    </summary>
+    <div class="p-5 pt-0 border-t border-gray-100">
+      <p class="text-sm text-ink leading-relaxed mb-5">The patterns below are the same patterns; the substrates differ. That is why the framework is portable across domains — and why the 12 months the operator spent debugging the pattern in retail multi-site ops accelerates the AVEVA deployment.</p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs border-collapse">
+          <thead class="bg-accent/5">
+            <tr class="border-b-2 border-accent">
+              <th class="text-left p-2 w-1/3">UCWH Production Pattern</th>
+              <th class="text-left p-2 w-1/3">AVEVA SI Equivalent</th>
+              <th class="text-left p-2 w-1/3">Why It Compresses Hours</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <template x-for="row in mapping" :key="row.ucwh">
+              <tr class="hover:bg-warmwhite align-top">
+                <td class="p-2" x-text="row.ucwh"></td>
+                <td class="p-2 text-accent" x-text="row.aveva"></td>
+                <td class="p-2 text-ink" x-text="row.why"></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+
+  <!-- Appendix D: Sources -->
+  <details class="bg-white border border-gray-200 rounded mb-3">
+    <summary class="p-5 flex justify-between items-center hover:bg-warmwhite">
+      <div>
+        <p class="pill bg-navy text-white mb-2">D</p>
+        <p class="text-lg font-semibold text-navy">Sources</p>
+        <p class="text-xs text-subtle mt-1">All cited references in one place</p>
+      </div>
+      <span class="chev text-subtle">▼</span>
+    </summary>
+    <div class="p-5 pt-0 border-t border-gray-100">
+      <ol class="text-xs text-ink space-y-2 list-decimal ml-5">
+        <template x-for="(s, idx) in sources" :key="idx">
+          <li><span x-text="s.title"></span>. <a :href="s.url" target="_blank" rel="noopener" class="text-accent underline" x-text="s.url"></a></li>
+        </template>
+      </ol>
+    </div>
+  </details>
+</section>
+
+<!-- ============================================ FOOTER ============================================ -->
+<footer class="border-t border-gray-200 pt-8 pb-12 text-xs text-subtle leading-relaxed max-w-3xl">
+  <p class="mb-2"><em>This document is a working draft prepared for refinement with a co-investor partner. All financial figures for the GCAP archetype are illustrative based on public market data. Confidence: MEDIUM-HIGH — operator pedigree publicly verifiable; AI framework operating in production today (Appendix A); financial model rests on industry-standard comparables.</em></p>
+  <p>Prepared April 26, 2026 by Jason Bass, Parallax Private Holdings.</p>
+</footer>
+
+</main>
+</div>
+
+<!-- Citation tooltip -->
+<div x-show="cite.visible" x-cloak class="fixed z-50 bg-ink text-warmwhite text-xs p-3 rounded shadow-lg max-w-xs leading-relaxed pointer-events-none" :style="`left: ${cite.x}px; top: ${cite.y}px;`">
+  <p class="font-semibold mb-1" x-text="cite.title"></p>
+  <p class="opacity-80 break-all" x-text="cite.url"></p>
+</div>
+
+<script>
+function thesis() {
+  return {
+    unlocked: false,
+    passwordInput: '',
+    passwordError: false,
+    progress: 0,
+    activeSection: 'hero',
+
+    counters: [0, 0, 0, 0, 0],
+    heroStats: [
+      { final: 27, label: 'Active scheduled tasks (daily/weekly/monthly)' },
+      { final: 25, label: 'Production orchestrators' },
+      { final: 8,  label: 'Slack audience channels' },
+      { final: 7,  label: 'Daily Morning Briefings (rolling 7-day)' },
+      { final: 5,  label: 'Weekly CEO Insights (rolling 5-week)' },
+    ],
+
+    navLinks: [
+      { id: 'hero', label: 'Overview' },
+      { id: 'exec', label: '1. Executive Summary' },
+      { id: 'operator', label: '2. The Operator' },
+      { id: 'framework', label: '3. The Framework' },
+      { id: 'market', label: '4. Market Context' },
+      { id: 'archetype', label: '5. Acquisition Archetype' },
+      { id: 'financial', label: '6. The Deal' },
+      { id: 'multiple', label: '7. Multiple Expansion' },
+      { id: 'moat', label: '8. Moat' },
+      { id: 'risks', label: '9. Risks' },
+      { id: 'exits', label: '10. Exit Paths' },
+      { id: 'ask', label: '11. Investment Ask' },
+      { id: 'appendices', label: 'Appendices' },
+    ],
+
+    returnProfile: [
+      { label: 'Entry equity', value: '~$10.6M' },
+      { label: 'Year 3 EBITDA', value: '$9.5M' },
+      { label: 'Exit multiple', value: '10x–12x' },
+      { label: 'Exit equity', value: '~$90–109M' },
+      { label: 'MOIC', value: '8.5x–10.3x' },
+      { label: 'IRR (gross)', value: '~104%–118%' },
+    ],
+
+    productionInventory: [
+      { label: 'Active scheduled tasks (+1 deprecated)', count: '27' },
+      { label: 'Production orchestrators (run-*.ps1)', count: '25' },
+      { label: 'Shared utility module (Wash-Utils.psm1)', count: '607 lines' },
+      { label: 'Shared JS library files', count: '12' },
+      { label: 'Custom Cowork skills', count: '7+' },
+      { label: 'Cached JSON data files', count: '405' },
+      { label: 'Total files under management', count: '2,663' },
+      { label: 'Active Slack audience channels', count: '8' },
+      { label: 'Daily Morning Briefings (rolling 7d)', count: '7 / 7' },
+      { label: 'Weekly CEO Insights (rolling 5w)', count: '5 / 5' },
+    ],
+
+    archetype: [
+      { label: 'Location', value: 'Houston, TX (Sugar Land / Westchase / Energy Corridor)' },
+      { label: 'Founded', value: '~2008' },
+      { label: 'Ownership', value: 'Founder-led, single owner approaching succession' },
+      { label: 'Headcount', value: '~65 (45 engineers, 8 PMs, 12 support/admin)' },
+      { label: 'Revenue (2025E)', value: '~$18M' },
+      { label: 'Gross Margin', value: '~42% (~$7.6M)' },
+      { label: 'EBITDA (normalized)', value: '~$2.7M (~15% margin)' },
+      { label: 'Core competency', value: 'AVEVA SP, InTouch/OMI, Historian, MES — petrochem, terminals, midstream' },
+      { label: 'AVEVA status', value: 'Certified System Integrator; 12+ years active SP delivery' },
+      { label: 'Client profile', value: '15–20 active Gulf Coast accounts; ~60% on MSA/retainer' },
+      { label: 'Revenue mix', value: '~65% project, ~35% support/managed services' },
+      { label: 'Key-person risk', value: 'High — founder carries 40%+ of client relationships' },
+      { label: 'AI adoption', value: 'Minimal — no structured AI delivery framework' },
+    ],
+
+    moat: [
+      { label: 'Operator pedigree', score: 'A+', desc: '25-year track record including President / GM of Wonderware West (now Q-mation). Deep AVEVA ecosystem relationships at vendor, partner, and client levels. Not replicable on a deal timeline.' },
+      { label: 'Battle-tested AI framework', score: 'A', desc: '12+ months of production operation across 25 orchestrators, 27 active scheduled tasks, 8 audience channels. Documented in Appendix A. Not reproducible in <12 months by an SI starting from scratch.' },
+      { label: 'AVEVA stack lock-in', score: 'A', desc: 'Deep, certified AVEVA practice with embedded client relationships. AVEVA program explicitly enables SIs who standardize to command better margins.' },
+      { label: 'Gulf Coast domain', score: 'A−', desc: 'Petrochem, terminals, midstream — repeat-pattern industries where standardized frameworks compound fastest.' },
+      { label: 'Incumbent client relationships', score: 'B+', desc: 'Acquired SI\'s existing 15–20 MSA clients represent years of embedded trust that a new entrant cannot recreate quickly.' },
+    ],
+
+    risks: [
+      { risk: 'Key-person departure (founder, senior engineers)', sev: 'High', mit: 'Retention equity, earn-out structure, 100-day cultural integration plan; operator pedigree reduces "they don\'t know our world" risk for retained team.' },
+      { risk: 'AI framework underdelivers on industrial-context compression', sev: 'Medium', mit: 'Parallel run on 2 live projects pre-full-deployment; compression validated before factory rollout; framework operational today in adjacent domain.' },
+      { risk: 'Client concentration (>30% single client)', sev: 'Medium', mit: 'Verify during diligence; price into deal if present; MSA expansion reduces over time.' },
+      { risk: 'Recession / capex freeze in O&G', sev: 'Medium', mit: 'Recurring managed services base provides floor; Phase 3 diversification into life sciences provides counter-cyclicality.' },
+      { risk: 'Vendor risk (AVEVA strategy changes)', sev: 'Low', mit: 'AVEVA model-driven MES roadmap directly supports SI factory model; Schneider Electric ownership provides financial stability.' },
+      { risk: 'Competitive imitation', sev: 'Low', mit: '18–24 month head start on framework depth; operator relationships not replicable; framework documented in source-available form.' },
+      { risk: 'Operator concentration (Jason as single key person)', sev: 'Medium', mit: 'Key-person life insurance at close; Phase 2 architect-hire program builds management depth; framework documented and transferable.' },
+    ],
+
+    exits: [
+      { title: 'PE Platform Sale', tag: 'PRIMARY', desc: 'A scaled, AI-native, recurring-revenue SI platform on the Gulf Coast is a compelling add-on or standalone platform for PE firms executing industrial automation roll-ups. Target buyers include firms already active around E Tech Group, ENTRUST Solutions, or similar consolidation platforms.' },
+      { title: 'Strategic Sale to OEM / Vendor', tag: 'STRATEGIC', desc: 'Rockwell (via Maverick), Siemens, Schneider Electric, or Emerson periodically acquire high-quality regional SIs. An AI-native AVEVA-focused platform with proven frameworks would be particularly attractive to Schneider/AVEVA as it validates and distributes their own model-driven MES roadmap.' },
+      { title: 'Strategic Sale to PE-backed AI-native SI Platform', tag: 'INFLEXIONPOINT', desc: 'InflexionPoint (Sverica Capital portfolio company) is the most explicit current example: AVEVA-aligned, AI-positioned, US-headquartered, with no listed Gulf Coast or petrochem/midstream presence. A transformed Gulf Coast platform fills a clear geographic and vertical gap.' },
+      { title: 'Continued Platform Roll-Up', tag: 'COMPOUND', desc: 'Use the transformed acquired SI as a platform for 2–3 additional Houston-area SI acquisitions, scaling revenue toward $60–80M before a larger exit at higher multiples.' },
+      { title: 'IP Licensing', tag: 'LONG-TERM', desc: 'The AI frameworks and AVEVA delivery tooling can eventually be productized and licensed to other SIs nationally — converting delivery IP into a SaaS-adjacent revenue stream.' },
+    ],
+
+    houstonShortlist: [
+      { rank: 1, company: 'Invasystems, Inc.', location: 'Sugar Land, TX', signals: 'AVEVA + PI partnership (registered SI); oil & gas, chemicals, process manufacturing; CEO Sagar Chitnis', fit: 'AVEVA-deep practice; non-founder leadership reduces succession-dynamic fit but increases professional-buyer fit', priority: 'High', priorityRank: 3 },
+      { rank: 2, company: 'Mangan Inc.', location: 'Houston, TX', signals: 'Engineering & automation specialists; energy industry; subsidiary builds the SLM Platform (Process Safety / SIS Lifecycle); founder-named legacy', fit: 'Energy-vertical depth; founder-named entity increases succession-dynamic likelihood; AVEVA practice depth needs verification', priority: 'High', priorityRank: 3 },
+      { rank: 3, company: 'EnerSys Corporation', location: 'Houston, TX', signals: 'Joined AVEVA Partner Network as Registered SI June 2022; oil & gas pipeline control room mgmt', fit: 'Recent AVEVA partner (less depth than 12+ year incumbents); narrow vertical', priority: 'Medium', priorityRank: 2 },
+      { rank: 4, company: 'NeoMatrix', location: 'Houston-area', signals: 'Certified AVEVA System Platform integrator; team of certified engineers', fit: 'AVEVA-certified; size and practice depth need verification — likely smaller than archetype', priority: 'Medium', priorityRank: 2 },
+      { rank: 5, company: 'Quad Plus', location: 'Sugar Land, TX', signals: 'Industrial automation; oil & gas + adjacent industries; broader controls/electrical practice', fit: 'AVEVA depth needs verification — historically more electrical/controls-generalist', priority: 'Medium', priorityRank: 2 },
+      { rank: 6, company: 'JADE Controls', location: 'DFW HQ + Houston ops', signals: 'Petrochemical, hazardous-area, regulatory compliance focus', fit: 'Petrochem aligned; AVEVA depth unverified; geographic fit weaker', priority: 'Lower', priorityRank: 1 },
+      { rank: 7, company: 'Kraken Engineering LLC', location: 'Houston, TX', signals: 'SCADA, IIoT cloud integration, retrofitting; smaller shop', fit: 'Likely too small (bolt-on candidate, not platform); platform-agnostic', priority: 'Lower', priorityRank: 1 },
+    ],
+    sortKey: 'rank',
+    sortDir: 1,
+
+    mapping: [
+      { ucwh: 'Orchestrator-per-task with HOLD/FATAL exit semantics', aveva: 'Project gate orchestrator: intake → FDS → BOM → template → FAT → SAT → deploy', why: 'Eliminates ad-hoc PM coordination; gates enforce go/no-go automatically' },
+      { ucwh: 'Shared utility module (Wash-Utils.psm1, 607 lines)', aveva: 'Shared AVEVA helper library: Galaxy access, ArchestrA template instantiation, alarm/security stamp', why: 'Engineers stop reinventing the same 200 lines per project' },
+      { ucwh: 'Cache freshness contracts', aveva: '"Last validated equipment list <30 days" / "Last validated P&ID rev <X" gates on quote and FDS', why: 'Prevents quoting from stale BOMs; eliminates a class of post-quote rework' },
+      { ucwh: 'Single source of truth (fact_daily_metrics)', aveva: 'Single source of truth for project state; no spreadsheet sprawl', why: 'Status reporting becomes a query, not a Friday afternoon ritual' },
+      { ucwh: 'Two-surface Slack (audience vs. ops)', aveva: 'Customer comms channel vs. internal PM/eng plumbing channel', why: 'Customers see only signal; engineering sees only work' },
+      { ucwh: 'Per-task model-effort allocation', aveva: 'Per-deliverable AI usage: Sonnet for FDS/BOM; Opus for risk analysis, validation strategy', why: 'Optimizes AI cost per project; prevents "Opus for everything"' },
+      { ucwh: 'Vision QA auto-correct on rendered HTML', aveva: 'Vision QA on rendered HMI screens vs. design intent; auto-flag pre-FAT', why: 'Catches HMI rendering bugs that today require manual screen-by-screen review' },
+      { ucwh: 'Pull-based portal architecture (Netlify auto-discovery)', aveva: 'Pull-based customer portal — new project artifacts auto-appear when published', why: 'Eliminates portal-update PM overhead' },
+      { ucwh: 'Index optimizer (nightly)', aveva: 'Nightly project-state optimizer: Galaxy hygiene, drift, naming violations', why: 'Catches issues before they compound into delivery problems' },
+    ],
+
+    sources: [
+      { id: 'q-mation-acq', title: 'Q-mation acquires Standard Automation and Control LP (dba Wonderware West), September 2022', url: 'https://q-mation.com/welcome/' },
+      { id: 'q-mation-rocketreach', title: 'Q-mation company profile (RocketReach)', url: 'https://rocketreach.co/q-mation-profile_b5e5d057f42e6135' },
+      { id: 'jason-li', title: 'Jason Bass LinkedIn profile', url: 'https://www.linkedin.com/in/jasonbass/' },
+      { id: 'aveva-si', title: 'AVEVA SI Partner Program documentation', url: 'https://gulf.avevaselect.com/wp-content/uploads/2023/03/Brochure-AVEVA-SI-Program.pdf' },
+      { id: 'aveva-sp', title: 'AVEVA System Platform project workflow', url: 'https://docs.aveva.com/bundle/system-platform/page/661425.html' },
+      { id: 'aveva-mes', title: 'AVEVA Composable and Model-Driven MES', url: 'https://docs.aveva.com/bundle/composable-and-model-driven-mes/page/1541299.html' },
+      { id: 'aveva-templates', title: 'AVEVA Templates and Instances (System Platform)', url: 'https://docs.aveva.com/bundle/sp-appserver/page/248505.html' },
+      { id: 'aveva-blueprint', title: 'AVEVA SI Growth Blueprint blog', url: 'https://www.aveva.com/en/perspectives/blog/the-si-growth-blueprint-scalable-services-and-recurring-revenue/' },
+      { id: 'gvr', title: 'Grand View Research, North America System Integrators Market 2030', url: 'https://www.grandviewresearch.com/horizon/outlook/system-integrators-market/north-america' },
+      { id: 'cherry-bekaert', title: 'Cherry Bekaert Private Equity Report 2025', url: 'https://www.cbh.com/insights/reports/private-equity-report-2025-trends-and-2026-outlook/' },
+      { id: 'investec', title: 'Investec Industrial System Integration M&A Report 2025', url: 'https://www.investec.com/advisory/industrial-system-integration-ma-and-market-trends-2025/' },
+      { id: 'meridian', title: 'Meridian IB Industrial Automation & Robotics M&A Update Spring 2025', url: 'https://meridianib.com/wp-content/uploads/Industrial-Automation-Robotics-MA-Market-Update_Spring-2025_Website.pdf' },
+      { id: 'rl-hulett', title: 'RL Hulett Industrials M&A Update Q4 2025', url: 'https://rlhulett.com/app/uploads/2026/01/Industrials-MA-Update-Q4-2025.pdf' },
+      { id: 'first-page-sage', title: 'First Page Sage EBITDA Multiples for Engineering Companies, 2025', url: 'https://firstpagesage.com/business/ebitda-multiples-for-engineering-companies/' },
+      { id: 'mckinsey', title: 'McKinsey AI Revolution in Software Development', url: 'https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-ai-revolution-in-software-development' },
+      { id: 'google-ai', title: 'Google CEO statement: 75% of new code AI-generated (April 2026)', url: 'https://www.businessinsider.com/google-ai-generated-code-75-gemini-agents-software-2026-4' },
+      { id: 'aveva-schneider', title: 'AVEVA Group plc / Schneider Electric ownership', url: 'https://www.se.com/ww/en/assets/564/document/357469/aveva-accounts-march-2022.pdf' },
+      { id: 'maverick', title: 'MAVERICK Technologies / Rockwell Automation', url: 'https://www.rockwellautomation.com/en-us/capabilities/maverick-technologies.html' },
+      { id: 'tommys', title: 'Tommy\'s Express Houston (TX160)', url: 'https://tommys-express.com/fr/locations/tx160/' },
+      { id: 'inflexionpoint', title: 'InflexionPoint (formerly Automated Control Concepts) - Sverica Capital portfolio', url: 'https://inflexionpoint.ai/pages_company/about.php' },
+    ],
+
+    cite: { visible: false, x: 0, y: 0, title: '', url: '' },
+
+    model: { compression: 50, recurring: 55, multiple: 11, years: 3, boltOn: true },
+
+    get output() {
+      // EBITDA bridge: $2.7M base, scales with compression. At 0% compression: $2.7M (no growth). At 50%: $9.5M. At 70% + bolt-on: $12.5M.
+      let ebitda = 2.7 + (this.model.compression / 50) * 6.8; // 0% → 2.7; 50% → 9.5
+      if (this.model.boltOn) ebitda += 2.0; // bolt-on adds ~$2M EBITDA
+      // Multiple adjustment: recurring revenue mix at exit gives +/- premium. 35% baseline = -1.0x; 55% = 0; 70% = +1.5x
+      const recurringBonus = (this.model.recurring - 55) / 15 * 1.5;
+      const adjustedMult = this.model.multiple + recurringBonus;
+      const enterpriseValue = ebitda * adjustedMult;
+      const exitDebt = 5; // assumed remaining
+      const exitEquity = enterpriseValue - exitDebt;
+      const moic = exitEquity / 10.6;
+      const irr = (Math.pow(moic, 1 / this.model.years) - 1) * 100;
+
+      let label = 'Base';
+      if (moic >= 12) label = 'Bull';
+      else if (moic <= 5) label = 'Bear';
+
+      return { ebitda, exitEquity, moic, irr, label };
+    },
+
+    init() {
+      this.checkProgress();
+      window.addEventListener('scroll', () => this.checkProgress());
+    },
+
+    checkPassword() {
+      // Lightweight client-side gate; production would use real auth.
+      // Accepting two passwords: case-insensitive check, multiple options.
+      const pw = this.passwordInput.toLowerCase().trim();
+      const valid = ['parallax2026', 'wonderwarewest', 'aveva-thesis', 'jason'].includes(pw);
+      if (valid) {
+        this.unlocked = true;
+        this.passwordError = false;
+        // Animate counters after unlock
+        this.$nextTick(() => {
+          this.animateCounters();
+          this.renderCharts();
+        });
+      } else {
+        this.passwordError = true;
+      }
+    },
+
+    animateCounters() {
+      this.heroStats.forEach((stat, i) => {
+        let current = 0;
+        const final = stat.final;
+        const duration = 1200;
+        const start = performance.now();
+        const tick = (now) => {
+          const elapsed = now - start;
+          const t = Math.min(elapsed / duration, 1);
+          // Ease-out cubic
+          const eased = 1 - Math.pow(1 - t, 3);
+          this.counters[i] = Math.floor(eased * final);
+          if (t < 1) requestAnimationFrame(tick);
+          else this.counters[i] = final;
+        };
+        requestAnimationFrame(tick);
+      });
+    },
+
+    renderCharts() {
+      const ctx = document.getElementById('bridgeChart');
+      if (!ctx) return;
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Y0 EBITDA Margin', 'Labor compression', 'Mix shift to MSA', 'Architect substitution', 'G&A leverage', 'Y3 EBITDA Margin'],
+          datasets: [{
+            data: [15, 9, 6, 3, 1, 34],
+            backgroundColor: ['#6B7280', '#2E75B6', '#2E75B6', '#2E75B6', '#2E75B6', '#1F3A5F'],
+            borderRadius: 4,
+          }],
+        },
+        options: {
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => `${ctx.parsed.y} pts` } } },
+          scales: {
+            y: { beginAtZero: true, max: 40, title: { display: true, text: 'EBITDA margin (%)', font: { size: 11 } }, ticks: { font: { size: 10 } } },
+            x: { ticks: { font: { size: 10 }, maxRotation: 0, minRotation: 0 } },
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+      });
+    },
+
+    showCite(event, id) {
+      const source = this.sources.find(s => s.id === id);
+      if (!source) return;
+      this.cite.visible = true;
+      this.cite.title = source.title;
+      this.cite.url = source.url;
+      this.cite.x = Math.min(event.clientX + 12, window.innerWidth - 320);
+      this.cite.y = event.clientY + 12;
+    },
+    hideCite() { this.cite.visible = false; },
+
+    sortBy(key) {
+      if (this.sortKey === key) {
+        this.sortDir *= -1;
+      } else {
+        this.sortKey = key;
+        this.sortDir = key === 'priority' ? -1 : 1;
+      }
+    },
+    get sortedHoustonShortlist() {
+      const list = [...this.houstonShortlist];
+      const k = this.sortKey;
+      const dir = this.sortDir;
+      list.sort((a, b) => {
+        const aVal = k === 'priority' ? a.priorityRank : a[k];
+        const bVal = k === 'priority' ? b.priorityRank : b[k];
+        if (aVal < bVal) return -1 * dir;
+        if (aVal > bVal) return 1 * dir;
+        return 0;
+      });
+      return list;
+    },
+
+    resetModel() {
+      this.model = { compression: 50, recurring: 55, multiple: 11, years: 3, boltOn: true };
+    },
+
+    checkProgress() {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      this.progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+      // Active section detection
+      const sections = this.navLinks.map(l => l.id);
+      let active = sections[0];
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 120) {
+          active = id;
+        }
+      }
+      this.activeSection = active;
+    },
+  };
+}
+</script>
+
+</body>
+</html>
