@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETAP Discovery Skill – AVEVA Presales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+/* ===== DESIGN TOKENS ===== */
+:root,[data-theme="light"]{
+  --color-bg:#f4f6f9;
+  --color-surface:#ffffff;
+  --color-surface-2:#f8f9fb;
+  --color-surface-offset:#eef0f5;
+  --color-divider:#e0e3ea;
+  --color-border:#d3d7e0;
+  --color-text:#1a1d26;
+  --color-text-muted:#5a6075;
+  --color-text-faint:#9ca3b0;
+  --color-primary:#0066b2;
+  --color-primary-hover:#004f8c;
+  --color-primary-active:#003a6b;
+  --color-primary-highlight:#dbeafe;
+  --color-accent:#e8a000;
+  --color-accent-hover:#c47f00;
+  --color-success:#1a7a3c;
+  --color-success-highlight:#d1fae5;
+  --color-warning:#c05621;
+  --color-warning-highlight:#fef3c7;
+  --color-error:#c0392b;
+  --color-error-highlight:#fee2e2;
+  --color-purple:#6c3fc7;
+  --color-purple-highlight:#ede9fe;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.08);
+  --shadow-md:0 4px 12px rgba(0,0,0,.10);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.14);
+  --radius-sm:4px;--radius-md:8px;--radius-lg:12px;--radius-xl:16px;
+  --font-body:'Inter',sans-serif;
+  --font-display:'DM Serif Display',serif;
+  --transition:180ms cubic-bezier(.16,1,.3,1);
+  --text-xs:0.75rem;--text-sm:0.875rem;--text-base:1rem;
+  --text-lg:1.125rem;--text-xl:1.375rem;--text-2xl:1.75rem;
+  --space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
+  --space-12:3rem;
+}
+[data-theme="dark"]{
+  --color-bg:#111318;--color-surface:#1a1d24;--color-surface-2:#1f2330;
+  --color-surface-offset:#252836;--color-divider:#2e3245;--color-border:#374060;
+  --color-text:#e2e5f0;--color-text-muted:#8890a8;--color-text-faint:#505875;
+  --color-primary:#4d9de0;--color-primary-hover:#3a8dd4;--color-primary-active:#2a7abf;
+  --color-primary-highlight:#1e3a5f;--color-accent:#f0b429;--color-accent-hover:#d89f1f;
+  --color-success:#4ade80;--color-success-highlight:#14532d;
+  --color-warning:#fb923c;--color-warning-highlight:#431407;
+  --color-error:#f87171;--color-error-highlight:#450a0a;
+  --color-purple:#a78bfa;--color-purple-highlight:#2e1065;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.3);--shadow-md:0 4px 12px rgba(0,0,0,.4);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.5);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;}
+body{min-height:100dvh;font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);line-height:1.6;}
+img,svg{display:block;max-width:100%;}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit;}
+input,textarea,select{font:inherit;color:inherit;}
+a,button,[role="button"]{transition:color var(--transition),background var(--transition),border-color var(--transition),box-shadow var(--transition);}
+:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm);}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+
+/* ===== LAYOUT ===== */
+.app-shell{display:grid;grid-template-columns:260px 1fr;grid-template-rows:auto 1fr;min-height:100dvh;}
+.topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:var(--space-3) var(--space-6);background:var(--color-primary);color:#fff;box-shadow:var(--shadow-md);z-index:100;}
+.topbar-logo{display:flex;align-items:center;gap:var(--space-3);}
+.topbar-logo svg{flex-shrink:0;}
+.topbar-title{font-family:var(--font-display);font-size:var(--text-lg);color:#fff;letter-spacing:.01em;}
+.topbar-subtitle{font-size:var(--text-xs);opacity:.75;margin-top:1px;}
+.topbar-actions{display:flex;align-items:center;gap:var(--space-3);}
+.btn-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--radius-md);background:rgba(255,255,255,.15);color:#fff;transition:background var(--transition);}
+.btn-icon:hover{background:rgba(255,255,255,.25);}
+.sidebar{background:var(--color-surface);border-right:1px solid var(--color-divider);padding:var(--space-4) 0;overflow-y:auto;}
+.main-content{overflow-y:auto;padding:var(--space-8);display:flex;flex-direction:column;gap:var(--space-6);}
+
+/* ===== SIDEBAR ===== */
+.sidebar-section{padding:var(--space-3) var(--space-4);font-size:var(--text-xs);font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-faint);}
+.sidebar-item{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-4);font-size:var(--text-sm);color:var(--color-text-muted);border-left:3px solid transparent;transition:all var(--transition);cursor:pointer;}
+.sidebar-item:hover{background:var(--color-surface-offset);color:var(--color-text);}
+.sidebar-item.active{background:var(--color-primary-highlight);color:var(--color-primary);border-left-color:var(--color-primary);font-weight:600;}
+.sidebar-item.completed{color:var(--color-success);}
+.sidebar-badge{margin-left:auto;font-size:10px;font-weight:700;padding:1px 6px;border-radius:var(--radius-full);background:var(--color-primary);color:#fff;}
+.sidebar-badge.done{background:var(--color-success);}
+.sidebar-progress{padding:var(--space-4);border-top:1px solid var(--color-divider);margin-top:var(--space-4);}
+.progress-bar-wrap{height:6px;background:var(--color-surface-offset);border-radius:var(--radius-full);overflow:hidden;margin-top:var(--space-2);}
+.progress-bar{height:100%;background:var(--color-primary);border-radius:var(--radius-full);transition:width .5s ease;}
+.progress-label{font-size:var(--text-xs);color:var(--color-text-muted);}
+
+/* ===== CARDS ===== */
+.card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);box-shadow:var(--shadow-sm);}
+.card-header{display:flex;align-items:flex-start;gap:var(--space-4);margin-bottom:var(--space-5);}
+.card-icon{width:44px;height:44px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.card-icon.blue{background:var(--color-primary-highlight);color:var(--color-primary);}
+.card-icon.amber{background:var(--color-warning-highlight);color:var(--color-warning);}
+.card-icon.green{background:var(--color-success-highlight);color:var(--color-success);}
+.card-icon.purple{background:var(--color-purple-highlight);color:var(--color-purple);}
+.card-title{font-size:var(--text-lg);font-weight:700;color:var(--color-text);}
+.card-desc{font-size:var(--text-sm);color:var(--color-text-muted);margin-top:2px;}
+.section-title{font-size:var(--text-xl);font-weight:700;color:var(--color-text);margin-bottom:var(--space-2);}
+.section-sub{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-5);}
+
+/* ===== QUESTION BLOCKS ===== */
+.question-block{background:var(--color-surface-2);border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:var(--space-5);margin-bottom:var(--space-4);transition:border-color var(--transition),box-shadow var(--transition);}
+.question-block:focus-within{border-color:var(--color-primary);box-shadow:0 0 0 3px var(--color-primary-highlight);}
+.question-block.has-answer{border-left:3px solid var(--color-primary);}
+.question-block.flagged{border-left:3px solid var(--color-accent);}
+.question-label{font-size:var(--text-sm);font-weight:600;color:var(--color-text);margin-bottom:var(--space-2);display:flex;align-items:flex-start;gap:var(--space-2);}
+.question-number{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:var(--radius-full);background:var(--color-primary);color:#fff;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.question-hint{font-size:var(--text-xs);color:var(--color-text-faint);font-style:italic;margin-bottom:var(--space-2);}
+.question-note-area{width:100%;min-height:80px;padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface);font-size:var(--text-sm);resize:vertical;transition:border-color var(--transition);color:var(--color-text);}
+.question-note-area:focus{outline:none;border-color:var(--color-primary);}
+.question-note-area::placeholder{color:var(--color-text-faint);}
+.ai-insight{margin-top:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--color-primary-highlight);border-radius:var(--radius-md);font-size:var(--text-xs);color:var(--color-primary);line-height:1.6;display:none;}
+.ai-insight.visible{display:block;}
+.ai-insight strong{font-weight:700;}
+.follow-up-questions{margin-top:var(--space-3);display:none;}
+.follow-up-questions.visible{display:block;}
+.follow-up-label{font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-faint);margin-bottom:var(--space-2);}
+.follow-up-q{font-size:var(--text-xs);color:var(--color-text-muted);padding:var(--space-2) var(--space-3);background:var(--color-surface-offset);border-radius:var(--radius-sm);margin-bottom:var(--space-1);border-left:2px solid var(--color-accent);}
+.score-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:var(--radius-full);font-size:var(--text-xs);font-weight:700;}
+.score-chip.high{background:var(--color-success-highlight);color:var(--color-success);}
+.score-chip.medium{background:var(--color-warning-highlight);color:var(--color-warning);}
+.score-chip.low{background:var(--color-error-highlight);color:var(--color-error);}
+.answer-row{display:flex;gap:var(--space-3);margin-top:var(--space-2);}
+.answer-flag-btn{padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:var(--text-xs);font-weight:600;cursor:pointer;transition:all var(--transition);}
+.answer-flag-btn:hover{border-color:var(--color-primary);color:var(--color-primary);}
+.answer-flag-btn.active{background:var(--color-accent);border-color:var(--color-accent);color:#fff;}
+
+/* ===== BUTTONS ===== */
+.btn{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-5);border-radius:var(--radius-md);font-size:var(--text-sm);font-weight:600;cursor:pointer;transition:all var(--transition);border:1px solid transparent;}
+.btn-primary{background:var(--color-primary);color:#fff;border-color:var(--color-primary);}
+.btn-primary:hover{background:var(--color-primary-hover);border-color:var(--color-primary-hover);}
+.btn-secondary{background:transparent;color:var(--color-primary);border-color:var(--color-primary);}
+.btn-secondary:hover{background:var(--color-primary-highlight);}
+.btn-ghost{background:transparent;color:var(--color-text-muted);border-color:var(--color-border);}
+.btn-ghost:hover{background:var(--color-surface-offset);color:var(--color-text);}
+.btn-success{background:var(--color-success);color:#fff;}
+.btn-success:hover{filter:brightness(1.1);}
+.btn-row{display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-5);}
+
+/* ===== TAGS / BADGES ===== */
+.tag{display:inline-flex;align-items:center;padding:2px 10px;border-radius:var(--radius-full);font-size:var(--text-xs);font-weight:600;gap:4px;}
+.tag-blue{background:var(--color-primary-highlight);color:var(--color-primary);}
+.tag-amber{background:var(--color-warning-highlight);color:var(--color-warning);}
+.tag-green{background:var(--color-success-highlight);color:var(--color-success);}
+.tag-purple{background:var(--color-purple-highlight);color:var(--color-purple);}
+
+/* ===== QUICK-ANSWER BUTTONS ===== */
+.quick-answers{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-2);margin-bottom:var(--space-2);}
+.qa-btn{padding:var(--space-1) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-full);font-size:var(--text-xs);cursor:pointer;transition:all var(--transition);color:var(--color-text-muted);}
+.qa-btn:hover,.qa-btn.selected{background:var(--color-primary);border-color:var(--color-primary);color:#fff;}
+
+/* ===== OUTPUT PANEL ===== */
+.output-panel{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);margin-top:var(--space-6);}
+.output-section{margin-bottom:var(--space-6);}
+.output-section-title{font-size:var(--text-base);font-weight:700;color:var(--color-text);margin-bottom:var(--space-3);padding-bottom:var(--space-2);border-bottom:1px solid var(--color-divider);display:flex;align-items:center;gap:var(--space-2);}
+.output-item{padding:var(--space-3);background:var(--color-surface-2);border-radius:var(--radius-md);margin-bottom:var(--space-2);font-size:var(--text-sm);}
+.output-item strong{color:var(--color-primary);}
+.demo-scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);}
+.scope-box{background:var(--color-surface-offset);border-radius:var(--radius-md);padding:var(--space-4);}
+.scope-box-title{font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-faint);margin-bottom:var(--space-3);}
+.scope-row{display:flex;gap:var(--space-2);align-items:flex-start;margin-bottom:var(--space-2);}
+.scope-dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary);flex-shrink:0;margin-top:6px;}
+.scope-text{font-size:var(--text-sm);color:var(--color-text);}
+
+/* ===== INFO BOXES ===== */
+.info-box{padding:var(--space-4);border-radius:var(--radius-md);font-size:var(--text-sm);margin-bottom:var(--space-4);}
+.info-box.blue{background:var(--color-primary-highlight);border:1px solid rgba(0,102,178,.2);color:var(--color-primary);}
+.info-box.amber{background:var(--color-warning-highlight);border:1px solid rgba(200,90,30,.2);color:var(--color-warning);}
+.info-box.green{background:var(--color-success-highlight);border:1px solid rgba(26,122,60,.2);color:var(--color-success);}
+.info-box-title{font-weight:700;margin-bottom:var(--space-1);}
+.info-box ul{padding-left:var(--space-4);margin-top:var(--space-1);}
+.info-box li{margin-bottom:2px;}
+
+/* ===== TABLE ===== */
+.data-table{width:100%;border-collapse:collapse;font-size:var(--text-sm);}
+.data-table th{text-align:left;padding:var(--space-2) var(--space-3);background:var(--color-surface-offset);font-weight:700;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-faint);}
+.data-table td{padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--color-divider);vertical-align:top;}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table tr:hover td{background:var(--color-surface-2);}
+
+/* ===== STEP INDICATOR ===== */
+.step-indicator{display:flex;align-items:center;gap:0;margin-bottom:var(--space-6);}
+.step-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--text-xs);font-weight:700;flex-shrink:0;border:2px solid var(--color-border);background:var(--color-surface);color:var(--color-text-faint);transition:all var(--transition);}
+.step-dot.active{border-color:var(--color-primary);background:var(--color-primary);color:#fff;}
+.step-dot.done{border-color:var(--color-success);background:var(--color-success);color:#fff;}
+.step-line{flex:1;height:2px;background:var(--color-divider);}
+.step-line.done{background:var(--color-success);}
+.step-label-row{display:flex;justify-content:space-between;margin-bottom:var(--space-1);}
+.step-label{font-size:10px;color:var(--color-text-faint);text-align:center;width:80px;}
+.step-label.active{color:var(--color-primary);font-weight:700;}
+
+/* ===== HEADER ROW ===== */
+.page-header{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-2);}
+.page-header-icon{width:48px;height:48px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;background:var(--color-primary-highlight);color:var(--color-primary);flex-shrink:0;}
+.page-title{font-size:var(--text-2xl);font-family:var(--font-display);color:var(--color-text);}
+.page-subtitle{font-size:var(--text-sm);color:var(--color-text-muted);}
+
+/* ===== INPUT GROUPS ===== */
+.form-group{margin-bottom:var(--space-4);}
+.form-label{display:block;font-size:var(--text-sm);font-weight:600;color:var(--color-text);margin-bottom:var(--space-2);}
+.form-input{width:100%;padding:var(--space-3) var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface);font-size:var(--text-sm);transition:border-color var(--transition);}
+.form-input:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 3px var(--color-primary-highlight);}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-4);}
+
+/* ===== SUMMARY SCORE ===== */
+.score-card{display:flex;align-items:center;gap:var(--space-4);padding:var(--space-5);background:linear-gradient(135deg,var(--color-primary),var(--color-primary-hover));border-radius:var(--radius-lg);color:#fff;margin-bottom:var(--space-6);}
+.score-value{font-size:3rem;font-weight:900;line-height:1;font-family:var(--font-display);}
+.score-label{font-size:var(--text-sm);opacity:.85;margin-top:4px;}
+.score-breakdown{display:flex;flex-direction:column;gap:var(--space-2);flex:1;}
+.score-breakdown-item{display:flex;justify-content:space-between;align-items:center;font-size:var(--text-xs);}
+.score-bar{height:5px;border-radius:var(--radius-full);background:rgba(255,255,255,.3);flex:1;margin:0 var(--space-3);overflow:hidden;}
+.score-bar-fill{height:100%;background:#fff;border-radius:var(--radius-full);}
+
+/* ===== PRINT ===== */
+@media print{
+  .sidebar,.topbar-actions,.btn-row,nav{display:none!important;}
+  .app-shell{display:block;}
+  .main-content{padding:0;}
+  .card{box-shadow:none;border:1px solid #ccc;}
+}
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .app-shell{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .form-grid,.form-grid-3,.demo-scope-grid{grid-template-columns:1fr;}
+  .main-content{padding:var(--space-4);}
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.fade-in{animation:fadeIn .3s ease;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+.pulse{animation:pulse 2s infinite;}
+
+/* Hidden pages */
+.page{display:none;}
+.page.active{display:block;animation:fadeIn .3s ease;}
+</style>
+</head>
+<body>
+
+<!-- WELCOME MODAL -->
+<div id="welcome-modal" style="position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;display:flex;align-items:center;justify-content:center;padding:16px;">
+  <div style="background:var(--color-surface);border-radius:var(--radius-xl);padding:32px;max-width:560px;width:100%;box-shadow:var(--shadow-lg);animation:fadeIn .3s ease;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+      <div style="width:48px;height:48px;border-radius:12px;background:var(--color-primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="26" height="26" viewBox="0 0 36 36" fill="none"><path d="M8 18h20M18 8v20" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="18" cy="18" r="5" stroke="#fff" stroke-width="2"/><circle cx="18" cy="18" r="2" fill="#fff"/></svg>
+      </div>
+      <div>
+        <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--color-text);">ETAP Discovery Skill</div>
+        <div style="font-size:0.8rem;color:var(--color-text-muted);">AVEVA Presales · Seller Guide</div>
+      </div>
+    </div>
+    <div style="font-size:0.9rem;color:var(--color-text);line-height:1.7;margin-bottom:20px;">
+      <strong>How to use this tool:</strong>
+      <ol style="padding-left:20px;margin-top:8px;">
+        <li style="margin-bottom:6px;"><strong>Before the meeting</strong> — Fill in Customer Intake (Step 1) with known details.</li>
+        <li style="margin-bottom:6px;"><strong>During the meeting</strong> — Work through each section with the customer. Type their answers directly into the fields. Use <strong>Quick Answer</strong> buttons for common responses.</li>
+        <li style="margin-bottom:6px;"><strong>Watch the AI</strong> — After ~10 characters, the AI will interpret each answer and surface follow-up questions in blue. Use these to go deeper.</li>
+        <li style="margin-bottom:6px;"><strong>After the meeting</strong> — Click <strong>"Generate Full Output & Demo Scope"</strong> (Step 6 or top-right button) for your complete notes, demo brief, and next steps.</li>
+        <li style="margin-bottom:6px;"><strong>Print / Export</strong> — Use the printer icon to print or save as PDF for your CRM or manager review.</li>
+      </ol>
+    </div>
+    <div style="background:var(--color-warning-highlight);border-radius:8px;padding:12px;font-size:0.8rem;color:var(--color-warning);margin-bottom:20px;">
+      <strong>⚡ Pro tip:</strong> The most important question is #29 — "What does success look like?" Their answer becomes the opening slide of your demo.
+    </div>
+    <button onclick="document.getElementById('welcome-modal').style.display='none'" style="width:100%;padding:12px;background:var(--color-primary);color:#fff;border:none;border-radius:8px;font-size:0.9rem;font-weight:700;cursor:pointer;">Start Discovery →</button>
+  </div>
+</div>
+
+<div class="app-shell">
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-logo">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-label="ETAP Discovery">
+      <rect width="36" height="36" rx="8" fill="rgba(255,255,255,.2)"/>
+      <path d="M8 18h20M18 8v20" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="18" cy="18" r="5" stroke="#fff" stroke-width="2"/>
+      <circle cx="18" cy="18" r="2" fill="#fff"/>
+    </svg>
+    <div>
+      <div class="topbar-title">ETAP Discovery Skill</div>
+      <div class="topbar-subtitle">AVEVA Presales · Powered by AI Interpretation</div>
+    </div>
+  </div>
+  <div class="topbar-actions">
+    <button class="btn-icon" onclick="printNotes()" title="Print / Export Notes" aria-label="Print">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    </button>
+    <button class="btn-icon" onclick="toggleTheme()" data-theme-toggle aria-label="Toggle theme">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+    </button>
+    <button class="btn" style="background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.3);" onclick="generateFinalOutput()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Generate Output
+    </button>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-section">Discovery Sections</div>
+  <div class="sidebar-item active" onclick="goToPage('page-intake')" id="nav-intake">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Customer Intake
+  </div>
+  <div class="sidebar-item" onclick="goToPage('page-power')" id="nav-power">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    Power System Profile
+  </div>
+  <div class="sidebar-item" onclick="goToPage('page-pain')" id="nav-pain">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    Pain & Challenges
+  </div>
+  <div class="sidebar-item" onclick="goToPage('page-ops')" id="nav-ops">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    Operations & Compliance
+  </div>
+  <div class="sidebar-item" onclick="goToPage('page-digital')" id="nav-digital">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    Digital Maturity
+  </div>
+  <div class="sidebar-item" onclick="goToPage('page-buying')" id="nav-buying">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    Buying Process & Budget
+  </div>
+  <div class="sidebar-item" onclick="goToPage('page-output')" id="nav-output">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    Full Output & Demo Scope
+    <span class="sidebar-badge" id="output-badge">→</span>
+  </div>
+
+  <div class="sidebar-progress">
+    <div class="progress-label">Discovery Progress</div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar" style="width:0%"></div></div>
+    <div class="progress-label" id="progress-label" style="margin-top:4px;">0 of 30 questions answered</div>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+<!-- ===== PAGE: INTAKE ===== -->
+<div class="page active" id="page-intake">
+  <div class="page-header">
+    <div class="page-icon card-icon blue">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <div>
+      <div class="page-title">Customer Intake</div>
+      <div class="page-subtitle">Step 1 of 6 · Capture who you're meeting with and their context</div>
+    </div>
+  </div>
+
+  <div class="info-box blue">
+    <div class="info-box-title">🎯 Seller Instructions</div>
+    Fill in this section BEFORE the meeting. Use it to anchor the conversation. The AI will interpret answers and prompt follow-up questions as you type.
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div><div class="card-title">Meeting Details</div><div class="card-desc">Capture the basics before you walk in</div></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label class="form-label">Company Name *</label><input class="form-input" id="i_company" placeholder="e.g. Acme Manufacturing" oninput="updateProgress()"></div>
+      <div class="form-group"><label class="form-label">Meeting Date</label><input class="form-input" id="i_date" type="date"></div>
+      <div class="form-group"><label class="form-label">Primary Contact Name *</label><input class="form-input" id="i_contact" placeholder="Full name"></div>
+      <div class="form-group"><label class="form-label">Contact Title / Role *</label><input class="form-input" id="i_title" placeholder="e.g. Chief Electrical Engineer"></div>
+      <div class="form-group"><label class="form-label">Industry / Vertical *</label>
+        <select class="form-input" id="i_industry" onchange="updateProgress()">
+          <option value="">Select Industry…</option>
+          <option>Oil, Gas & Petrochemical</option>
+          <option>Power Generation & Utilities</option>
+          <option>Mining & Metals</option>
+          <option>Industrial / Manufacturing</option>
+          <option>Data Centers & Critical Facilities</option>
+          <option>Commercial & Buildings</option>
+          <option>Water & Wastewater</option>
+          <option>Healthcare</option>
+          <option>Renewables / Microgrids</option>
+          <option>EPC / Engineering Firm</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Company Size</label>
+        <select class="form-input" id="i_size">
+          <option value="">Select…</option>
+          <option>Small (under 500 employees)</option>
+          <option>Mid-market (500–5,000)</option>
+          <option>Enterprise (5,000+)</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label class="form-label">Other Meeting Attendees (names & roles)</label>
+      <textarea class="question-note-area" id="i_attendees" placeholder="e.g. John Smith – VP Engineering, Sarah Lee – IT Director" style="min-height:60px;"></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div><div class="card-title">Meeting Context</div><div class="card-desc">Set the stage for the conversation</div></div>
+    </div>
+
+    <div class="question-block" id="qb-trigger">
+      <div class="question-label"><span class="question-number">1</span>What triggered this meeting? What led them to reach out or agree to meet?</div>
+      <div class="question-hint">Probe: incident? audit finding? new project? peer referral? budget cycle?</div>
+      <textarea class="question-note-area" id="q_trigger" placeholder="Type your notes here…" oninput="interpretAnswer('trigger',this.value)"></textarea>
+      <div class="ai-insight" id="ai_trigger"></div>
+      <div class="follow-up-questions" id="fu_trigger"></div>
+    </div>
+
+    <div class="question-block" id="qb-goal">
+      <div class="question-label"><span class="question-number">2</span>What is their primary stated goal for today's meeting?</div>
+      <div class="question-hint">Are they evaluating? Learning? Solving a specific problem? Budget justification?</div>
+      <textarea class="question-note-area" id="q_goal" placeholder="Type your notes here…" oninput="interpretAnswer('goal',this.value)"></textarea>
+      <div class="ai-insight" id="ai_goal"></div>
+      <div class="follow-up-questions" id="fu_goal"></div>
+    </div>
+
+    <div class="question-block" id="qb-timeline">
+      <div class="question-label"><span class="question-number">3</span>Is there a specific project, event, or deadline driving urgency?</div>
+      <div class="question-hint">New facility? Safety audit deadline? Regulatory compliance date? Budget year end?</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_timeline','New facility / greenfield project')">New facility / greenfield</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_timeline','Regulatory / safety audit deadline')">Regulatory / audit deadline</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_timeline','Incident / near-miss occurred')">Recent incident</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_timeline','Budget cycle / end of year')">Budget cycle</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_timeline','Ongoing operations / no hard deadline')">No hard deadline</button>
+      </div>
+      <textarea class="question-note-area" id="q_timeline" placeholder="Add details…" oninput="interpretAnswer('timeline',this.value)"></textarea>
+      <div class="ai-insight" id="ai_timeline"></div>
+      <div class="follow-up-questions" id="fu_timeline"></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="goToPage('page-power')">Next: Power System Profile →</button>
+  </div>
+</div>
+
+<!-- ===== PAGE: POWER SYSTEM ===== -->
+<div class="page" id="page-power">
+  <div class="page-header">
+    <div class="page-icon card-icon blue">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    </div>
+    <div>
+      <div class="page-title">Power System Profile</div>
+      <div class="page-subtitle">Step 2 of 6 · Understand their electrical infrastructure and current tools</div>
+    </div>
+  </div>
+
+  <div class="info-box blue">
+    <div class="info-box-title">💡 ETAP Relevance</div>
+    This section maps directly to ETAP PSMS modules: Load Flow, Short Circuit, Arc Flash, Protection Coordination, Transient Stability, and eSCADA. Map their answers to the modules that solve their specific pain.
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <div><div class="card-title">Infrastructure Basics</div><div class="card-desc">Size, voltage levels, and system complexity</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">4</span>What voltage levels does your facility operate at? How many buses or substations?</div>
+      <div class="question-hint">Transmission voltage, distribution, MV, LV? # of switchgear lineups? Substations on-site?</div>
+      <textarea class="question-note-area" id="q_voltage" placeholder="e.g. 138kV incoming, 13.8kV distribution, 480V utilization — 3 substations, ~200 buses" oninput="interpretAnswer('voltage',this.value)"></textarea>
+      <div class="ai-insight" id="ai_voltage"></div>
+      <div class="follow-up-questions" id="fu_voltage"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">5</span>What is your total connected load and peak demand?</div>
+      <div class="question-hint">MW/MVA? Any significant motor loads, drives, or non-linear loads? Harmonics issues?</div>
+      <textarea class="question-note-area" id="q_load" placeholder="e.g. 45MW peak demand, large motor loads on compressors" oninput="interpretAnswer('load',this.value)"></textarea>
+      <div class="ai-insight" id="ai_load"></div>
+      <div class="follow-up-questions" id="fu_load"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">6</span>Do you have distributed generation, renewables, or backup power (generators, UPS, BESS)?</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_gen','On-site generators (emergency / standby)')">Generators</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_gen','Solar PV / Wind generation')">Solar / Wind</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_gen','Battery Energy Storage (BESS)')">BESS</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_gen','Microgrid / islanding capability')">Microgrid</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_gen','No distributed generation')">Utility-only</button>
+      </div>
+      <textarea class="question-note-area" id="q_gen" placeholder="Add details on capacity, interconnection, controls…" oninput="interpretAnswer('gen',this.value)"></textarea>
+      <div class="ai-insight" id="ai_gen"></div>
+      <div class="follow-up-questions" id="fu_gen"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div><div class="card-title">Current Tools & Models</div><div class="card-desc">What are they using today — and where are the gaps?</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">7</span>What software/tools do they currently use for power system studies?</div>
+      <div class="question-hint">ETAP already? SKM PowerTools? EasyPower? PSS®E? PSCAD? Spreadsheets? Nothing?</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_tools','Currently using older ETAP version')">Older ETAP version</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_tools','Using SKM PowerTools')">SKM PowerTools</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_tools','Using EasyPower')">EasyPower</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_tools','Using PSS/E or PSCAD')">PSS/E or PSCAD</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_tools','Spreadsheets / manual calculations')">Spreadsheets</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_tools','No formal power system software')">No formal tools</button>
+      </div>
+      <textarea class="question-note-area" id="q_tools" placeholder="Add version details, who uses it, frequency of use…" oninput="interpretAnswer('tools',this.value)"></textarea>
+      <div class="ai-insight" id="ai_tools"></div>
+      <div class="follow-up-questions" id="fu_tools"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">8</span>When was your power system model last updated? How confident are you it reflects as-built reality?</div>
+      <div class="question-hint">Model currency is a huge pain point. "Vintage" models = real safety risk.</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_model','Within the last year – up to date')">Last year</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_model','1-3 years old – partially updated')">1–3 years old</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_model','3-5+ years old – significant gaps')">3–5+ years old</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_model','No formal model exists')">No model</button>
+      </div>
+      <textarea class="question-note-area" id="q_model" placeholder="Notes on model accuracy, gaps, last study date…" oninput="interpretAnswer('model',this.value)"></textarea>
+      <div class="ai-insight" id="ai_model"></div>
+      <div class="follow-up-questions" id="fu_model"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">9</span>Do you have an integration with SCADA, DCS, or PI System for real-time data?</div>
+      <div class="question-hint">This opens the door to ETAP eSCADA / real-time digital twin conversation.</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_scada','Yes – full SCADA / DCS integration')">Yes – full SCADA</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_scada','Partial – some data available')">Partial integration</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_scada','PI System / OSIsoft historian in use')">PI System</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_scada','No real-time integration')">No integration</button>
+      </div>
+      <textarea class="question-note-area" id="q_scada" placeholder="What system? What protocols? Any real-time monitoring today?" oninput="interpretAnswer('scada',this.value)"></textarea>
+      <div class="ai-insight" id="ai_scada"></div>
+      <div class="follow-up-questions" id="fu_scada"></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="goToPage('page-intake')">← Back</button>
+    <button class="btn btn-primary" onclick="goToPage('page-pain')">Next: Pain & Challenges →</button>
+  </div>
+</div>
+
+<!-- ===== PAGE: PAIN ===== -->
+<div class="page" id="page-pain">
+  <div class="page-header">
+    <div class="page-icon card-icon amber">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
+    <div>
+      <div class="page-title">Pain & Challenges</div>
+      <div class="page-subtitle">Step 3 of 6 · Surface business pain and operational risk — this drives the demo</div>
+    </div>
+  </div>
+
+  <div class="info-box amber">
+    <div class="info-box-title">⚡ MEDDPICC — Implicate the Pain</div>
+    Your goal: Identify → Indicate → Implicate. Pain without implication = no budget. Drive them to feel the cost of inaction.
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div><div class="card-title">Safety & Arc Flash</div><div class="card-desc">ETAP's highest-impact use case for most sites</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">10</span>When did you last complete an arc flash hazard analysis? Was it NFPA 70E / IEEE 1584-2018 compliant?</div>
+      <div class="question-hint">Outdated arc flash = massive liability. Post-2018 IEEE 1584 often changes results significantly.</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_arcflash','Within 5 years – fully compliant')">Compliant, recent</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_arcflash','5+ years old – needs update')">Outdated (5+ yrs)</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_arcflash','Pre-IEEE 1584-2018 – not updated')">Pre-2018 standard</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_arcflash','Never completed')">Never done</button>
+      </div>
+      <textarea class="question-note-area" id="q_arcflash" placeholder="Date of last study, who performed it, any incidents since?" oninput="interpretAnswer('arcflash',this.value)"></textarea>
+      <div class="ai-insight" id="ai_arcflash"></div>
+      <div class="follow-up-questions" id="fu_arcflash"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">11</span>Have there been any electrical incidents, near-misses, or OSHA recordables in the past 3 years?</div>
+      <div class="question-hint">High sensitivity — treat carefully. Any "yes" = urgent business case.</div>
+      <textarea class="question-note-area" id="q_incidents" placeholder="Notes (keep sensitive details abstract if needed)…" oninput="interpretAnswer('incidents',this.value)"></textarea>
+      <div class="ai-insight" id="ai_incidents"></div>
+      <div class="follow-up-questions" id="fu_incidents"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div>
+      <div><div class="card-title">Operational Reliability</div><div class="card-desc">Downtime, protection, and reliability pain points</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">12</span>How often do you experience unplanned electrical outages or nuisance trips? What's the cost per hour of downtime?</div>
+      <div class="question-hint">Force them to quantify. $10K/hr vs. $1M/hr changes the ROI conversation completely.</div>
+      <textarea class="question-note-area" id="q_downtime" placeholder="Frequency? Duration? Which equipment? Estimated cost per event?" oninput="interpretAnswer('downtime',this.value)"></textarea>
+      <div class="ai-insight" id="ai_downtime"></div>
+      <div class="follow-up-questions" id="fu_downtime"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">13</span>Are your protective relays coordinated? When was the last protection coordination study?</div>
+      <div class="question-hint">Miscoordinated protection = selective fault isolation failure = wider outages. Classic ETAP SC/coordination value.</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_protection','Yes – recent study, well coordinated')">Well coordinated</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_protection','Partially – some areas not studied')">Partially studied</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_protection','No formal coordination study')">No formal study</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_protection','Unknown – inherited system')">Unknown</button>
+      </div>
+      <textarea class="question-note-area" id="q_protection" placeholder="Date of last study? Experienced cascade trips? Settings documentation?" oninput="interpretAnswer('protection',this.value)"></textarea>
+      <div class="ai-insight" id="ai_protection"></div>
+      <div class="follow-up-questions" id="fu_protection"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">14</span>Are there plans for system expansion, load additions, or major capital projects in the next 2 years?</div>
+      <div class="question-hint">Growth = new studies required. Brownfield + expansion = ETAP digital twin value is immediate.</div>
+      <textarea class="question-note-area" id="q_expansion" placeholder="Type of expansion? Timeline? Engineering resources assigned?" oninput="interpretAnswer('expansion',this.value)"></textarea>
+      <div class="ai-insight" id="ai_expansion"></div>
+      <div class="follow-up-questions" id="fu_expansion"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M4.93 4.93l1.41 1.41M21 12h-2M5 12H3M19.07 19.07l-1.41-1.41M4.93 19.07l1.41-1.41M12 3V1M12 21v2"/></svg></div>
+      <div><div class="card-title">Power Quality & Renewables</div><div class="card-desc">Emerging issues that ETAP directly addresses</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">15</span>Do you have power quality issues — harmonics, voltage sags, transients, motor starting problems?</div>
+      <div class="question-hint">PQ issues = ETAP Harmonic Analysis and Transient Stability modules. Often under-recognized pain.</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_pq','Yes – harmonic / distortion issues')">Harmonics</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_pq','Voltage sag / flicker during motor starts')">Voltage sags</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_pq','Nuisance trips / relay false operations')">Nuisance trips</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_pq','No known PQ issues')">No known issues</button>
+      </div>
+      <textarea class="question-note-area" id="q_pq" placeholder="Which loads affected? Any equipment damage? Measured or suspected?" oninput="interpretAnswer('pq',this.value)"></textarea>
+      <div class="ai-insight" id="ai_pq"></div>
+      <div class="follow-up-questions" id="fu_pq"></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="goToPage('page-power')">← Back</button>
+    <button class="btn btn-primary" onclick="goToPage('page-ops')">Next: Operations & Compliance →</button>
+  </div>
+</div>
+
+<!-- ===== PAGE: OPS ===== -->
+<div class="page" id="page-ops">
+  <div class="page-header">
+    <div class="page-icon card-icon green">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    </div>
+    <div>
+      <div class="page-title">Operations & Compliance</div>
+      <div class="page-subtitle">Step 4 of 6 · Understand their operational workflow, team, and regulatory context</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div><div class="card-title">Team & Workflow</div><div class="card-desc">Who does studies, how they work, and what slows them down</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">16</span>Who performs power system studies in your organization? Internal team or outsourced to consultants?</div>
+      <div class="question-hint">Internal team = ETAP as productivity tool. Outsourced = "can you bring it in-house?" value conversation.</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_team','Internal electrical engineers do studies')">Internal team</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_team','Outsourced to consulting engineers')">Consultants</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_team','Mix of internal and outsourced')">Mixed approach</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_team','No dedicated resource for studies')">No dedicated resource</button>
+      </div>
+      <textarea class="question-note-area" id="q_team" placeholder="How many engineers? Experience level? Frequency of studies?" oninput="interpretAnswer('team',this.value)"></textarea>
+      <div class="ai-insight" id="ai_team"></div>
+      <div class="follow-up-questions" id="fu_team"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">17</span>How long does it typically take to complete a power study today? What takes the most time?</div>
+      <div class="question-hint">Model building / data gathering is usually 60-70% of effort. ETAP automated parameterization and libraries cut this dramatically.</div>
+      <textarea class="question-note-area" id="q_studytime" placeholder="Weeks? Months? Which phase takes longest — data collection, modeling, simulation, reporting?" oninput="interpretAnswer('studytime',this.value)"></textarea>
+      <div class="ai-insight" id="ai_studytime"></div>
+      <div class="follow-up-questions" id="fu_studytime"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">18</span>How do you manage and track changes to the power system? Is there a formal change management process?</div>
+      <div class="question-hint">Ad-hoc change management = model drift, outdated labels, wrong PPE ratings. Big risk story.</div>
+      <textarea class="question-note-area" id="q_change" placeholder="MOC process? Drawing management? Who approves electrical changes?" oninput="interpretAnswer('change',this.value)"></textarea>
+      <div class="ai-insight" id="ai_change"></div>
+      <div class="follow-up-questions" id="fu_change"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+      <div><div class="card-title">Regulatory & Compliance</div><div class="card-desc">Compliance requirements that drive urgency and budget</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">19</span>What regulatory or insurance requirements drive your electrical safety program?</div>
+      <div class="question-hint">OSHA, NFPA 70E, NEC, IEC 61000, NERC CIP, insurance underwriters, customer audits?</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_regs','OSHA / NFPA 70E compliance')">OSHA / NFPA 70E</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_regs','NERC CIP (utility / grid connected)')">NERC CIP</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_regs','Insurance underwriter requirements')">Insurance requirements</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_regs','Customer / contract requirements')">Customer requirements</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_regs','IEC / international standards')">IEC standards</button>
+      </div>
+      <textarea class="question-note-area" id="q_regs" placeholder="Upcoming audits? Violations history? Any citations?" oninput="interpretAnswer('regs',this.value)"></textarea>
+      <div class="ai-insight" id="ai_regs"></div>
+      <div class="follow-up-questions" id="fu_regs"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">20</span>Do you need to produce formal study reports for management, insurance, or regulators?</div>
+      <div class="question-hint">Automated report generation in ETAP = massive time saver. Great demo moment.</div>
+      <textarea class="question-note-area" id="q_reports" placeholder="What format? How often? Who reviews them? Current time to produce?" oninput="interpretAnswer('reports',this.value)"></textarea>
+      <div class="ai-insight" id="ai_reports"></div>
+      <div class="follow-up-questions" id="fu_reports"></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="goToPage('page-pain')">← Back</button>
+    <button class="btn btn-primary" onclick="goToPage('page-digital')">Next: Digital Maturity →</button>
+  </div>
+</div>
+
+<!-- ===== PAGE: DIGITAL ===== -->
+<div class="page" id="page-digital">
+  <div class="page-header">
+    <div class="page-icon card-icon purple">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    </div>
+    <div>
+      <div class="page-title">Digital Maturity & Strategy</div>
+      <div class="page-subtitle">Step 5 of 6 · Understand their digital journey and where ETAP fits</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div><div class="card-title">Digital Twin & Real-Time Vision</div><div class="card-desc">Where do they want to go with digitalization?</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">21</span>Has your organization started a digital transformation or industrial IoT initiative? Where does electrical fit?</div>
+      <div class="question-hint">ETAP PSMS as the electrical digital twin layer of a broader IIoT / AVEVA ecosystem play.</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_dx','Active DX program – looking to extend to electrical')">Active DX program</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_dx','Planning stage – building business case')">Planning stage</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_dx','Individual projects – no enterprise strategy')">Individual projects</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_dx','Not a current priority')">Not a priority</button>
+      </div>
+      <textarea class="question-note-area" id="q_dx" placeholder="Who owns the DX program? Which platforms are being evaluated?" oninput="interpretAnswer('dx',this.value)"></textarea>
+      <div class="ai-insight" id="ai_dx"></div>
+      <div class="follow-up-questions" id="fu_dx"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">22</span>Would real-time monitoring of your power system — live data feeding your simulation model — be valuable?</div>
+      <div class="question-hint">ETAP eSCADA digital twin: real-time state estimation, predictive alerts, simulate-before-operate. Ask if they've seen this.</div>
+      <textarea class="question-note-area" id="q_realtime" placeholder="What operational decisions would this improve? Prevent what failures?" oninput="interpretAnswer('realtime',this.value)"></textarea>
+      <div class="ai-insight" id="ai_realtime"></div>
+      <div class="follow-up-questions" id="fu_realtime"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">23</span>Are there integration requirements — AVEVA Plant, PI System, SAP, IBM Maximo, or other enterprise systems?</div>
+      <div class="question-hint">ETAP–AVEVA integration: round-trip digital thread, 70% reduction in data re-entry. Strong for EPC / owner-operator.</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_integration','AVEVA Engineering / Unified Engineering')">AVEVA Engineering</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_integration','PI System / OSIsoft AVEVA historian')">PI System</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_integration','SAP PM / EAM')">SAP</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_integration','IBM Maximo')">IBM Maximo</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_integration','GIS / spatial systems')">GIS</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_integration','No integrations needed')">No integrations</button>
+      </div>
+      <textarea class="question-note-area" id="q_integration" placeholder="Current integration pain points? Data re-entry burden?" oninput="interpretAnswer('integration',this.value)"></textarea>
+      <div class="ai-insight" id="ai_integration"></div>
+      <div class="follow-up-questions" id="fu_integration"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <div><div class="card-title">Competitive Landscape</div><div class="card-desc">Who else is in the evaluation?</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">24</span>Are you evaluating other solutions? Who are you comparing ETAP against?</div>
+      <div class="question-hint">SKM, EasyPower, PSS/E, PowerWorld? What's driving the comparison? Price? Features? Support?</div>
+      <textarea class="question-note-area" id="q_competition" placeholder="Who? What are their stated reasons for looking? Any incumbent preference?" oninput="interpretAnswer('competition',this.value)"></textarea>
+      <div class="ai-insight" id="ai_competition"></div>
+      <div class="follow-up-questions" id="fu_competition"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">25</span>Have they seen or used ETAP before? Any prior impressions or misconceptions to address?</div>
+      <textarea class="question-note-area" id="q_prioretap" placeholder="Prior version? Demo seen elsewhere? Consultant's recommendation?" oninput="interpretAnswer('prioretap',this.value)"></textarea>
+      <div class="ai-insight" id="ai_prioretap"></div>
+      <div class="follow-up-questions" id="fu_prioretap"></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="goToPage('page-ops')">← Back</button>
+    <button class="btn btn-primary" onclick="goToPage('page-buying')">Next: Buying Process & Budget →</button>
+  </div>
+</div>
+
+<!-- ===== PAGE: BUYING ===== -->
+<div class="page" id="page-buying">
+  <div class="page-header">
+    <div class="page-icon card-icon amber">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    </div>
+    <div>
+      <div class="page-title">Buying Process & Budget</div>
+      <div class="page-subtitle">Step 6 of 6 · MEDDPICC — Economic Buyer, Decision Process, and Champion</div>
+    </div>
+  </div>
+
+  <div class="info-box amber">
+    <div class="info-box-title">🔑 MEDDPICC Qualification</div>
+    This section completes your MEDDPICC qualification. Without understanding the buying process, even the best demo won't close a deal.
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div><div class="card-title">Economic Buyer & Champion</div><div class="card-desc">Find the money and the internal advocate</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">26</span>Who has budget authority for this type of investment? Is that person in the room today?</div>
+      <div class="question-hint">If not in the room, you need a Champion who can reach them. Don't leave without a path to the Economic Buyer.</div>
+      <textarea class="question-note-area" id="q_ecobuyer" placeholder="Name, title, department? How does budget get approved? Capex or Opex?" oninput="interpretAnswer('ecobuyer',this.value)"></textarea>
+      <div class="ai-insight" id="ai_ecobuyer"></div>
+      <div class="follow-up-questions" id="fu_ecobuyer"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">27</span>Is there budget allocated for this? What is the approximate budget range?</div>
+      <div class="question-hint">Don't shy from the question. Frame it: "To make sure I bring you the right solution, what investment range is realistic for this project?"</div>
+      <div class="quick-answers">
+        <button class="qa-btn" onclick="qaSelect(this,'q_budget','Under $25K')">Under $25K</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_budget','$25K – $100K')">$25K–$100K</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_budget','$100K – $500K')">$100K–$500K</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_budget','$500K+')">$500K+</button>
+        <button class="qa-btn" onclick="qaSelect(this,'q_budget','Budget not allocated yet')">Not yet allocated</button>
+      </div>
+      <textarea class="question-note-area" id="q_budget" placeholder="Budget cycle? When does it reset? Is this Capex or Opex?" oninput="interpretAnswer('budget',this.value)"></textarea>
+      <div class="ai-insight" id="ai_budget"></div>
+      <div class="follow-up-questions" id="fu_budget"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div><div class="card-title">Decision Process & Timeline</div><div class="card-desc">Map the path from demo to signed order</div></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">28</span>What does your evaluation and decision process look like? Who else needs to be involved?</div>
+      <div class="question-hint">IT? Legal? Procurement? Safety committee? How many approvals? What could stop this?</div>
+      <textarea class="question-note-area" id="q_process" placeholder="Steps, stakeholders, approval gates, timeline…" oninput="interpretAnswer('process',this.value)"></textarea>
+      <div class="ai-insight" id="ai_process"></div>
+      <div class="follow-up-questions" id="fu_process"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">29</span>What would a successful outcome look like in 12 months after deploying ETAP?</div>
+      <div class="question-hint">This is gold for the demo. Their answer = your demo success criteria. Write it down verbatim.</div>
+      <textarea class="question-note-area" id="q_success" placeholder="Quote them if possible — 'We would consider this successful if…'" oninput="interpretAnswer('success',this.value)"></textarea>
+      <div class="ai-insight" id="ai_success"></div>
+      <div class="follow-up-questions" id="fu_success"></div>
+    </div>
+
+    <div class="question-block">
+      <div class="question-label"><span class="question-number">30</span>What would prevent this from moving forward? What are the biggest risks to this project?</div>
+      <div class="question-hint">Surface objections now so you can address them in the demo. Budget frozen? IT security? Change resistance?</div>
+      <textarea class="question-note-area" id="q_risks" placeholder="Budget, IT approvals, organizational resistance, competing priorities?" oninput="interpretAnswer('risks',this.value)"></textarea>
+      <div class="ai-insight" id="ai_risks"></div>
+      <div class="follow-up-questions" id="fu_risks"></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="goToPage('page-digital')">← Back</button>
+    <button class="btn btn-success" onclick="generateFinalOutput()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Generate Full Output & Demo Scope ✓
+    </button>
+  </div>
+</div>
+
+<!-- ===== PAGE: OUTPUT ===== -->
+<div class="page" id="page-output">
+  <div class="page-header">
+    <div class="page-icon card-icon green">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    </div>
+    <div>
+      <div class="page-title">Discovery Output & Demo Scope</div>
+      <div class="page-subtitle">AI-analyzed notes · Next steps · Full demo brief</div>
+    </div>
+  </div>
+
+  <div id="output-container">
+    <div class="info-box blue">
+      <div class="info-box-title">ℹ️ Complete Discovery First</div>
+      Click "Generate Full Output & Demo Scope" after completing the discovery questions to produce your full output.
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-ghost" onclick="goToPage('page-buying')">← Back to Discovery</button>
+    <button class="btn btn-primary" onclick="printNotes()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Print / Export
+    </button>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ===== STATE =====
+let answers = {};
+let flags = {};
+let currentPage = 'page-intake';
+
+// ===== NAVIGATION =====
+function goToPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  
+  document.querySelectorAll('.sidebar-item').forEach(s => s.classList.remove('active'));
+  const navId = 'nav-' + pageId.replace('page-', '');
+  if (document.getElementById(navId)) {
+    document.getElementById(navId).classList.add('active');
+  }
+  currentPage = pageId;
+  document.querySelector('.main-content').scrollTop = 0;
+}
+
+// ===== THEME =====
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+}
+
+// ===== QUICK ANSWER BUTTONS =====
+function qaSelect(btn, fieldId, value) {
+  const field = document.getElementById(fieldId);
+  if (!field) return;
+  const existing = field.value;
+  if (existing && !existing.includes(value)) {
+    field.value = existing + '\n• ' + value;
+  } else if (!existing) {
+    field.value = '• ' + value;
+  }
+  btn.classList.toggle('selected');
+  interpretAnswer(fieldId.replace('q_',''), field.value);
+  updateProgress();
+}
+
+// ===== PROGRESS =====
+function updateProgress() {
+  const allFields = document.querySelectorAll('.question-note-area, .form-input[id^="i_"]');
+  let answered = 0;
+  let total = 30;
+  allFields.forEach(f => {
+    if (f.value && f.value.trim().length > 3) answered++;
+  });
+  const pct = Math.min(100, Math.round((answered / total) * 100));
+  const bar = document.getElementById('progress-bar');
+  const label = document.getElementById('progress-label');
+  if (bar) bar.style.width = pct + '%';
+  if (label) label.textContent = answered + ' of ' + total + ' questions answered';
+  answers['_progress'] = pct;
+}
+
+// ===== AI INTERPRETATION ENGINE =====
+const interpretationRules = {
+  trigger: {
+    keywords: {
+      'incident|near.miss|injury|accident|osha': {
+        insight: '🚨 <strong>HIGH URGENCY:</strong> Safety incident triggers are the strongest buying signals. Probe further — what specifically happened? ETAP Arc Flash and Protection Coordination modules directly reduce recurrence risk. Frame the demo around incident prevention.',
+        followups: ['What was the root cause of the incident?', 'Was inadequate arc flash PPE labeling a factor?', 'Has OSHA issued any citations or recommendations?', 'What did the incident cost (direct + indirect)?']
+      },
+      'audit|compliance|inspection': {
+        insight: '📋 <strong>COMPLIANCE DRIVER:</strong> Audit-driven opportunities are budget-backed. The deadline creates urgency. Understand the specific standard required — this directly determines which ETAP modules to demonstrate.',
+        followups: ['What standard or regulation is the audit measuring against?', 'What is the audit date?', 'What findings from prior audits are still open?', 'Who is the auditing body (insurer, regulator, customer)?']
+      },
+      'project|expansion|new|greenfield|brownfield': {
+        insight: '🏗️ <strong>PROJECT-DRIVEN:</strong> Capital project opportunities are excellent for ETAP digital twin positioning. Model built during design = persistent asset for operations. Explore the ETAP–AVEVA integration story.',
+        followups: ['What is the project scope and timeline?', 'Is there an EPC or engineering firm involved?', 'Will ETAP need to integrate with AVEVA Engineering or E3D?', 'Who owns the electrical design workstream?']
+      },
+      'budget|year.end|fiscal': {
+        insight: '💰 <strong>BUDGET CYCLE:</strong> End-of-year opportunities require fast-track qualification. Confirm budget is approved and decision-maker is accessible within the timeframe.',
+        followups: ['When does the budget need to be committed?', 'Is the budget already approved or still in approval?', 'What is the procurement process timeline?']
+      }
+    },
+    default: '💡 <strong>AI NOTE:</strong> Capture as much context as possible about what\'s driving this conversation. The trigger determines urgency and which ETAP value pillars to lead with.'
+  },
+  arcflash: {
+    keywords: {
+      'never|no study|never done': {
+        insight: '🔴 <strong>CRITICAL RISK:</strong> No arc flash study = immediate safety and legal liability. This is your highest-urgency ETAP selling point. NFPA 70E requires arc flash analysis. Frame as "you must do this" not "you should."',
+        followups: ['Are workers currently performing energized electrical work?', 'Do PPE labels exist on equipment?', 'Is the facility insured — does the insurer know there\'s no study?', 'Has this been raised to management/legal?']
+      },
+      '5|six|seven|eight|nine|ten|years': {
+        insight: '⚠️ <strong>OUTDATED STUDY:</strong> IEEE 1584-2018 significantly changed incident energy calculations. Studies pre-2018 are likely to show different (often higher) PPE requirements when redone. This is a strong re-evaluation driver.',
+        followups: ['Has any equipment been added or changed since the last study?', 'Are existing PPE labels still being relied upon for worker protection?', 'When did IEEE 1584-2018 go into effect — are they aware their study may be invalid?']
+      },
+      'recently|last year|current|compliant': {
+        insight: '✅ <strong>RECENT STUDY:</strong> Good compliance posture. Shift focus to ongoing maintenance — how do they keep the model current as the system changes? ETAP change management and model update workflows are the angle.',
+        followups: ['How do you update the arc flash labels when equipment changes?', 'Is there an automated process or is it manual?', 'How long does a re-study take when you add a new transformer or feeder?']
+      }
+    },
+    default: '⚡ <strong>AI NOTE:</strong> Arc flash study currency is one of ETAP\'s strongest value drivers. Understand timing and compliance status to frame urgency.'
+  },
+  tools: {
+    keywords: {
+      'skm|powertools': {
+        insight: '🔄 <strong>SKM DISPLACEMENT:</strong> SKM PowerTools users can migrate to ETAP with competitive advantages in real-time digital twin (eSCADA), AVEVA integration, and automated model synchronization. Key differentiators: ETAP\'s real-time monitoring vs. SKM\'s study-only approach.',
+        followups: ['What do they like most about SKM?', 'What frustrations do they have?', 'Have they seen ETAP\'s eSCADA / real-time digital twin capabilities?', 'Are they using SKM with SCADA or as standalone studies?']
+      },
+      'easypower': {
+        insight: '🔄 <strong>EASPOWER DISPLACEMENT:</strong> EasyPower has limited real-time and integration capabilities. Probe for frustrations with scalability, SCADA integration, and advanced simulation (EMT, Transient Stability). ETAP leads significantly here.',
+        followups: ['Have they hit EasyPower\'s limitations with large networks?', 'Do they need real-time monitoring or SCADA integration that EasyPower can\'t provide?', 'Are they doing dynamic/transient studies — EasyPower has limited capability here?']
+      },
+      'spreadsheet|manual|excel': {
+        insight: '📊 <strong>GREENFIELD OPPORTUNITY:</strong> Spreadsheet-based engineering is the highest-value ETAP conversion. No legacy model to migrate — start fresh. Safety risk story is strongest here. Focus on: time savings, error reduction, and compliance documentation.',
+        followups: ['How much time per week goes into manual power calculations?', 'Have there been errors from manual calculations that impacted operations?', 'Is there any documentation of the power system beyond one-lines on paper?']
+      },
+      'older etap|legacy etap|etap 7|etap 14|etap 16': {
+        insight: '⬆️ <strong>ETAP UPGRADE:</strong> Existing ETAP customers upgrading — focus on new capabilities in current versions: IEEE 1584-2018 arc flash, enhanced eSCADA, AVEVA integration, AI-assisted parameterization, and cloud/SaaS options.',
+        followups: ['What version are they on?', 'What new capabilities are they most interested in?', 'Is their maintenance current?', 'Have they explored the ETAP–AVEVA integration?']
+      }
+    },
+    default: '🛠️ <strong>AI NOTE:</strong> Current tool landscape determines competitive displacement strategy. Map to ETAP\'s advantages over their incumbent.'
+  },
+  downtime: {
+    keywords: {
+      '\\$|million|thousand|cost|loss|revenue': {
+        insight: '💰 <strong>QUANTIFIED PAIN:</strong> Excellent — they can quantify downtime cost. This is your ROI anchor. Even a 15–30% reduction in electrical-related downtime through better protection coordination and predictive monitoring creates a compelling business case.',
+        followups: ['What percentage of unplanned outages are electrical vs. mechanical/process?', 'What is your current MTTR for an electrical fault event?', 'How many electrical-related outages occurred last year?', 'Do you have data on root causes?']
+      },
+      'trip|nuisance|false|alarm': {
+        insight: '⚡ <strong>PROTECTION COORDINATION PAIN:</strong> Nuisance trips are a direct indicator of miscoordinated protection. ETAP Short Circuit + Protection Coordination studies with Z-Star algorithms directly address this. This is a highly demonstrable use case.',
+        followups: ['Which equipment areas experience the most nuisance trips?', 'Have any trips caused production batch losses or safety events?', 'Is there documentation of trip events with timestamps?']
+      }
+    },
+    default: '📉 <strong>AI NOTE:</strong> Quantify downtime cost whenever possible. This is the ROI foundation for ETAP\'s protection coordination and predictive monitoring value.'
+  },
+  scada: {
+    keywords: {
+      'yes|scada|dcs|pi system|osisoft|historian': {
+        insight: '🔗 <strong>REAL-TIME INTEGRATION OPPORTUNITY:</strong> Existing SCADA/DCS = ETAP eSCADA integration is immediately feasible. Real-time state estimation + digital twin is a strong differentiator. Ask about OPC UA connectivity.',
+        followups: ['What SCADA platform? (OSIsoft PI, Wonderware, IgnitionSCADA, GE iFix?)', 'Does it support OPC UA? Is there an ICCP link?', 'Are they interested in a "simulate-before-operate" capability for switching orders?', 'Who owns the SCADA system — IT or OT?']
+      },
+      'no|none': {
+        insight: '📡 <strong>REAL-TIME CAPABILITY FUTURE VISION:</strong> No current SCADA opens the door to ETAP eSCADA as the first step toward real-time power monitoring. Position as "start simple — grow to full digital twin."',
+        followups: ['Is there any future plan for real-time monitoring?', 'Are there intelligent electronic devices (IEDs/relays) that could provide data today?', 'What would real-time visibility of their power system change operationally?']
+      }
+    },
+    default: '📡 <strong>AI NOTE:</strong> SCADA integration determines whether to lead with ETAP as engineering study tool or full PSMS digital twin platform.'
+  },
+  integration: {
+    keywords: {
+      'aveva|engineering|unified': {
+        insight: '🔄 <strong>ETAP-AVEVA INTEGRATION:</strong> This is a major differentiator in your ETAP pitch. The round-trip digital thread between ETAP and AVEVA Engineering/Unified Engineering eliminates duplicate data entry, reduces design errors by up to 70%, and enables 30% faster FEED-to-Detail-Design hand-off. Demonstrate this in the demo.',
+        followups: ['Are they using AVEVA Engineering or AVEVA Unified Engineering?', 'Is ETAP DataX integration currently in use or desired?', 'Who manages the data handoff between electrical and process engineering today?']
+      },
+      'pi system|osisoft': {
+        insight: '📊 <strong>PI SYSTEM SYNERGY:</strong> ETAP + PI System integration is on the roadmap (beta 2025). Real-time power data from OSIsoft PI feeds into ETAP for closed-loop digital twin validation. Flag as upcoming capability.',
+        followups: ['What PI data would be most valuable to bring into ETAP? (meter data, IED data, transformer temps?)', 'Is there a PI AF (Asset Framework) model for electrical assets already?']
+      }
+    },
+    default: '🔗 <strong>AI NOTE:</strong> Enterprise integrations expand the ETAP value story beyond standalone studies into the full AVEVA ecosystem play.'
+  },
+  success: {
+    keywords: {
+      '.*': {
+        insight: '🎯 <strong>DEMO SUCCESS CRITERIA CAPTURED:</strong> This answer IS your demo script. Structure the second meeting to walk them through exactly what they described. Every module demo should tie back to this outcome.',
+        followups: ['How would you measure success — what KPI would change?', 'Who in your organization would be most impacted by this outcome?', 'What is the cost today of NOT having this outcome?']
+      }
+    },
+    default: '🎯 <strong>AI NOTE:</strong> Success criteria is the most important question. Their answer becomes the demo agenda. Capture verbatim quotes.'
+  },
+  competition: {
+    keywords: {
+      'skm|powertools': {
+        insight: '⚔️ <strong>COMPETITIVE: SKM</strong> — Lead with ETAP\'s real-time digital twin (eSCADA), automated model synchronization, AVEVA integration, and 50-year pedigree in critical infrastructure. SKM is study-only; ETAP bridges to operations.',
+        followups: ['What specifically are they evaluating SKM for?', 'Have they seen ETAP\'s eSCADA capabilities vs. SKM?', 'Are they aware ETAP is part of the Schneider Electric / AVEVA ecosystem?']
+      },
+      'easypower': {
+        insight: '⚔️ <strong>COMPETITIVE: EasyPower</strong> — ETAP\'s advantages: scalability for large networks (100K+ buses), real-time monitoring, AVEVA integration, advanced EMT/transient stability simulation, and IEC 62271 switchgear validation. EasyPower is limited in real-time and advanced dynamics.',
+        followups: ['Have they tried EasyPower on networks larger than 5,000 buses?', 'Do they need EMT or transient stability?', 'Have they evaluated ETAP\'s real-time features which EasyPower lacks?']
+      },
+      'pss|pscad|powerworld': {
+        insight: '⚔️ <strong>COMPETITIVE: Transmission-class tools</strong> — PSS/E, PSCAD, PowerWorld are transmission-planning tools, not distribution/industrial. ETAP is purpose-built for industrial/commercial/distribution with arc flash, protection coordination, and real-time monitoring — use cases these tools don\'t address.',
+        followups: ['Are they evaluating PSS/E for distribution/industrial studies or transmission planning?', 'Are they aware ETAP has more complete industrial automation and compliance features?']
+      }
+    },
+    default: '⚔️ <strong>AI NOTE:</strong> Competitive awareness is critical for demo prep. If no competitor mentioned, probe — "Is this a sole-source evaluation or are you comparing options?"'
+  },
+  budget: {
+    keywords: {
+      'not allocated|no budget|tbd': {
+        insight: '🚧 <strong>BUDGET NOT YET ALLOCATED:</strong> You need a Champion and a business case. Focus this meeting on building the ROI justification they need to get budget approved. Offer to co-create the business case.',
+        followups: ['What is the budget request process?', 'Who would need to approve a capital request for this?', 'What ROI metrics would make the strongest business case for your organization?', 'Is there an upcoming budget review cycle?']
+      },
+      '25k|100k|500k|million': {
+        insight: '✅ <strong>BUDGET SIGNAL:</strong> Budget range identified. Align your solution scope to the range — don\'t oversell or undersell. ETAP licensing is modular — match modules to what they can buy now, with a growth path.',
+        followups: ['Is this budget already approved or still needs sign-off?', 'Is this Capex or Opex?', 'When does the budget need to be committed?']
+      }
+    },
+    default: '💰 <strong>AI NOTE:</strong> Budget clarity determines deal velocity. Get a range even if they resist — frame it as helping you scope the right solution, not reveal pricing.'
+  }
+};
+
+function interpretAnswer(key, value) {
+  if (!value || value.trim().length < 10) {
+    const aiEl = document.getElementById('ai_' + key);
+    const fuEl = document.getElementById('fu_' + key);
+    if (aiEl) { aiEl.classList.remove('visible'); }
+    if (fuEl) { fuEl.classList.remove('visible'); }
+    return;
+  }
+  answers[key] = value;
+  updateProgress();
+
+  const rules = interpretationRules[key];
+  if (!rules) return;
+
+  let insightHtml = '';
+  let followUps = [];
+  let matched = false;
+
+  if (rules.keywords) {
+    for (const [pattern, data] of Object.entries(rules.keywords)) {
+      if (pattern === '.*' || new RegExp(pattern, 'i').test(value)) {
+        insightHtml = data.insight;
+        followUps = data.followups || [];
+        matched = true;
+        break;
+      }
+    }
+  }
+  if (!matched && rules.default) {
+    insightHtml = rules.default;
+  }
+
+  const aiEl = document.getElementById('ai_' + key);
+  const fuEl = document.getElementById('fu_' + key);
+
+  if (aiEl && insightHtml) {
+    aiEl.innerHTML = insightHtml;
+    aiEl.classList.add('visible');
+  }
+
+  if (fuEl && followUps.length > 0) {
+    fuEl.innerHTML = '<div class="follow-up-label">🔎 Suggested Follow-Up Questions</div>' +
+      followUps.map(q => '<div class="follow-up-q">' + q + '</div>').join('');
+    fuEl.classList.add('visible');
+  }
+
+  const qb = aiEl ? aiEl.closest('.question-block') : null;
+  if (qb) qb.classList.add('has-answer');
+}
+
+// ===== GENERATE OUTPUT =====
+function generateFinalOutput() {
+  const company = document.getElementById('i_company')?.value || 'Customer';
+  const contact = document.getElementById('i_contact')?.value || 'Contact';
+  const title = document.getElementById('i_title')?.value || '';
+  const industry = document.getElementById('i_industry')?.value || '';
+  const date = document.getElementById('i_date')?.value || new Date().toLocaleDateString();
+  const attendees = document.getElementById('i_attendees')?.value || '';
+
+  const fields = {
+    trigger: document.getElementById('q_trigger')?.value || '',
+    goal: document.getElementById('q_goal')?.value || '',
+    timeline: document.getElementById('q_timeline')?.value || '',
+    voltage: document.getElementById('q_voltage')?.value || '',
+    load: document.getElementById('q_load')?.value || '',
+    gen: document.getElementById('q_gen')?.value || '',
+    tools: document.getElementById('q_tools')?.value || '',
+    model: document.getElementById('q_model')?.value || '',
+    scada: document.getElementById('q_scada')?.value || '',
+    arcflash: document.getElementById('q_arcflash')?.value || '',
+    incidents: document.getElementById('q_incidents')?.value || '',
+    downtime: document.getElementById('q_downtime')?.value || '',
+    protection: document.getElementById('q_protection')?.value || '',
+    expansion: document.getElementById('q_expansion')?.value || '',
+    pq: document.getElementById('q_pq')?.value || '',
+    team: document.getElementById('q_team')?.value || '',
+    studytime: document.getElementById('q_studytime')?.value || '',
+    change: document.getElementById('q_change')?.value || '',
+    regs: document.getElementById('q_regs')?.value || '',
+    reports: document.getElementById('q_reports')?.value || '',
+    dx: document.getElementById('q_dx')?.value || '',
+    realtime: document.getElementById('q_realtime')?.value || '',
+    integration: document.getElementById('q_integration')?.value || '',
+    competition: document.getElementById('q_competition')?.value || '',
+    prioretap: document.getElementById('q_prioretap')?.value || '',
+    ecobuyer: document.getElementById('q_ecobuyer')?.value || '',
+    budget: document.getElementById('q_budget')?.value || '',
+    process: document.getElementById('q_process')?.value || '',
+    success: document.getElementById('q_success')?.value || '',
+    risks: document.getElementById('q_risks')?.value || ''
+  };
+
+  // Score calculation
+  let score = 0;
+  let maxScore = 100;
+  
+  // Safety urgency (30 pts)
+  if (/never|no study/i.test(fields.arcflash)) score += 30;
+  else if (/5.*year|pre.2018|outdated/i.test(fields.arcflash)) score += 22;
+  else if (/incident|near.miss/i.test(fields.incidents)) score += 28;
+  else score += 10;
+
+  // Budget clarity (25 pts)
+  if (/\$|25k|100k|500k|million|allocated/i.test(fields.budget)) score += 25;
+  else if (/not.*allocated|tbd/i.test(fields.budget)) score += 5;
+  else score += 12;
+
+  // Urgency/timeline (20 pts)
+  if (/audit|deadline|incident|project/i.test(fields.trigger + fields.timeline)) score += 20;
+  else if (/budget|year.end/i.test(fields.trigger)) score += 12;
+  else score += 6;
+
+  // Digital maturity / AVEVA fit (15 pts)
+  if (/aveva|pi system|scada|dcs/i.test(fields.integration + fields.scada)) score += 15;
+  else if (/active|planning/i.test(fields.dx)) score += 8;
+  else score += 3;
+
+  // Champion / process (10 pts)
+  if (fields.ecobuyer.length > 10 && fields.process.length > 10) score += 10;
+  else if (fields.ecobuyer.length > 5 || fields.process.length > 5) score += 5;
+  score = Math.min(100, score);
+
+  // Determine key ETAP modules needed
+  let modules = [];
+  if (/arc|flash|safety|nfpa|osha/i.test(fields.arcflash + fields.incidents + fields.regs)) modules.push({ name: 'Arc Flash Analysis (IEEE 1584-2018)', priority: 'HIGH', reason: 'Arc flash compliance gap identified' });
+  if (/coordinat|trip|nuisance|selective/i.test(fields.protection + fields.downtime)) modules.push({ name: 'Short Circuit & Protection Coordination', priority: 'HIGH', reason: 'Protection coordination gaps / nuisance trips' });
+  if (/scada|dcs|pi|real.time|monitor/i.test(fields.scada + fields.realtime)) modules.push({ name: 'eSCADA / Real-Time Digital Twin', priority: 'HIGH', reason: 'Real-time integration interest confirmed' });
+  if (/load|capacity|demand|voltage|kv|mva/i.test(fields.voltage + fields.load)) modules.push({ name: 'Load Flow & Voltage Analysis', priority: 'MEDIUM', reason: 'Load profile and capacity questions raised' });
+  if (/motor|start|transient|stability|sag/i.test(fields.pq + fields.load)) modules.push({ name: 'Motor Starting & Transient Stability', priority: 'MEDIUM', reason: 'Motor loads / power quality concerns noted' });
+  if (/harmonic|distortion|pq|power quality/i.test(fields.pq)) modules.push({ name: 'Harmonic Analysis', priority: 'MEDIUM', reason: 'Power quality / harmonic issues noted' });
+  if (/aveva|engineering|integration|datalink/i.test(fields.integration)) modules.push({ name: 'ETAP–AVEVA Integration (DataX)', priority: 'HIGH', reason: 'AVEVA ecosystem connection identified' });
+  if (/solar|wind|battery|bess|microgrid|renewable/i.test(fields.gen)) modules.push({ name: 'Renewable Integration & Microgrid Analysis', priority: 'MEDIUM', reason: 'DER/microgrid assets on-site' });
+  if (modules.length === 0) {
+    modules.push({ name: 'Load Flow & Short Circuit (Foundation)', priority: 'MEDIUM', reason: 'Baseline power system study capability' });
+    modules.push({ name: 'Arc Flash Analysis', priority: 'HIGH', reason: 'Safety compliance — applicable to all facilities' });
+  }
+
+  // Determine who/what/why for demo
+  const whoDemo = [];
+  if (contact) whoDemo.push(contact + (title ? ' (' + title + ')' : ''));
+  if (attendees) attendees.split('\n').forEach(a => { if (a.trim()) whoDemo.push(a.trim()); });
+  if (fields.ecobuyer && fields.ecobuyer.length > 5) whoDemo.push('Economic Buyer: ' + fields.ecobuyer.substring(0, 60));
+
+  // Competitive prep
+  let competitiveNotes = '';
+  if (/skm/i.test(fields.competition)) competitiveNotes = '🆚 Competing vs. SKM PowerTools — Lead with eSCADA real-time digital twin and AVEVA integration (SKM has neither). Emphasize operational capability beyond studies.';
+  else if (/easypower/i.test(fields.competition)) competitiveNotes = '🆚 Competing vs. EasyPower — Lead with scalability (100K+ buses), transient stability, EMT simulation, and real-time monitoring capabilities.';
+  else if (/pss|pscad/i.test(fields.competition)) competitiveNotes = '🆚 Competing vs. Transmission-class tools — Clarify ETAP is purpose-built for industrial/distribution with arc flash, protection coordination, and eSCADA that PSS/E and PSCAD don\'t offer.';
+  else if (!fields.competition) competitiveNotes = 'No competitor identified — confirm if sole-source or open evaluation in demo prep call.';
+  else competitiveNotes = '🆚 Review: ' + fields.competition.substring(0, 120);
+
+  // Recommended next steps
+  const nextSteps = [];
+  nextSteps.push('Schedule Demo Meeting – Confirm date, attendees, and agenda within 48 hours');
+  if (fields.success && fields.success.length > 10) nextSteps.push('Demo Agenda: Open with customer\'s stated success: "' + fields.success.substring(0, 80) + '…"');
+  if (/not.*allocated|no budget/i.test(fields.budget)) nextSteps.push('Co-create ROI business case — connect with Economic Buyer to build budget justification');
+  if (fields.model && /3.*year|5.*year|old|no model/i.test(fields.model)) nextSteps.push('Offer free ETAP Model Assessment — current model health check as discovery tool');
+  if (/incident|near.miss|osha/i.test(fields.incidents)) nextSteps.push('Safety-first demo framing — lead with incident prevention, not software features');
+  if (fields.ecobuyer && fields.ecobuyer.length < 10) nextSteps.push('Identify and engage Economic Buyer — current contact may not have budget authority');
+  if (/aveva|pi system/i.test(fields.integration)) nextSteps.push('Involve AVEVA Account Executive — coordinate joint demo for ETAP + AVEVA ecosystem value');
+  nextSteps.push('Send pre-demo questionnaire requesting latest one-line diagram and most recent study reports');
+  nextSteps.push('Prepare customer-specific demo scenarios using their facility type and noted pain points');
+
+  const scoreClass = score >= 70 ? 'high' : score >= 40 ? 'medium' : 'low';
+  const scoreLabel = score >= 70 ? '🟢 Strong Opportunity' : score >= 40 ? '🟡 Developing Opportunity' : '🔴 Early Stage';
+
+  const outputContainer = document.getElementById('output-container');
+  outputContainer.innerHTML = `
+    <div class="score-card fade-in">
+      <div>
+        <div class="score-value">${score}</div>
+        <div class="score-label">${scoreLabel}</div>
+      </div>
+      <div class="score-breakdown" style="margin-left:16px;">
+        <div class="score-breakdown-item">
+          <span>Safety Urgency</span>
+          <div class="score-bar"><div class="score-bar-fill" style="width:${score >= 70 ? 90 : score >= 40 ? 60 : 30}%"></div></div>
+          <span>${score >= 70 ? 'High' : score >= 40 ? 'Medium' : 'Low'}</span>
+        </div>
+        <div class="score-breakdown-item">
+          <span>Budget Clarity</span>
+          <div class="score-bar"><div class="score-bar-fill" style="width:${/\$|allocated|25k|100k|500k/i.test(fields.budget) ? 90 : 40}%"></div></div>
+          <span>${/\$|allocated|25k|100k|500k/i.test(fields.budget) ? 'Confirmed' : 'TBD'}</span>
+        </div>
+        <div class="score-breakdown-item">
+          <span>AVEVA Ecosystem Fit</span>
+          <div class="score-bar"><div class="score-bar-fill" style="width:${/aveva|pi system|scada/i.test(fields.integration+fields.scada) ? 90 : 40}%"></div></div>
+          <span>${/aveva|pi system|scada/i.test(fields.integration+fields.scada) ? 'Strong' : 'Standard'}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="output-panel fade-in">
+      <div class="output-section">
+        <div class="output-section-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Meeting Summary
+        </div>
+        <div class="output-item"><strong>Company:</strong> ${company} | <strong>Industry:</strong> ${industry} | <strong>Date:</strong> ${date}</div>
+        <div class="output-item"><strong>Primary Contact:</strong> ${contact} — ${title}</div>
+        ${attendees ? '<div class="output-item"><strong>Additional Attendees:</strong> ' + attendees.replace(/\n/g,'<br>') + '</div>' : ''}
+        <div class="output-item"><strong>Meeting Trigger:</strong> ${fields.trigger || 'Not captured'}</div>
+        <div class="output-item"><strong>Primary Goal:</strong> ${fields.goal || 'Not captured'}</div>
+        <div class="output-item"><strong>Urgency / Timeline:</strong> ${fields.timeline || 'Not captured'}</div>
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Full Discovery Notes
+        </div>
+        ${Object.entries({
+          'Power System — Voltage & Infrastructure': fields.voltage,
+          'Load Profile & Capacity': fields.load,
+          'Generation / Renewables / Backup': fields.gen,
+          'Current Software & Tools': fields.tools,
+          'Model Currency & Accuracy': fields.model,
+          'SCADA / Real-Time Integration': fields.scada,
+          'Arc Flash Study Status': fields.arcflash,
+          'Safety Incidents / Near-Misses': fields.incidents,
+          'Downtime / Outage Frequency & Cost': fields.downtime,
+          'Protection Coordination Status': fields.protection,
+          'Planned Expansion / Capital Projects': fields.expansion,
+          'Power Quality Issues': fields.pq,
+          'Study Team & Resources': fields.team,
+          'Study Duration & Process': fields.studytime,
+          'Change Management Process': fields.change,
+          'Regulatory & Compliance Drivers': fields.regs,
+          'Reporting Requirements': fields.reports,
+          'Digital Transformation Status': fields.dx,
+          'Real-Time Monitoring Interest': fields.realtime,
+          'Enterprise Integration Requirements': fields.integration,
+          'Competitive Evaluation': fields.competition,
+          'Prior ETAP Experience': fields.prioretap,
+          'Economic Buyer': fields.ecobuyer,
+          'Budget': fields.budget,
+          'Decision Process': fields.process,
+          'Success Criteria': fields.success,
+          'Risks / Obstacles': fields.risks
+        }).filter(([k,v]) => v && v.trim()).map(([k,v]) =>
+          '<div class="output-item"><strong>' + k + ':</strong><br>' + v.replace(/\n/g,'<br>') + '</div>'
+        ).join('')}
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+          AI-Analyzed Pain Points & Implications
+        </div>
+        ${fields.arcflash && /never|no study/i.test(fields.arcflash) ? '<div class="output-item" style="border-left:3px solid var(--color-error)"><strong>🔴 CRITICAL — No Arc Flash Study:</strong> Legal and safety liability. Workers may be exposed to incorrect PPE categories. Immediate action required — this IS the business case for ETAP Arc Flash module.</div>' : ''}
+        ${fields.arcflash && /5.*year|pre.2018/i.test(fields.arcflash) ? '<div class="output-item" style="border-left:3px solid var(--color-warning)"><strong>⚠️ HIGH — Outdated Arc Flash Study:</strong> IEEE 1584-2018 methodology changes are significant. Existing PPE labels may underestimate incident energy. High probability the re-study changes results.</div>' : ''}
+        ${fields.incidents && fields.incidents.length > 5 ? '<div class="output-item" style="border-left:3px solid var(--color-error)"><strong>🔴 HIGH — Safety Incident History:</strong> Documented or referenced incident(s). This creates regulatory, insurance, and reputational urgency. Use as primary business case driver with care.</div>' : ''}
+        ${/trip|nuisance|false/i.test(fields.protection+fields.downtime) ? '<div class="output-item" style="border-left:3px solid var(--color-warning)"><strong>⚠️ HIGH — Protection Coordination Gap:</strong> Nuisance trips and/or uncoordinated protection indicate selective fault isolation is not working correctly. ETAP Z-Star SC study directly resolves this.</div>' : ''}
+        ${/spreadsheet|manual|no.*software|no.*tool/i.test(fields.tools) ? '<div class="output-item" style="border-left:3px solid var(--color-warning)"><strong>⚠️ MEDIUM — No Formal Power System Software:</strong> High productivity gain opportunity. Manual processes = risk of error, compliance gap, time waste. ETAP delivers 3–5x faster study cycle vs. manual methods.</div>' : ''}
+        ${/not.*allocated|no budget/i.test(fields.budget) ? '<div class="output-item" style="border-left:3px solid var(--color-accent)"><strong>💰 ACTION NEEDED — Budget Not Allocated:</strong> Need to build ROI justification. Offer to co-create business case. Identify Economic Buyer path through Champion.</div>' : ''}
+        ${/skm|powertools/i.test(fields.tools+fields.competition) ? '<div class="output-item" style="border-left:3px solid var(--color-primary)"><strong>🔄 COMPETITIVE — SKM Displacement:</strong> Lead with real-time digital twin + AVEVA integration advantages. SKM cannot offer eSCADA or round-trip engineering integration.</div>' : ''}
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          ETAP Modules to Demonstrate
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Module</th><th>Priority</th><th>Reason</th></tr></thead>
+          <tbody>
+            ${modules.map(m => `<tr><td><strong>${m.name}</strong></td><td><span class="score-chip ${m.priority==='HIGH'?'high':m.priority==='MEDIUM'?'medium':'low'}">${m.priority}</span></td><td>${m.reason}</td></tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          Demo Scope — WHO · WHAT · WHY
+        </div>
+        <div class="demo-scope-grid">
+          <div class="scope-box">
+            <div class="scope-box-title">👤 WHO — Attendees & Roles</div>
+            ${whoDemo.map(w => '<div class="scope-row"><div class="scope-dot"></div><div class="scope-text">' + w + '</div></div>').join('')}
+            <div style="margin-top:8px;font-size:var(--text-xs);color:var(--color-text-faint);">Ideal additions: Economic Buyer, IT/OT representative, Safety Manager</div>
+          </div>
+          <div class="scope-box">
+            <div class="scope-box-title">⚙️ WHAT — Demo Scenarios</div>
+            ${modules.filter(m => m.priority === 'HIGH').map(m =>
+              '<div class="scope-row"><div class="scope-dot" style="background:var(--color-error)"></div><div class="scope-text">' + m.name + '</div></div>'
+            ).join('')}
+            ${modules.filter(m => m.priority === 'MEDIUM').map(m =>
+              '<div class="scope-row"><div class="scope-dot" style="background:var(--color-warning)"></div><div class="scope-text">' + m.name + '</div></div>'
+            ).join('')}
+            <div class="scope-row"><div class="scope-dot" style="background:var(--color-success)"></div><div class="scope-text">Automated Report Generation — compliance + management</div></div>
+          </div>
+          <div class="scope-box">
+            <div class="scope-box-title">🎯 WHY — Demo Objectives</div>
+            ${fields.success ? '<div class="scope-row"><div class="scope-dot"></div><div class="scope-text">Customer stated success: <em>"' + fields.success.substring(0, 120) + '…"</em></div></div>' : ''}
+            <div class="scope-row"><div class="scope-dot"></div><div class="scope-text">Demonstrate ETAP solves their highest-priority pain point first</div></div>
+            <div class="scope-row"><div class="scope-dot"></div><div class="scope-text">Address competitive differentiators vs. ${/skm/i.test(fields.competition) ? 'SKM PowerTools' : /easypower/i.test(fields.competition) ? 'EasyPower' : 'incumbent tools'}</div></div>
+            <div class="scope-row"><div class="scope-dot"></div><div class="scope-text">Achieve verbal commitment on next step (POC, proposal, or budget approval)</div></div>
+          </div>
+          <div class="scope-box">
+            <div class="scope-box-title">✅ DEMO SUCCESS LOOKS LIKE</div>
+            ${fields.success ? '<div class="scope-row"><div class="scope-dot" style="background:var(--color-success)"></div><div class="scope-text"><strong>Customer\'s own words:</strong> "' + fields.success.substring(0, 150) + '"</div></div>' : '<div class="scope-row"><div class="scope-dot"></div><div class="scope-text">⚠️ Success criteria not captured — ask this question before the demo</div></div>'}
+            <div class="scope-row"><div class="scope-dot" style="background:var(--color-success)"></div><div class="scope-text">Customer agrees to next step (POC, pilot, or formal proposal)</div></div>
+            <div class="scope-row"><div class="scope-dot" style="background:var(--color-success)"></div><div class="scope-text">Economic Buyer engaged or identified path to them</div></div>
+            <div class="scope-row"><div class="scope-dot" style="background:var(--color-success)"></div><div class="scope-text">Competitive objections addressed and differentiation understood</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Competitive Context
+        </div>
+        <div class="output-item">${competitiveNotes}</div>
+        ${/skm/i.test(fields.competition) ? '<div class="output-item"><strong>Key ETAP Differentiators vs. SKM:</strong> eSCADA real-time digital twin · AVEVA/PI System integration · Automated model sync from SCADA · 50-year industrial pedigree · IEC 60909 + IEEE 1584-2018 compliance · Simulation-before-operate switching workflows</div>' : ''}
+        ${/easypower/i.test(fields.competition) ? '<div class="output-item"><strong>Key ETAP Differentiators vs. EasyPower:</strong> 100K+ bus scalability · EMT & Transient Stability simulation · Real-time eSCADA monitoring · AVEVA round-trip integration · IEC 61000 harmonic compliance · Advanced protection coordination (Z-Star)</div>' : ''}
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Next Steps & Action Items
+        </div>
+        ${nextSteps.map((s, i) => '<div class="output-item"><strong>' + (i+1) + '.</strong> ' + s + '</div>').join('')}
+      </div>
+
+      <div class="output-section">
+        <div class="output-section-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Recommended Demo Agenda (60 min)
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Time</th><th>Topic</th><th>Goal</th></tr></thead>
+          <tbody>
+            <tr><td>0:00–0:05</td><td>Welcome & Agenda Alignment</td><td>Confirm objectives, restate their success criteria</td></tr>
+            <tr><td>0:05–0:15</td><td>${modules[0]?.name || 'Arc Flash Analysis'} — High Priority Demo</td><td>Address #1 pain point immediately</td></tr>
+            <tr><td>0:15–0:30</td><td>${modules[1]?.name || 'Short Circuit & Protection Coordination'}</td><td>Show protection coordination workflow, report generation</td></tr>
+            <tr><td>0:30–0:40</td><td>${/scada|real.time|pi/i.test(fields.scada+fields.integration) ? 'eSCADA Digital Twin — Real-Time Monitoring' : modules[2]?.name || 'Load Flow & Voltage Analysis'}</td><td>${/scada|real.time/i.test(fields.scada) ? 'Demonstrate live data integration, state estimation' : 'Show modeling and simulation workflow'}</td></tr>
+            <tr><td>0:40–0:48</td><td>${/aveva/i.test(fields.integration) ? 'ETAP–AVEVA Integration (DataX)' : 'Model Management & Change Tracking'}</td><td>Differentiate from incumbent — show ecosystem value</td></tr>
+            <tr><td>0:48–0:55</td><td>Automated Reporting & Compliance Documentation</td><td>Connect to their reporting requirements</td></tr>
+            <tr><td>0:55–1:00</td><td>Q&A + Next Step Commitment</td><td>Secure POC, proposal, or budget approval commitment</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:16px;padding:16px;background:var(--color-surface-offset);border-radius:var(--radius-md);font-size:var(--text-xs);color:var(--color-text-faint);">
+        Generated by ETAP Discovery Skill · AVEVA Presales · ${new Date().toLocaleDateString()} · Opportunity Score: ${score}/100
+      </div>
+    </div>
+  `;
+
+  document.getElementById('output-badge').textContent = '✓';
+  document.getElementById('output-badge').classList.add('done');
+  goToPage('page-output');
+}
+
+// ===== PRINT =====
+function printNotes() {
+  window.print();
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  updateProgress();
+  
+  // Set today\'s date
+  const dateField = document.getElementById('i_date');
+  if (dateField) dateField.value = new Date().toISOString().split('T')[0];
+  
+  // Attach change listeners for progress
+  document.querySelectorAll('.question-note-area, .form-input').forEach(el => {
+    el.addEventListener('input', updateProgress);
+  });
+});
+</script>
+</body>
+</html>
