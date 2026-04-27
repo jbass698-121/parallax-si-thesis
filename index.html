@@ -947,12 +947,139 @@ run-member-health.ps1</code></pre>
       </ol>
     </div>
   </details>
+
+  <!-- Appendix E: Cowork SDA — AVEVA AI Knowledge Engine -->
+  <details class="bg-white border-2 border-accent rounded mb-3" open>
+    <summary class="p-5 flex justify-between items-center hover:bg-warmwhite">
+      <div>
+        <p class="pill bg-accent text-white mb-2">E · NEW</p>
+        <p class="text-lg font-semibold text-navy">Cowork SDA: The AVEVA-Specific AI Knowledge Engine</p>
+        <p class="text-xs text-subtle mt-1">Second-domain proof — the framework already adapted to AVEVA pre-sales / solution architecture</p>
+      </div>
+      <span class="chev text-subtle">▼</span>
+    </summary>
+    <div class="p-5 pt-0 border-t border-gray-100">
+
+      <div class="bg-highlight border-l-4 border-accent p-4 rounded-r my-5">
+        <p class="text-sm text-ink leading-relaxed"><strong>Why this appendix matters.</strong> Appendix A documents the framework operating in a non-industrial domain (multi-site retail). This appendix documents the <em>same framework already adapted to AVEVA</em>: pre-sales, solution architecture, ROI validation, competitive intelligence, and industry-playbook delivery. The Year-1 transformation budget (~$0.5M AI framework deployment) is more defensible because the framework already exists in source-available form, partially AVEVA-specific, and is the operator's current daily tooling.</p>
+      </div>
+
+      <h4 class="font-semibold text-navy mt-6 mb-3">E.1 What it is</h4>
+      <p class="text-sm text-ink leading-relaxed mb-4"><strong>Cowork SDA</strong> ("Solution Delivery Architect") is a custom AI presales / solution-architecture knowledge engine built by the operator and currently operating as a Cowork skill. Originally configured as a Perplexity Space, it was consolidated and migrated to Cowork to gain capabilities Perplexity could not deliver: real file access (PDFs, PPTXs, Excel), scheduled task automation, code execution, document generation, and enforceable confidence-validation against live sources. The architectural lineage of the AI rails was sharpened during the operator's Schneider Electric role (Jun 2023 – Jan 2026) for industrial automation specifically, then ported to operator ownership.</p>
+
+      <h4 class="font-semibold text-navy mt-6 mb-3">E.2 Verified scale (live workspace, 2026-04-27)</h4>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+        <div class="bg-white border border-gray-200 p-3 rounded">
+          <p class="text-2xl font-serif font-bold text-navy num-tabular">366</p>
+          <p class="text-xs text-subtle leading-tight mt-1">Total files under management</p>
+        </div>
+        <div class="bg-white border border-gray-200 p-3 rounded">
+          <p class="text-2xl font-serif font-bold text-navy num-tabular">2.9 GB</p>
+          <p class="text-xs text-subtle leading-tight mt-1">Directory size</p>
+        </div>
+        <div class="bg-white border border-gray-200 p-3 rounded">
+          <p class="text-2xl font-serif font-bold text-navy num-tabular">7,447</p>
+          <p class="text-xs text-subtle leading-tight mt-1">Lines optimized markdown (41 files)</p>
+        </div>
+        <div class="bg-white border border-gray-200 p-3 rounded">
+          <p class="text-2xl font-serif font-bold text-navy num-tabular">204</p>
+          <p class="text-xs text-subtle leading-tight mt-1">Source assets (153 PDFs + 45 PPTXs + 6 videos)</p>
+        </div>
+        <div class="bg-white border border-gray-200 p-3 rounded">
+          <p class="text-2xl font-serif font-bold text-navy num-tabular">75+</p>
+          <p class="text-xs text-subtle leading-tight mt-1">Live intelligence sources tracked</p>
+        </div>
+        <div class="bg-white border border-gray-200 p-3 rounded">
+          <p class="text-2xl font-serif font-bold text-navy num-tabular">30+</p>
+          <p class="text-xs text-subtle leading-tight mt-1">Profiled competitors with battlecards</p>
+        </div>
+        <div class="bg-white border border-gray-200 p-3 rounded">
+          <p class="text-2xl font-serif font-bold text-navy num-tabular">4</p>
+          <p class="text-xs text-subtle leading-tight mt-1">Industry playbooks (O&G, Mining, Pharma, Water)</p>
+        </div>
+        <div class="bg-white border border-gray-200 p-3 rounded">
+          <p class="text-2xl font-serif font-bold text-navy num-tabular">3</p>
+          <p class="text-xs text-subtle leading-tight mt-1">VERIFIED ROI calculator files (1,707 lines)</p>
+        </div>
+      </div>
+
+      <h4 class="font-semibold text-navy mt-6 mb-3">E.3 Architecture parallels with the UCWH operations stack</h4>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs border-collapse">
+          <thead class="bg-accent/5">
+            <tr class="border-b-2 border-accent">
+              <th class="text-left p-2 w-1/3">Pattern (UCWH)</th>
+              <th class="text-left p-2 w-1/3">Pattern (Cowork SDA)</th>
+              <th class="text-left p-2 w-1/3">Function</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr><td class="p-2"><code class="bg-gray-100 px-1 rounded">Wash-Utils.psm1</code> + 25 orchestrators</td><td class="p-2"><code class="bg-gray-100 px-1 rounded">00-ORCHESTRATOR.md</code> master persona/routing engine + 41 indexed knowledge files</td><td class="p-2 text-subtle">Single source of truth + delegated execution</td></tr>
+            <tr><td class="p-2">Cache freshness contracts (daily &lt;24h / weekly &lt;7d)</td><td class="p-2"><code class="bg-gray-100 px-1 rounded">Live-Sources-Registry-v3-GitHub.md</code> + <code class="bg-gray-100 px-1 rounded">Workflow-Schedule-v2-GitHub.md</code></td><td class="p-2 text-subtle">Scheduled freshness verification</td></tr>
+            <tr><td class="p-2">Two-surface Slack (audience vs. ops)</td><td class="p-2">Three-tier response architecture (Executive Impact → Technical Solution → Competitive Battlecard)</td><td class="p-2 text-subtle">Audience-specific output discipline</td></tr>
+            <tr><td class="p-2">Per-task model-effort allocation</td><td class="p-2"><code class="bg-gray-100 px-1 rounded">CONFIDENCE-AND-QUALITY.md</code> — mandatory confidence tagging on every claim (HIGH/MED/LOW/UNKNOWN)</td><td class="p-2 text-subtle">Quality enforcement at output</td></tr>
+            <tr><td class="p-2">Vision QA on rendered HTML</td><td class="p-2"><code class="bg-gray-100 px-1 rounded">url-validation-system.md</code> — automated URL health monitoring</td><td class="p-2 text-subtle">Output integrity / link rot prevention</td></tr>
+            <tr><td class="p-2">Single source of truth (<code class="bg-gray-100 px-1 rounded">fact_daily_metrics</code>)</td><td class="p-2"><code class="bg-gray-100 px-1 rounded">aveva_competitors_comprehensive.csv</code> + canonical battlecard files (83% deduplication)</td><td class="p-2 text-subtle">De-duplicated canonical reference</td></tr>
+            <tr><td class="p-2">Exit-code semantics (0/1/2)</td><td class="p-2"><code class="bg-gray-100 px-1 rounded">aveva-quality-control-system.md</code> + <code class="bg-gray-100 px-1 rounded">metadata-management.md</code></td><td class="p-2 text-subtle">Pipeline gating</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="font-semibold text-navy mt-6 mb-3">E.4 Direct AVEVA / Schneider portfolio coverage</h4>
+      <div class="grid lg:grid-cols-2 gap-4 text-xs">
+        <div class="bg-white border-l-2 border-navy pl-3 py-1">
+          <p class="font-semibold text-navy text-sm mb-1">AVEVA software stack</p>
+          <p class="text-ink">System Platform, InTouch HMI, Unified Operations Center, PI System, Enterprise SCADA (OASyS / Telvent), AIM, AVEVA CONNECT, Plant SCADA, Predictive Analytics, Unified Engineering, Production Accounting, Pipeline Integrity Monitor</p>
+        </div>
+        <div class="bg-white border-l-2 border-navy pl-3 py-1">
+          <p class="font-semibold text-navy text-sm mb-1">Schneider hardware integration</p>
+          <p class="text-ink">Modicon PLC (M221–M580), Foxboro DCS, Altivar Drives, Triconex SIS, TeSys motor control</p>
+        </div>
+        <div class="bg-white border-l-2 border-navy pl-3 py-1">
+          <p class="font-semibold text-navy text-sm mb-1">EcoStruxure portfolio</p>
+          <p class="text-ink">Control Expert, Automation Expert (EAE), Power Monitoring Expert (PME), ETAP electrical digital twin</p>
+        </div>
+        <div class="bg-white border-l-2 border-navy pl-3 py-1">
+          <p class="font-semibold text-navy text-sm mb-1">Sales operations</p>
+          <p class="text-ink">Verified ROI calculators (InTouch Unlimited, Operations Control Edge, Tier 1–3 customers), TCO models, tier-based solution routing, AVEVA Flex subscription positioning</p>
+        </div>
+      </div>
+
+      <h4 class="font-semibold text-navy mt-6 mb-3">E.5 Engineering rigor — optimization metrics</h4>
+      <p class="text-sm text-ink mb-3">The Perplexity → Cowork migration was a systematic consolidation that demonstrates the same engineering discipline an SI factory requires:</p>
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-5">
+        <div class="bg-warmwhite p-3 rounded text-center"><p class="text-2xl font-serif font-bold text-navy">47%</p><p class="text-[10px] text-subtle">line reduction (11.8K → 6.2K)</p></div>
+        <div class="bg-warmwhite p-3 rounded text-center"><p class="text-2xl font-serif font-bold text-navy">83%</p><p class="text-[10px] text-subtle">competitive intel dedup</p></div>
+        <div class="bg-warmwhite p-3 rounded text-center"><p class="text-2xl font-serif font-bold text-navy">77%</p><p class="text-[10px] text-subtle">ROI content reduction</p></div>
+        <div class="bg-warmwhite p-3 rounded text-center"><p class="text-2xl font-serif font-bold text-navy">80%</p><p class="text-[10px] text-subtle">process doc reduction</p></div>
+        <div class="bg-warmwhite p-3 rounded text-center"><p class="text-2xl font-serif font-bold text-navy">61%</p><p class="text-[10px] text-subtle">source registry reduction</p></div>
+      </div>
+
+      <h4 class="font-semibold text-navy mt-6 mb-3">E.6 Why this strengthens the SI investment thesis</h4>
+      <div class="space-y-3 mb-5">
+        <div class="flex gap-3">
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-navy text-white text-xs font-bold flex items-center justify-center">1</div>
+          <div class="text-sm text-ink"><strong>Year-1 transformation budget defensibility.</strong> The Section 6 line item of ~$0.5M for AI framework deployment is now substantially de-risked. The framework already exists in source-available form (366 files, 7,447 lines), is partially AVEVA-specific, and is the operator's daily tooling. Phase 1 deployment becomes "port-and-tune," not "build-from-scratch."</div>
+        </div>
+        <div class="flex gap-3">
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-navy text-white text-xs font-bold flex items-center justify-center">2</div>
+          <div class="text-sm text-ink"><strong>Day-1 productivity at the acquired SI.</strong> The acquired SI's pre-sales and solution-architecture team can be onboarded onto an AVEVA-specific AI knowledge engine that already covers their full product portfolio, top competitors, ROI calculators, and industry playbooks. Most SIs spend 12–18 months getting to this state. The acquired entity gets there in weeks.</div>
+        </div>
+        <div class="flex gap-3">
+          <div class="flex-shrink-0 w-6 h-6 rounded-full bg-navy text-white text-xs font-bold flex items-center justify-center">3</div>
+          <div class="text-sm text-ink"><strong>A second exit path.</strong> Cowork SDA is a productizable software asset <em>today</em> — a vertical AI-augmented presales tool for the AVEVA ecosystem. Shifts the IP-licensing exit option from "long-term aspiration" to "near-term option."</div>
+        </div>
+      </div>
+
+      <p class="text-xs text-subtle italic mt-5">This is not documentation about a future deliverable. It is the operator's current presales / solution-architecture knowledge engine, running today.</p>
+    </div>
+  </details>
 </section>
 
 <!-- ============================================ FOOTER ============================================ -->
 <footer class="border-t border-gray-200 pt-8 pb-12 text-xs text-subtle leading-relaxed max-w-3xl">
   <p class="mb-2"><em>This document is a working draft prepared for refinement with a co-investor partner. All financial figures for the GCAP archetype are illustrative based on public market data. Confidence: MEDIUM-HIGH — operator pedigree publicly verifiable; AI framework operating in production today (Appendix A); financial model rests on industry-standard comparables.</em></p>
-  <p>Prepared April 26, 2026 by Jason Bass, Parallax Private Holdings.</p>
+  <p>Prepared April 27, 2026 by Jason Bass, Managing Consultant, Parallax Private Holdings.</p>
 </footer>
 
 </main>
@@ -1064,26 +1191,26 @@ function thesis() {
 
     houstonShortlist: [
       { rank: 1, company: 'EnerSys Corporation', location: 'Houston, TX', signals: 'Registered AVEVA SI since June 2022; proprietary POEMS platform (Pipeline Operations & Emergency Management) built as plug-in for AVEVA Enterprise SCADA; alarm management per API RP 1167; founder Russell W. Treat (1994 founding)', fit: 'Cleanest founder-led / succession profile of the three. Proprietary IP moat (POEMS). Pipeline ops vertical maps cleanly to Gulf Coast midstream. AVEVA partnership signals broaden-into-AVEVA strategy.', priority: 'High', priorityRank: 3 },
-      { rank: 2, company: 'Invasystems, Inc.', location: 'Sugar Land, TX', signals: '13+ years AVEVA PI Server / AF Asset Framework SI; multi-site PI deployments (50+ facilities); 101–500 employees per Crunchbase; CEO Sagar Chitnis is founder (ex-NTT DATA Services SVP)', fit: 'Founder-led with energy/process manufacturing pedigree. Sugar Land HQ in petrochem corridor. AVEVA practice narrow to PI — System Platform depth needs diligence verification.', priority: 'High', priorityRank: 3 },
-      { rank: 3, company: 'Mangan Inc. / Mangan Software', location: 'Houston, TX', signals: 'REPOSITIONED: deeper research shows core asset is proprietary SLM Platform (SIS / process safety, IEC 61511/61508), not AVEVA SI. Subsidiary ~14–20 employees, ~$5.2M revenue. Parent employee-owned, CEO non-founder.', fit: 'Does NOT fit the AVEVA SI thesis. DOES fit a different thesis: acquire vertical process-safety SaaS asset embedded in energy. Valid as adjacent acquisition, not primary platform target.', priority: 'Repositioned', priorityRank: 0 },
-      { rank: 4, company: 'NeoMatrix', location: 'Houston-area', signals: 'Certified AVEVA System Platform integrator; team of certified engineers', fit: 'AVEVA-certified; size and practice depth need verification — likely smaller than archetype', priority: 'Medium', priorityRank: 2 },
-      { rank: 5, company: 'Quad Plus', location: 'Sugar Land, TX', signals: 'Industrial automation; oil & gas + adjacent industries; broader controls/electrical practice', fit: 'AVEVA depth weak — historically more electrical/controls-generalist; deprioritized', priority: 'Lower', priorityRank: 1 },
-      { rank: 6, company: 'JADE Controls', location: 'DFW HQ + Houston ops', signals: 'Petrochemical, hazardous-area, regulatory compliance focus', fit: 'Geographic fit weaker (Houston is secondary); deprioritized', priority: 'Lower', priorityRank: 1 },
-      { rank: 7, company: 'Kraken Engineering LLC', location: 'Houston, TX', signals: 'SCADA, IIoT cloud integration, retrofitting; smaller shop', fit: 'Likely too small; potential post-acquisition bolt-on', priority: 'Lower', priorityRank: 1 },
+      { rank: 2, company: 'Invasystems, Inc.', location: 'Sugar Land, TX', signals: '13+ years AVEVA PI Server / AF Asset Framework SI; multi-site PI deployments (50+ facilities); 101-500 employees per Crunchbase; CEO Sagar Chitnis is founder (ex-NTT DATA Services SVP)', fit: 'Founder-led with energy/process manufacturing pedigree. Sugar Land HQ in petrochem corridor. AVEVA practice narrow to PI - System Platform depth needs diligence verification.', priority: 'High', priorityRank: 3 },
+      { rank: 3, company: 'Mangan Inc. / Mangan Software', location: 'Houston, TX', signals: 'REPOSITIONED: deeper research shows core asset is proprietary SLM Platform (SIS / process safety, IEC 61511/61508), not AVEVA SI. Subsidiary ~14-20 employees, ~$5.2M revenue. Parent employee-owned, CEO non-founder.', fit: 'Does NOT fit the AVEVA SI thesis. DOES fit a different thesis: acquire vertical process-safety SaaS asset embedded in energy. Valid as adjacent acquisition, not primary platform target.', priority: 'Repositioned', priorityRank: 0 },
+      { rank: 4, company: 'NeoMatrix', location: 'Houston-area', signals: 'Certified AVEVA System Platform integrator', fit: 'AVEVA-certified; size and practice depth need verification - likely smaller than archetype', priority: 'Medium', priorityRank: 2 },
+      { rank: 5, company: 'Quad Plus', location: 'Sugar Land, TX', signals: 'Industrial automation; oil & gas + adjacent', fit: 'AVEVA depth weak; deprioritized', priority: 'Lower', priorityRank: 1 },
+      { rank: 6, company: 'JADE Controls', location: 'DFW HQ + Houston ops', signals: 'Petrochem, hazardous-area, regulatory', fit: 'Geographic fit weaker; deprioritized', priority: 'Lower', priorityRank: 1 },
+      { rank: 7, company: 'Kraken Engineering LLC', location: 'Houston, TX', signals: 'SCADA, IIoT, retrofitting; smaller shop', fit: 'Likely too small; potential post-acquisition bolt-on', priority: 'Lower', priorityRank: 1 },
     ],
     sortKey: 'rank',
     sortDir: 1,
 
     mapping: [
-      { ucwh: 'Orchestrator-per-task with HOLD/FATAL exit semantics', aveva: 'Project gate orchestrator: intake → FDS → BOM → template → FAT → SAT → deploy', why: 'Eliminates ad-hoc PM coordination; gates enforce go/no-go automatically' },
+      { ucwh: 'Orchestrator-per-task with HOLD/FATAL exit semantics', aveva: 'Project gate orchestrator: intake -> FDS -> BOM -> template -> FAT -> SAT -> deploy', why: 'Eliminates ad-hoc PM coordination; gates enforce go/no-go automatically' },
       { ucwh: 'Shared utility module (Wash-Utils.psm1, 607 lines)', aveva: 'Shared AVEVA helper library: Galaxy access, ArchestrA template instantiation, alarm/security stamp', why: 'Engineers stop reinventing the same 200 lines per project' },
-      { ucwh: 'Cache freshness contracts', aveva: '"Last validated equipment list <30 days" / "Last validated P&ID rev <X" gates on quote and FDS', why: 'Prevents quoting from stale BOMs; eliminates a class of post-quote rework' },
-      { ucwh: 'Single source of truth (fact_daily_metrics)', aveva: 'Single source of truth for project state; no spreadsheet sprawl', why: 'Status reporting becomes a query, not a Friday afternoon ritual' },
-      { ucwh: 'Two-surface Slack (audience vs. ops)', aveva: 'Customer comms channel vs. internal PM/eng plumbing channel', why: 'Customers see only signal; engineering sees only work' },
-      { ucwh: 'Per-task model-effort allocation', aveva: 'Per-deliverable AI usage: Sonnet for FDS/BOM; Opus for risk analysis, validation strategy', why: 'Optimizes AI cost per project; prevents "Opus for everything"' },
-      { ucwh: 'Vision QA auto-correct on rendered HTML', aveva: 'Vision QA on rendered HMI screens vs. design intent; auto-flag pre-FAT', why: 'Catches HMI rendering bugs that today require manual screen-by-screen review' },
-      { ucwh: 'Pull-based portal architecture (Netlify auto-discovery)', aveva: 'Pull-based customer portal — new project artifacts auto-appear when published', why: 'Eliminates portal-update PM overhead' },
-      { ucwh: 'Index optimizer (nightly)', aveva: 'Nightly project-state optimizer: Galaxy hygiene, drift, naming violations', why: 'Catches issues before they compound into delivery problems' },
+      { ucwh: 'Cache freshness contracts', aveva: '"Last validated equipment list <30 days" gates on quote and FDS generation', why: 'Prevents quoting from stale BOMs' },
+      { ucwh: 'Single source of truth (fact_daily_metrics)', aveva: 'Single source of truth for project state; no spreadsheet sprawl', why: 'Status reporting becomes a query' },
+      { ucwh: 'Two-surface Slack (audience vs. ops)', aveva: 'Customer comms channel vs. internal PM/eng plumbing channel', why: 'Customers see only signal' },
+      { ucwh: 'Per-task model-effort allocation', aveva: 'Per-deliverable AI: Sonnet for FDS/BOM; Opus for risk analysis', why: 'Optimizes AI cost per project' },
+      { ucwh: 'Vision QA on rendered HTML', aveva: 'Vision QA on rendered HMI screens vs. design intent; auto-flag pre-FAT', why: 'Catches HMI rendering bugs' },
+      { ucwh: 'Pull-based portal architecture', aveva: 'Pull-based customer portal - new project artifacts auto-appear when published', why: 'Eliminates portal-update PM overhead' },
+      { ucwh: 'Index optimizer (nightly)', aveva: 'Nightly project-state optimizer: Galaxy hygiene, drift, naming violations', why: 'Catches issues before they compound' },
     ],
 
     sources: [
@@ -1093,20 +1220,15 @@ function thesis() {
       { id: 'aveva-si', title: 'AVEVA SI Partner Program documentation', url: 'https://gulf.avevaselect.com/wp-content/uploads/2023/03/Brochure-AVEVA-SI-Program.pdf' },
       { id: 'aveva-sp', title: 'AVEVA System Platform project workflow', url: 'https://docs.aveva.com/bundle/system-platform/page/661425.html' },
       { id: 'aveva-mes', title: 'AVEVA Composable and Model-Driven MES', url: 'https://docs.aveva.com/bundle/composable-and-model-driven-mes/page/1541299.html' },
-      { id: 'aveva-templates', title: 'AVEVA Templates and Instances (System Platform)', url: 'https://docs.aveva.com/bundle/sp-appserver/page/248505.html' },
-      { id: 'aveva-blueprint', title: 'AVEVA SI Growth Blueprint blog', url: 'https://www.aveva.com/en/perspectives/blog/the-si-growth-blueprint-scalable-services-and-recurring-revenue/' },
       { id: 'gvr', title: 'Grand View Research, North America System Integrators Market 2030', url: 'https://www.grandviewresearch.com/horizon/outlook/system-integrators-market/north-america' },
       { id: 'cherry-bekaert', title: 'Cherry Bekaert Private Equity Report 2025', url: 'https://www.cbh.com/insights/reports/private-equity-report-2025-trends-and-2026-outlook/' },
-      { id: 'investec', title: 'Investec Industrial System Integration M&A Report 2025', url: 'https://www.investec.com/advisory/industrial-system-integration-ma-and-market-trends-2025/' },
       { id: 'meridian', title: 'Meridian IB Industrial Automation & Robotics M&A Update Spring 2025', url: 'https://meridianib.com/wp-content/uploads/Industrial-Automation-Robotics-MA-Market-Update_Spring-2025_Website.pdf' },
-      { id: 'rl-hulett', title: 'RL Hulett Industrials M&A Update Q4 2025', url: 'https://rlhulett.com/app/uploads/2026/01/Industrials-MA-Update-Q4-2025.pdf' },
       { id: 'first-page-sage', title: 'First Page Sage EBITDA Multiples for Engineering Companies, 2025', url: 'https://firstpagesage.com/business/ebitda-multiples-for-engineering-companies/' },
-      { id: 'mckinsey', title: 'McKinsey AI Revolution in Software Development', url: 'https://www.mckinsey.com/capabilities/tech-and-ai/our-insights/the-ai-revolution-in-software-development' },
       { id: 'google-ai', title: 'Google CEO statement: 75% of new code AI-generated (April 2026)', url: 'https://www.businessinsider.com/google-ai-generated-code-75-gemini-agents-software-2026-4' },
       { id: 'aveva-schneider', title: 'AVEVA Group plc / Schneider Electric ownership', url: 'https://www.se.com/ww/en/assets/564/document/357469/aveva-accounts-march-2022.pdf' },
-      { id: 'maverick', title: 'MAVERICK Technologies / Rockwell Automation', url: 'https://www.rockwellautomation.com/en-us/capabilities/maverick-technologies.html' },
-      { id: 'tommys', title: 'Tommy\'s Express Houston (TX160)', url: 'https://tommys-express.com/fr/locations/tx160/' },
       { id: 'inflexionpoint', title: 'InflexionPoint (formerly Automated Control Concepts) - Sverica Capital portfolio', url: 'https://inflexionpoint.ai/pages_company/about.php' },
+      { id: 'enersys', title: 'EnerSys Corporation joins AVEVA Partner Network (June 2022)', url: 'https://www.enersyscorp.com/enersys-corporation-joins-aveva-partner-network/' },
+      { id: 'invasystems', title: 'Invasystems AVEVA PI Services', url: 'https://invasystems.com/aveva-pi-services' },
     ],
 
     cite: { visible: false, x: 0, y: 0, title: '', url: '' },
@@ -1114,22 +1236,18 @@ function thesis() {
     model: { compression: 50, recurring: 55, multiple: 11, years: 3, boltOn: true },
 
     get output() {
-      // EBITDA bridge: $2.7M base, scales with compression. At 0% compression: $2.7M (no growth). At 50%: $9.5M. At 70% + bolt-on: $12.5M.
-      let ebitda = 2.7 + (this.model.compression / 50) * 6.8; // 0% → 2.7; 50% → 9.5
-      if (this.model.boltOn) ebitda += 2.0; // bolt-on adds ~$2M EBITDA
-      // Multiple adjustment: recurring revenue mix at exit gives +/- premium. 35% baseline = -1.0x; 55% = 0; 70% = +1.5x
+      let ebitda = 2.7 + (this.model.compression / 50) * 6.8;
+      if (this.model.boltOn) ebitda += 2.0;
       const recurringBonus = (this.model.recurring - 55) / 15 * 1.5;
       const adjustedMult = this.model.multiple + recurringBonus;
       const enterpriseValue = ebitda * adjustedMult;
-      const exitDebt = 5; // assumed remaining
+      const exitDebt = 5;
       const exitEquity = enterpriseValue - exitDebt;
       const moic = exitEquity / 10.6;
       const irr = (Math.pow(moic, 1 / this.model.years) - 1) * 100;
-
       let label = 'Base';
       if (moic >= 12) label = 'Bull';
       else if (moic <= 5) label = 'Bear';
-
       return { ebitda, exitEquity, moic, irr, label };
     },
 
@@ -1139,14 +1257,11 @@ function thesis() {
     },
 
     checkPassword() {
-      // Lightweight client-side gate; production would use real auth.
-      // Accepting two passwords: case-insensitive check, multiple options.
       const pw = this.passwordInput.toLowerCase().trim();
       const valid = ['parallax2026', 'wonderwarewest', 'aveva-thesis', 'jason'].includes(pw);
       if (valid) {
         this.unlocked = true;
         this.passwordError = false;
-        // Animate counters after unlock
         this.$nextTick(() => {
           this.animateCounters();
           this.renderCharts();
