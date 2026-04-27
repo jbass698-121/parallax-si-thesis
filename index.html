@@ -77,8 +77,8 @@
   <div class="max-w-md w-full bg-warmwhite rounded-lg shadow-2xl p-10">
     <p class="pill bg-accent/10 text-accent mb-6">CONFIDENTIAL · INVESTOR DOCUMENT</p>
     <h1 class="text-3xl font-serif font-bold text-navy mb-2">AI-First Industrial Automation Platform</h1>
-    <p class="text-subtle text-sm mb-1">Business Plan & Investment Thesis · v2 (PE Sharpened)</p>
-    <p class="text-subtle text-sm mb-8">Prepared by Jason Bass · Parallax Private Holdings · April 26, 2026</p>
+    <p class="text-subtle text-sm mb-1">Business Plan & Investment Thesis · v3 (Deep QA Pass)</p>
+    <p class="text-subtle text-sm mb-8">Prepared by Jason Bass · Managing Consultant, Parallax Private Holdings · April 26, 2026</p>
     <form @submit.prevent="checkPassword()" class="space-y-4">
       <div>
         <label class="block text-xs font-medium text-subtle uppercase tracking-wider mb-2">Access Code</label>
@@ -133,9 +133,9 @@
   <div class="flex flex-wrap gap-3 text-sm text-subtle mb-12">
     <span><strong class="text-ink">Operator:</strong> Jason Bass</span>
     <span class="text-gray-300">|</span>
-    <span>President / GM (former), Wonderware West</span>
+    <span>Managing Consultant, Parallax Private Holdings</span>
     <span class="text-gray-300">|</span>
-    <span>Parallax Private Holdings</span>
+    <span>former President & GM, Wonderware West</span>
     <span class="text-gray-300">|</span>
     <span>April 26, 2026</span>
   </div>
@@ -213,26 +213,36 @@
     Jason Bass has spent a quarter century at the operating center of the industrial automation ecosystem — from field-level systems integration through executive leadership of one of AVEVA's most significant regional distribution and services organizations.
   </p>
 
-  <!-- Career timeline -->
-  <div class="border-l-2 border-navy ml-2 pl-6 space-y-6 my-10 max-w-3xl">
-    <div>
-      <div class="absolute w-3 h-3 bg-navy rounded-full -ml-[31px] mt-1.5"></div>
-      <p class="text-xs font-semibold text-navy uppercase tracking-wider">2000s – 2022</p>
-      <p class="font-semibold text-ink mt-1">President / General Manager, Wonderware West (Standard Automation and Control LP)</p>
-      <p class="text-sm text-subtle mt-1">Built and scaled a delivery organization. Managed AVEVA vendor relationship at executive level. Full project lifecycle from pre-sales through commissioning across the Gulf Coast, Southwest, and Western US markets.</p>
-    </div>
-    <div>
-      <div class="absolute w-3 h-3 bg-navy rounded-full -ml-[31px] mt-1.5"></div>
-      <p class="text-xs font-semibold text-navy uppercase tracking-wider">September 2022</p>
-      <p class="font-semibold text-ink mt-1">Wonderware West acquired by Q-mation Inc.</p>
-      <p class="text-sm text-subtle mt-1">Acquisition expanded Q-mation's footprint into 10 additional states (TX, OK, LA, CO, WY, MT, NV, UT, NM, AZ). Public-record revenue ~$33M, 159 employees<span class="citation" @mouseenter="showCite($event, 'q-mation-acq')" @mouseleave="hideCite()">[1]</span>.</p>
-    </div>
-    <div>
-      <div class="absolute w-3 h-3 bg-navy rounded-full -ml-[31px] mt-1.5"></div>
-      <p class="text-xs font-semibold text-navy uppercase tracking-wider">2024 – Present</p>
-      <p class="font-semibold text-ink mt-1">Founder / GM-VP, Parallax Private Holdings</p>
-      <p class="text-sm text-subtle mt-1">Three Tommy's Express car wash locations (TX190 Webster, TX160 Houston FM 1960, UT426 Saratoga Springs UT). Built the AI-first operations stack (live in production — see Framework section).</p>
-    </div>
+  <p class="text-base text-ink leading-relaxed mb-4 max-w-3xl"><strong>The path to executive leadership ran <em>through</em> every functional area of an AVEVA delivery organization, not <em>around</em> them.</strong> Career arc at Wonderware West (Standard Automation and Control LP, ultimately acquired by Q-mation Inc. in September 2022):</p>
+
+  <!-- Career arc table -->
+  <div class="bg-white border border-gray-200 rounded my-8 overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead class="bg-accent/5 border-b-2 border-accent">
+        <tr>
+          <th class="text-left p-3 text-xs uppercase tracking-wider text-navy w-1/4">Phase</th>
+          <th class="text-left p-3 text-xs uppercase tracking-wider text-navy">Role and contribution</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        <tr><td class="p-3 align-top text-xs uppercase tracking-wider text-subtle">Entry</td><td class="p-3"><strong class="text-navy">Technical Support</strong> — direct customer hands-on with the AVEVA / Wonderware product stack</td></tr>
+        <tr><td class="p-3 align-top text-xs uppercase tracking-wider text-subtle">Mid-career</td><td class="p-3"><strong class="text-navy">Delivery Consultant</strong> for several years — full-lifecycle project delivery on System Platform and adjacent AVEVA products</td></tr>
+        <tr><td class="p-3 align-top text-xs uppercase tracking-wider text-subtle">Functional rotation</td><td class="p-3"><strong class="text-navy">Director of Marketing</strong> for a period — shaped regional go-to-market and AVEVA partner-program positioning</td></tr>
+        <tr><td class="p-3 align-top text-xs uppercase tracking-wider text-subtle">Practice leadership</td><td class="p-3"><strong class="text-navy">Pre-sales / Architecture Consultant, then Manager</strong> of the pre-sales / architecture team for many years — owned solution design across the largest Gulf Coast and Western US accounts</td></tr>
+        <tr><td class="p-3 align-top text-xs uppercase tracking-wider text-subtle">Operations leadership</td><td class="p-3"><strong class="text-navy">VP of Operations</strong> for several years — owned delivery quality, utilization, and engineering capacity across the regional org</td></tr>
+        <tr class="bg-navy/5"><td class="p-3 align-top text-xs uppercase tracking-wider text-subtle">Executive leadership</td><td class="p-3"><strong class="text-navy">President & General Manager</strong> — final role before Q-mation acquired the entity in September 2022. Managed AVEVA vendor relationship at executive level; oversaw delivery footprint across 10 states (TX, LA, OK, CO, WY, MT, NV, UT, NM, AZ)<span class="citation" @mouseenter="showCite($event, 'q-mation-acq')" @mouseleave="hideCite()">[1]</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bg-warmwhite border border-gray-300 p-5 rounded my-6">
+    <p class="font-semibold text-navy mb-2">Why the arc matters more than the title</p>
+    <p class="text-sm text-ink leading-relaxed">A 25-year operator who started in technical support and built up through delivery, marketing, pre-sales, architecture, operations, and finally executive leadership has personally lived every problem the acquired SI's engineers, PMs, and vendor-facing managers face today. This is operator pedigree, not a financial-sponsor parachute drop.</p>
+  </div>
+
+  <div class="my-6">
+    <p class="pill bg-accent/10 text-accent mb-2">CURRENT ROLE</p>
+    <p class="text-sm text-ink leading-relaxed">Following the Q-mation transition, Jason serves as <strong>Managing Consultant at Parallax Private Holdings</strong>, where he operates three Tommy's Express car wash locations (TX190 Webster, TX160 Houston FM 1960, UT426 Saratoga Springs UT) and has built the AI-first operations stack documented in the Framework section and Appendix A.</p>
   </div>
 
   <h3 class="text-lg font-semibold text-navy mb-4 mt-12">Why "why now" matters</h3>
@@ -556,7 +566,9 @@ Layer 6: NOTIFICATION
 
   <h3 class="text-lg font-semibold text-navy mt-12 mb-4">EBITDA margin bridge (Y0 → Y3, 19 percentage points)</h3>
   <div class="bg-white border border-gray-200 rounded p-6">
-    <canvas id="bridgeChart" height="80"></canvas>
+    <div style="position: relative; height: 320px; max-height: 320px;">
+      <canvas id="bridgeChart"></canvas>
+    </div>
     <p class="text-xs text-subtle italic mt-4">The 15% → 34% EBITDA margin expansion decomposes as: ~9 pts labor compression, ~6 pts revenue mix shift toward MSAs / managed services / AVEVA Flex, ~3 pts architect-substitution, ~1 pt G&A leverage. Drivers are independent and additive; downside cases stress-test what happens if any one delivers half its projected contribution.</p>
   </div>
 </section>
@@ -1010,7 +1022,7 @@ function thesis() {
       { risk: 'Recession / capex freeze in O&G', sev: 'Medium', mit: 'Recurring managed services base provides floor; Phase 3 diversification into life sciences provides counter-cyclicality.' },
       { risk: 'Vendor risk (AVEVA strategy changes)', sev: 'Low', mit: 'AVEVA model-driven MES roadmap directly supports SI factory model; Schneider Electric ownership provides financial stability.' },
       { risk: 'Competitive imitation', sev: 'Low', mit: '18–24 month head start on framework depth; operator relationships not replicable; framework documented in source-available form.' },
-      { risk: 'Operator concentration (Jason as single key person)', sev: 'Medium', mit: 'Key-person life insurance at close; Phase 2 architect-hire program builds management depth; framework documented and transferable.' },
+      { risk: 'Operator concentration (Jason as single key person)', sev: 'High', mit: 'This thesis substitutes one key-person risk (GCAP founder) with another. Mitigations: (1) AI framework documented in transferable form within 18 months, with technical co-lead operating it independently — milestone tied to architect-hire compensation; (2) Phase-2 architect hires take joint client relationship ownership on 5 largest accounts; (3) Key-person life insurance of $20M (~2x equity check) at close, payable to LP/co-investor; (4) Buy-sell provisions covering operator incapacitation; (5) Documented succession plan naming technical co-lead as interim CEO trigger. LP/co-investor should require 6/12/18-month framework-transferability covenant checkpoints.' },
     ],
 
     exits: [
@@ -1022,13 +1034,13 @@ function thesis() {
     ],
 
     houstonShortlist: [
-      { rank: 1, company: 'Invasystems, Inc.', location: 'Sugar Land, TX', signals: 'AVEVA + PI partnership (registered SI); oil & gas, chemicals, process manufacturing; CEO Sagar Chitnis', fit: 'AVEVA-deep practice; non-founder leadership reduces succession-dynamic fit but increases professional-buyer fit', priority: 'High', priorityRank: 3 },
-      { rank: 2, company: 'Mangan Inc.', location: 'Houston, TX', signals: 'Engineering & automation specialists; energy industry; subsidiary builds the SLM Platform (Process Safety / SIS Lifecycle); founder-named legacy', fit: 'Energy-vertical depth; founder-named entity increases succession-dynamic likelihood; AVEVA practice depth needs verification', priority: 'High', priorityRank: 3 },
-      { rank: 3, company: 'EnerSys Corporation', location: 'Houston, TX', signals: 'Joined AVEVA Partner Network as Registered SI June 2022; oil & gas pipeline control room mgmt', fit: 'Recent AVEVA partner (less depth than 12+ year incumbents); narrow vertical', priority: 'Medium', priorityRank: 2 },
+      { rank: 1, company: 'EnerSys Corporation', location: 'Houston, TX', signals: 'Registered AVEVA SI since June 2022; proprietary POEMS platform (Pipeline Operations & Emergency Management) built as plug-in for AVEVA Enterprise SCADA; alarm management per API RP 1167; founder Russell W. Treat (1994 founding)', fit: 'Cleanest founder-led / succession profile of the three. Proprietary IP moat (POEMS). Pipeline ops vertical maps cleanly to Gulf Coast midstream. AVEVA partnership signals broaden-into-AVEVA strategy.', priority: 'High', priorityRank: 3 },
+      { rank: 2, company: 'Invasystems, Inc.', location: 'Sugar Land, TX', signals: '13+ years AVEVA PI Server / AF Asset Framework SI; multi-site PI deployments (50+ facilities); 101–500 employees per Crunchbase; CEO Sagar Chitnis is founder (ex-NTT DATA Services SVP)', fit: 'Founder-led with energy/process manufacturing pedigree. Sugar Land HQ in petrochem corridor. AVEVA practice narrow to PI — System Platform depth needs diligence verification.', priority: 'High', priorityRank: 3 },
+      { rank: 3, company: 'Mangan Inc. / Mangan Software', location: 'Houston, TX', signals: 'REPOSITIONED: deeper research shows core asset is proprietary SLM Platform (SIS / process safety, IEC 61511/61508), not AVEVA SI. Subsidiary ~14–20 employees, ~$5.2M revenue. Parent employee-owned, CEO non-founder.', fit: 'Does NOT fit the AVEVA SI thesis. DOES fit a different thesis: acquire vertical process-safety SaaS asset embedded in energy. Valid as adjacent acquisition, not primary platform target.', priority: 'Repositioned', priorityRank: 0 },
       { rank: 4, company: 'NeoMatrix', location: 'Houston-area', signals: 'Certified AVEVA System Platform integrator; team of certified engineers', fit: 'AVEVA-certified; size and practice depth need verification — likely smaller than archetype', priority: 'Medium', priorityRank: 2 },
-      { rank: 5, company: 'Quad Plus', location: 'Sugar Land, TX', signals: 'Industrial automation; oil & gas + adjacent industries; broader controls/electrical practice', fit: 'AVEVA depth needs verification — historically more electrical/controls-generalist', priority: 'Medium', priorityRank: 2 },
-      { rank: 6, company: 'JADE Controls', location: 'DFW HQ + Houston ops', signals: 'Petrochemical, hazardous-area, regulatory compliance focus', fit: 'Petrochem aligned; AVEVA depth unverified; geographic fit weaker', priority: 'Lower', priorityRank: 1 },
-      { rank: 7, company: 'Kraken Engineering LLC', location: 'Houston, TX', signals: 'SCADA, IIoT cloud integration, retrofitting; smaller shop', fit: 'Likely too small (bolt-on candidate, not platform); platform-agnostic', priority: 'Lower', priorityRank: 1 },
+      { rank: 5, company: 'Quad Plus', location: 'Sugar Land, TX', signals: 'Industrial automation; oil & gas + adjacent industries; broader controls/electrical practice', fit: 'AVEVA depth weak — historically more electrical/controls-generalist; deprioritized', priority: 'Lower', priorityRank: 1 },
+      { rank: 6, company: 'JADE Controls', location: 'DFW HQ + Houston ops', signals: 'Petrochemical, hazardous-area, regulatory compliance focus', fit: 'Geographic fit weaker (Houston is secondary); deprioritized', priority: 'Lower', priorityRank: 1 },
+      { rank: 7, company: 'Kraken Engineering LLC', location: 'Houston, TX', signals: 'SCADA, IIoT cloud integration, retrofitting; smaller shop', fit: 'Likely too small; potential post-acquisition bolt-on', priority: 'Lower', priorityRank: 1 },
     ],
     sortKey: 'rank',
     sortDir: 1,
@@ -1124,7 +1136,6 @@ function thesis() {
         const tick = (now) => {
           const elapsed = now - start;
           const t = Math.min(elapsed / duration, 1);
-          // Ease-out cubic
           const eased = 1 - Math.pow(1 - t, 3);
           this.counters[i] = Math.floor(eased * final);
           if (t < 1) requestAnimationFrame(tick);
@@ -1148,7 +1159,7 @@ function thesis() {
           }],
         },
         options: {
-          plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => `${ctx.parsed.y} pts` } } },
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => ctx.parsed.y + ' pts' } } },
           scales: {
             y: { beginAtZero: true, max: 40, title: { display: true, text: 'EBITDA margin (%)', font: { size: 11 } }, ticks: { font: { size: 10 } } },
             x: { ticks: { font: { size: 10 }, maxRotation: 0, minRotation: 0 } },
@@ -1200,8 +1211,6 @@ function thesis() {
       const scrollTop = window.pageYOffset;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       this.progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-
-      // Active section detection
       const sections = this.navLinks.map(l => l.id);
       let active = sections[0];
       for (const id of sections) {
