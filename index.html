@@ -77,7 +77,7 @@
   <div class="max-w-md w-full bg-warmwhite rounded-lg shadow-2xl p-10">
     <p class="pill bg-accent/10 text-accent mb-6">CONFIDENTIAL · INVESTOR DOCUMENT</p>
     <h1 class="text-3xl font-serif font-bold text-navy mb-2">AI-First Industrial Automation Platform</h1>
-    <p class="text-subtle text-sm mb-1">Business Plan & Investment Thesis · v4 (Dual-Domain Proof)</p>
+    <p class="text-subtle text-sm mb-1">Business Plan & Investment Thesis · v7 (Three-Act, Market-First)</p>
     <p class="text-subtle text-sm mb-8">Prepared by Jason Bass · Managing Consultant, Parallax Private Holdings · April 27, 2026</p>
     <form @submit.prevent="checkPassword()" class="space-y-4">
       <div>
@@ -107,7 +107,7 @@
 <nav class="fixed left-0 top-0 h-screen w-56 px-6 py-10 hidden lg:block no-print overflow-y-auto" style="background: #FAFAF7;">
   <div class="mb-8">
     <p class="text-xs font-semibold text-navy uppercase tracking-wider mb-1">Parallax</p>
-    <p class="text-[10px] text-subtle leading-tight">SI Investment Thesis · v2</p>
+    <p class="text-[10px] text-subtle leading-tight">SI Investment Thesis · v7</p>
   </div>
   <ul class="space-y-3 text-sm text-subtle">
     <template x-for="link in navLinks" :key="link.id">
@@ -118,7 +118,7 @@
   </ul>
   <div class="mt-10 pt-6 border-t border-gray-200 text-[10px] text-subtle space-y-1">
     <p>Confidence: MEDIUM-HIGH</p>
-    <p>Updated 2026-04-26</p>
+    <p>Updated 2026-04-27 · v7</p>
     <button @click="window.print()" class="mt-3 text-accent underline hover:text-navy">Print version</button>
   </div>
 </nav>
@@ -129,7 +129,7 @@
 <section id="hero" class="hero-grid -mx-6 lg:-mx-16 px-6 lg:px-16 py-16 mb-16 border-b border-gray-200">
   <p class="pill bg-accent/10 text-accent mb-6">CONFIDENTIAL · PRIVATE EQUITY CO-INVESTOR / FAMILY OFFICE</p>
   <h1 class="text-5xl lg:text-6xl font-serif font-bold text-navy leading-tight mb-4">AI-First Industrial Automation Platform</h1>
-  <p class="text-2xl text-subtle font-serif mb-8">Business Plan & Investment Thesis · v2</p>
+  <p class="text-2xl text-subtle font-serif mb-8">Business Plan &amp; Investment Thesis · v7 (Three-Act, Market-First)</p>
   <div class="flex flex-wrap gap-3 text-sm text-subtle mb-12">
     <span><strong class="text-ink">Operator:</strong> Jason Bass</span>
     <span class="text-gray-300">|</span>
@@ -165,7 +165,10 @@
     <div class="bg-white border border-accent/30 rounded p-4 mt-3">
       <p class="text-xs font-semibold text-accent uppercase tracking-wider mb-2">Live artifact — produced FROM the SDA tool</p>
       <p class="text-sm text-ink leading-relaxed mb-2">
-        <strong>ETAP Discovery Skill</strong> — a 111 KB browser-runnable AVEVA pre-sales discovery tool with a 42 KB embedded AI interpretation engine, 6-section discovery flow, 30+ structured questions, AI-driven follow-up logic, and integrated demo-scope generator. References all major ETAP / Schneider modules (eSCADA, Arc Flash, Protection Coordination, Load Flow, Short Circuit, Transient Stability, PSMS).
+        <strong>ETAP Discovery Skill</strong> — a 111 KB browser-runnable AVEVA pre-sales discovery tool with a 42 KB embedded AI interpretation engine, 6-section discovery flow, 30+ structured questions, AI-driven follow-up logic, and integrated demo-scope generator. Covers the full ETAP study and operations portfolio (Load Flow, Short Circuit, Arc Flash, Protection Coordination, Transient Stability, eSCADA, PSMS), with module-prioritization logic based on customer pain profile.
+      </p>
+      <p class="text-xs text-subtle italic mb-2">
+        <strong>Ownership context:</strong> ETAP is a Schneider Electric-owned company (majority acquired 2021, full acquisition 2024–2025) managed alongside AVEVA under the One Software / EcoStruxure portfolio. The November 2025 OpenUSD Alliance announcement confirmed Schneider Electric, AVEVA, and ETAP coordinating on simulation-ready digital twins under a single ownership family. The ETAP Discovery Skill therefore demonstrates tooling capability inside the exact Schneider/AVEVA/EcoStruxure ecosystem the acquisition thesis targets.
       </p>
       <p class="text-xs text-subtle mb-2">
         Most AVEVA SI pre-sales teams would estimate 6–12 months and ~$200–400K in burdened cost to build something equivalent. The operator produced this as a first-pass demonstration of SDA's tooling-on-demand capability.
@@ -195,7 +198,7 @@
       <div class="flex-shrink-0 w-8 h-8 rounded-full bg-navy text-white text-sm font-bold flex items-center justify-center">1</div>
       <div>
         <p class="font-semibold text-navy mb-1">The operator has run AVEVA's delivery side at scale.</p>
-        <p class="text-ink text-sm leading-relaxed">25 years across the AVEVA / Wonderware / Schneider Electric ecosystem, including President / General Manager of Wonderware West — the entity that became Q-mation, an AVEVA-certified SI with public revenue ~$33M and 159 employees<span class="citation" @mouseenter="showCite($event, 'q-mation-rocketreach')" @mouseleave="hideCite()">[2]</span>. Personally sold, scoped, and delivered the exact class of System Platform and MES projects this plan targets.</p>
+        <p class="text-ink text-sm leading-relaxed">25 years across the AVEVA / Wonderware / Schneider Electric ecosystem, including President / General Manager of Wonderware West (Standard Automation and Control LP) — an AVEVA-certified System Integrator with <strong>~$50M revenue and 50 employees at the time of its September 2022 acquisition by AVEVA Distributor Q-mation Inc.</strong> <span class="citation" @mouseenter="showCite($event, 'q-mation-acq')" @mouseleave="hideCite()">[1]</span> Personally sold, scoped, and delivered the exact class of System Platform and MES projects this plan targets.</p>
       </div>
     </div>
     <div class="flex gap-4">
@@ -223,13 +226,196 @@
       </div>
     </template>
   </div>
-  <p class="text-xs text-subtle italic mt-3">3-year hold, base case. Sensitivity analysis in <a href="#financial" class="text-accent underline">Section 8</a>. Returns sensitive to EBITDA execution and exit-multiple realization.</p>
+  <p class="text-xs text-subtle italic mt-3">3-year hold, base case. Sensitivity analysis in <a href="#financial" class="text-accent underline">Section 5</a>. Returns sensitive to EBITDA execution and exit-multiple realization.</p>
+</section>
+
+<!-- ============================================ THREE-ACT PRELUDE ============================================ -->
+<section id="prelude" class="mb-20">
+  <div class="bg-navy text-white p-8 rounded-lg">
+    <p class="pill bg-white/20 text-white mb-4">HOW TO READ THIS PLAN</p>
+    <h2 class="text-2xl font-serif font-bold mb-4">Three acts. Each section earns the next one's right to exist.</h2>
+    <div class="grid md:grid-cols-3 gap-6 mt-6">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider opacity-75 mb-2">Act I — Section 1</p>
+        <p class="font-semibold text-base mb-2">The Market</p>
+        <p class="text-sm leading-relaxed opacity-90"><em>Why is now the moment, and what is consolidating around it?</em> Named deals, named PE platforms, AVEVA's program direction, addressable revenue math, and the failure modes that have made most PE-backed SI roll-ups disappointing. <strong>The spine of the thesis.</strong></p>
+      </div>
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider opacity-75 mb-2">Act II — Section 2</p>
+        <p class="font-semibold text-base mb-2">The Operator</p>
+        <p class="text-sm leading-relaxed opacity-90"><em>Who can actually win in this market?</em> Most operators have one side of the AVEVA partner relationship. This operator has both — Wonderware West (President &amp; GM) <strong>and</strong> Schneider Electric / AVEVA NAM (BDM). Each failure mode named in Section 1 is a structural answer this dual-side pedigree was built to handle.</p>
+      </div>
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider opacity-75 mb-2">Act III — Section 3</p>
+        <p class="font-semibold text-base mb-2">The IP that compounds the edge</p>
+        <p class="text-sm leading-relaxed opacity-90"><em>What does this combination bring to the right target SI that nobody else can?</em> The AVEVA-specific AI knowledge engine (Cowork SDA), a live production-grade pre-sales tool produced from it (ETAP Discovery Skill), and a 25-orchestrator AI operations stack proving the operator can <em>reliably operate</em> the same engineering discipline at scale.</p>
+      </div>
+    </div>
+    <p class="text-sm leading-relaxed mt-6 opacity-90">Sections 4 through 10 follow the standard PE underwriting format: archetype, transaction structure, transformation plan, financial model with sensitivity, multiple expansion, moat, risks, exit paths, ask. Read them in any order once Sections 1–3 have done their work.</p>
+  </div>
+</section>
+
+<!-- ============================================ ACT I — SECTION 1: THE MARKET ============================================ -->
+<section id="market" class="mb-20 page-break">
+  <p class="pill bg-navy text-white mb-3">ACT I</p>
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">1. The Market</h2>
+  <p class="text-subtle text-base mb-6">Why now, what's consolidating, and what "the right company" looks like</p>
+
+  <div class="bg-warmwhite border-l-4 border-navy p-5 rounded-r mb-10">
+    <p class="text-sm text-ink leading-relaxed italic">The case for this thesis does not start with the operator or the tools. It starts with the market: a fragmented industrial automation services layer sitting underneath a multi-decade growth cycle, with PE consolidation already accelerating month-over-month, AVEVA's parent company actively re-tooling its partner program around a smaller number of better-resourced integrators, and a clear pattern of which roll-ups succeed and which fail. The operator and the IP (Sections 2 and 3) are the answer to the failure modes named in this section. They are not the case.</p>
+  </div>
+
+  <!-- ====== 1.1 The macro consolidation map ====== -->
+  <h3 class="text-xl font-semibold text-navy mb-3">1.1 The macro consolidation map — what's actually trading</h3>
+  <p class="text-sm text-ink leading-relaxed mb-5 max-w-3xl">PE consolidation of industrial system integrators is no longer a forecast. It is a recurring monthly transaction theme in the public M&amp;A record. The roster below is non-exhaustive — drawn from sponsor and platform announcements, plus the Control Engineering monthly automation-mergers reports — and includes deals where the strategic signal matters even when the price is not public.</p>
+
+  <div class="overflow-x-auto mb-6">
+    <table class="w-full text-xs border-collapse">
+      <thead class="bg-navy text-white">
+        <tr>
+          <th class="text-left p-2">Closed</th>
+          <th class="text-left p-2">Sponsor / Platform → Target</th>
+          <th class="text-left p-2">Strategic signal</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr class="bg-accent/5"><td class="p-2 align-top">Mar 2026</td><td class="p-2 align-top"><strong>Leidos (strategic)</strong> ← <strong>Kohlberg (PE)</strong> sells <strong>ENTRUST Solutions Group</strong> · <em>$2.4B EV</em></td><td class="p-2 align-top">Largest data point in the public record. Kohlberg's PE platform thesis (10 add-ons in ~3 years) exits to a strategic at scale. Buyer's stated rationale: deploy Skywire AI for "70% reduction in design labor." The compression thesis underwriting <em>this</em> plan is the same compression thesis underwriting <em>that</em> exit.</td></tr>
+        <tr><td class="p-2 align-top">Oct 2025</td><td class="p-2 align-top"><strong>InflexionPoint</strong> (Sverica Capital) → <strong>Process Innovations</strong> (AVEVA / OSIsoft PI APM)</td><td class="p-2 align-top">The most direct AVEVA-specific roll-up move in the public record. The PI-specific bolt-on confirms this platform is being built around AI/analytics layered on AVEVA data infrastructure.</td></tr>
+        <tr><td class="p-2 align-top">May 2024 → Mar 2026</td><td class="p-2 align-top"><strong>Tailwind Capital (PE)</strong> → <strong>GrayMatter</strong> (Hamilton Robinson exit); GrayMatter → <strong>FTE Factory Advisors</strong> (Lean, Mar 2026)</td><td class="p-2 align-top">Two years of active building under Tailwind. Paul Galeski (ex-MAVERICK Technologies, sold to Rockwell) installed as Executive Chairman / CEO with a buy-and-build mandate. Five prior add-ons under Hamilton Robinson before the May 2024 secondary; one already executed under Tailwind. The cadence is the data point — a seasoned platform compounding, not a brand-new entrant.</td></tr>
+        <tr><td class="p-2 align-top">May 2025</td><td class="p-2 align-top"><strong>E Tech Group</strong> (CenterOak) → <strong>JSat Automation</strong> (PA SI · IT/OT · GMP · multi-site MES)</td><td class="p-2 align-top">Fifth bolt-on under the same platform. Prior add-ons: Glenmount, Superior Controls, E-Volve, Automation Group. Platform now spans 10 countries / 700+ professionals. Buy-and-build cadence is monthly-to-quarterly, not opportunistic.</td></tr>
+        <tr><td class="p-2 align-top">Oct 2025</td><td class="p-2 align-top"><strong>Inframark</strong> → <strong>Wheco Controls</strong> (SCADA / electrical / controls)</td><td class="p-2 align-top">Water/wastewater-adjacent SI roll-up. Demonstrates consolidation extending past discrete manufacturing into infrastructure integration.</td></tr>
+        <tr><td class="p-2 align-top">Aug 2025</td><td class="p-2 align-top"><strong>Coesia (strategic)</strong> → majority stake in <strong>Autoware</strong> (MES / MOM / SCADA software integrator)</td><td class="p-2 align-top">Strategic acquirer paying for a software-flavored SI — the same archetype this plan would build toward at exit (Section 9 paths).</td></tr>
+        <tr><td class="p-2 align-top">Jun 2025</td><td class="p-2 align-top"><strong>Magnum Systems</strong> → <strong>ECS Solutions</strong></td><td class="p-2 align-top">Mid-market SI add-on, end-to-end industrial manufacturing implementations. ~110 years combined industry experience.</td></tr>
+        <tr><td class="p-2 align-top">Jun 2025</td><td class="p-2 align-top"><strong>Amprod</strong> → <strong>Simmtech Process Engineering</strong> (Canadian SI)</td><td class="p-2 align-top">Cross-border SI consolidation, smart manufacturing focus.</td></tr>
+        <tr><td class="p-2 align-top">Apr 2025</td><td class="p-2 align-top"><strong>Ondex Automation</strong> → <strong>NeoMatrix</strong> (Andover MA / Portsmouth NH / Colorado Springs CO; SCADA + MES + digital transformation)</td><td class="p-2 align-top">SCADA/MES bolt-on at exactly the technical footprint of the GCAP archetype this plan targets. <em>Geographic note: NeoMatrix is Northeast / Mountain West, not Gulf Coast — round-2 diligence catch.</em></td></tr>
+        <tr><td class="p-2 align-top">Feb 2025</td><td class="p-2 align-top"><strong>Rotunda Capital Partners (PE)</strong> → <strong>RMH Systems</strong> (platform); RMH then → <strong>Complete Solution Robotics</strong></td><td class="p-2 align-top">Platform creation followed immediately by a first add-on — the tempo of PE roll-up activity in 2025 SI deal flow.</td></tr>
+        <tr><td class="p-2 align-top">Jul 2023</td><td class="p-2 align-top"><strong>Mitsubishi Heavy Industries (strategic)</strong> → <strong>Concentric</strong></td><td class="p-2 align-top">Older, but the canonical "OEM acquires regional SI" pattern that exit Path 2 in Section 9 underwrites.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bg-accent/5 border border-accent/30 p-5 rounded mb-10">
+    <p class="text-sm text-ink leading-relaxed"><strong class="text-navy">What this table establishes.</strong> PE consolidation of industrial SIs in 2025 is not theoretical. It is documented every month in the trade press. Sponsors are creating platforms at roughly two to four per year. Platforms are completing add-ons at six to twelve per year. Strategic acquirers — both OEMs (Rockwell, Mitsubishi) and engineering-services giants (Leidos) — are buying scaled platforms at $1B+ enterprise values. <em>The window to buy a quality target SI at artisanal multiples and exit it as a platform asset is the window this plan operates inside.</em></p>
+  </div>
+
+  <!-- ====== 1.2 AVEVA-specific dynamic ====== -->
+  <h3 class="text-xl font-semibold text-navy mb-3">1.2 The AVEVA-specific consolidation dynamic</h3>
+  <p class="text-sm text-ink leading-relaxed mb-4 max-w-3xl">Inside the broader SI consolidation trend, the AVEVA-specific sub-market is moving on its own clock — and moving in a direction this plan is structurally aligned with. <strong>Three things are happening at once in the AVEVA partner ecosystem (2025–2026):</strong></p>
+
+  <div class="grid lg:grid-cols-3 gap-5 mb-6">
+    <div class="bg-white border-l-4 border-navy p-5 rounded-r">
+      <p class="pill bg-navy/10 text-navy mb-3">DYNAMIC 1</p>
+      <p class="font-semibold text-navy text-sm mb-2">AVEVA's parent rewrote the SI partner program for 2025–2026</p>
+      <p class="text-xs text-ink leading-relaxed">Certification is now bound to <em>individuals</em>, not company entities. Member partners can elevate by completing new requirements; partners failing to meet them risk being downgraded. The program now rewards platforms with deep, validated, retained expertise in named individuals — not body-shops with a logo. <strong>Structural advantage to PE-backed platforms; structural disadvantage to artisanal regional SIs.</strong></p>
+    </div>
+    <div class="bg-white border-l-4 border-accent p-5 rounded-r">
+      <p class="pill bg-accent/10 text-accent mb-3">DYNAMIC 2</p>
+      <p class="font-semibold text-navy text-sm mb-2">Schneider × AVEVA × ETAP joined the OpenUSD Alliance (Nov 2025)</p>
+      <p class="text-xs text-ink leading-relaxed">The three software pillars are now coordinated, not federated, under one ownership family — Schneider Electric. ETAP is wholly Schneider-owned (majority 2021, full 2024–2025). An SI platform aligned to AVEVA today is automatically aligned to ETAP and the broader EcoStruxure portfolio with vendor-side support pulling in one direction.</p>
+    </div>
+    <div class="bg-white border-l-4 border-navy p-5 rounded-r">
+      <p class="pill bg-navy/10 text-navy mb-3">DYNAMIC 3</p>
+      <p class="font-semibold text-navy text-sm mb-2">InflexionPoint is the market-confirmed PE archetype</p>
+      <p class="text-xs text-ink leading-relaxed">Sverica Capital's underwriting of InflexionPoint, and InflexionPoint's October 2025 acquisition of Process Innovations specifically for AVEVA PI APM capability, is independent confirmation that sophisticated PE pays platform multiples for AVEVA-aligned, AI-positioned, recurring-services SIs. <em>This plan's archetype is the same archetype Sverica is already buying.</em></p>
+    </div>
+  </div>
+
+  <p class="text-sm text-ink leading-relaxed mb-10 max-w-3xl"><strong>What this means for the deal underneath this plan:</strong> the acquired SI inherits a vendor-side environment that is <em>actively rewarding</em> the kind of platform this plan is built to create — and that AVEVA's program updates are <em>actively penalizing</em> the kind of fragmented, artisanal SI the rest of the Gulf Coast still looks like. The window is open, and AVEVA itself is widening it.</p>
+
+  <!-- ====== 1.3 Vendor-side perspective ====== -->
+  <h3 class="text-xl font-semibold text-navy mb-3">1.3 The vendor-side perspective — what AVEVA's parent company actually rewards</h3>
+  <p class="text-sm text-ink leading-relaxed mb-4 max-w-3xl">Most plans that target AVEVA SIs frame the partner relationship from the SI side: how to get certified, how to access the partner program, how the AVEVA channel works. <strong>This plan's operator spent 2 years 8 months at the parent company — Schneider Electric — building the IAD software program for North America.</strong> That perspective changes what gets emphasized.</p>
+
+  <div class="bg-warmwhite border border-gray-300 rounded p-5 mb-6">
+    <p class="font-semibold text-navy text-sm mb-3">What the parent company is actually optimizing for in 2025–2026 (from the inside)</p>
+    <ul class="text-sm text-ink space-y-2 leading-relaxed">
+      <li>→ <strong>Larger, better-capitalized partners that can underwrite multi-plant deployments</strong> without needing AVEVA to carry the risk. The IAD program is structurally a way to push delivery and account leadership down to capable partners. Partners who fund Phase 1 / 2 transformation at customer sites without depending on quarterly AVEVA channel margin get the strategic accounts.</li>
+      <li>→ <strong>Standardization on AVEVA-first reference architectures</strong> (System Platform + Historian/PI + MES + Operations Control). Federated tech stacks reduce AVEVA pipeline visibility. Partners who standardize the architecture and roll the same template library across plants become co-marketing fixtures.</li>
+      <li>→ <strong>AVEVA Flex (subscription) economics aligned with recurring-services revenue.</strong> AVEVA's pricing is migrating from perpetual+maintenance to subscription. Partners who can sell, scope, and deliver subscription-aligned outcomes — not perpetual license deals — are economically aligned with AVEVA's revenue model.</li>
+      <li>→ <strong>Demonstrated AI / digital-twin capability inside the AVEVA + ETAP + EcoStruxure ecosystem.</strong> With the OpenUSD commitment, AVEVA is investing publicly in AI-augmented and simulation-ready industrial software. Partners showing up to PoCs with credible AI-augmented pre-sales, scoping, and engineering tooling are the partners that get co-funded discovery work.</li>
+    </ul>
+  </div>
+
+  <p class="text-sm text-ink leading-relaxed mb-10 max-w-3xl">The acquired SI under this plan inherits an operator who built the IAD program (i.e., wrote the rules the SI now operates under) and who has already built the AI-augmented pre-sales tooling (Cowork SDA + ETAP Discovery Skill, Section 3 + Appendix E). <strong>Vendor-side alignment is structural, not aspirational.</strong></p>
+
+  <!-- ====== 1.4 Sizing the addressable market ====== -->
+  <h3 class="text-xl font-semibold text-navy mb-3">1.4 Sizing the addressable market</h3>
+  <p class="text-sm text-ink leading-relaxed mb-4 max-w-3xl"><strong>Scope discipline matters here.</strong> Different research firms publish different "system integrator" datasets that are not interchangeable: some count industrial SI services only, others bundle in IT/OT/enterprise integration. Mixing them in a single underwriting table produces a credibility problem if a reader spot-checks. This plan uses <strong>one source for the top-line — Grand View Research's NA System Integrators dataset (industrial SI services scope)</strong> — and labels every layer below it with how it was derived.</p>
+
+  <p class="text-sm text-ink leading-relaxed mb-4 max-w-3xl"><strong>The top-line.</strong> The North America industrial SI services market is approximately <strong>$11B in 2025, projected to reach ~$19B by 2030 at ~8.3% CAGR</strong> (Grand View Research<span class="citation" @mouseenter="showCite($event, 'gvr')" @mouseleave="hideCite()">[9]</span>). This is the <em>industrial SI services</em> market — NOT the broader IT/OT/enterprise integration market, which is several multiples larger and uses different scope definitions.</p>
+
+  <p class="text-sm text-ink leading-relaxed mb-4 max-w-3xl">Headlines describe the <em>industry</em>; thesis underwriting needs the <em>addressable revenue inside the operating perimeter</em>:</p>
+
+  <div class="overflow-x-auto mb-4">
+    <table class="w-full text-sm border-collapse">
+      <thead class="bg-warmwhite border-b-2 border-navy">
+        <tr>
+          <th class="text-left p-3 text-xs uppercase tracking-wider text-navy">Layer</th>
+          <th class="text-left p-3 text-xs uppercase tracking-wider text-navy">2025</th>
+          <th class="text-left p-3 text-xs uppercase tracking-wider text-navy">2030</th>
+          <th class="text-left p-3 text-xs uppercase tracking-wider text-navy">What it bounds</th>
+          <th class="text-left p-3 text-xs uppercase tracking-wider text-navy">Source / method</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        <tr><td class="p-3 font-semibold text-navy">NA industrial SI services market</td><td class="p-3 num-tabular">~$11B</td><td class="p-3 num-tabular">~$19B (8.3% CAGR)</td><td class="p-3 text-xs text-ink">Geographic ceiling; industrial SI services scope</td><td class="p-3 text-xs text-ink">Grand View Research, NA SI Outlook 2030</td></tr>
+        <tr class="bg-accent/5"><td class="p-3 font-semibold text-navy">AVEVA-aligned SI sub-market (NA)</td><td class="p-3 num-tabular">~$2.0–2.5B</td><td class="p-3 num-tabular">~$3.5–4.5B</td><td class="p-3 text-xs text-ink">AVEVA-certified / AVEVA-primary integrators in NA — partner pool</td><td class="p-3 text-xs text-ink">Bottom-up: AVEVA partner directory ~150 NA SIs × ~$15–20M mid-tier revenue × 12–17% AVEVA share</td></tr>
+        <tr class="bg-accent/5"><td class="p-3 font-semibold text-navy">Gulf Coast AVEVA SI sub-market</td><td class="p-3 num-tabular">~$300–450M</td><td class="p-3 num-tabular">~$500–700M</td><td class="p-3 text-xs text-ink">Houston / TX / LA / OK petrochem + midstream + LNG cluster</td><td class="p-3 text-xs text-ink">Bottom-up: Gulf Coast share of NA AVEVA-aligned spend</td></tr>
+        <tr class="bg-navy/5"><td class="p-3 font-semibold text-navy">GCAP-archetype reachable Year-3 platform revenue</td><td class="p-3 text-subtle">—</td><td class="p-3 num-tabular">$35–60M</td><td class="p-3 text-xs text-ink">Acquired SI ($28M Y3) + 1–2 bolt-ons</td><td class="p-3 text-xs text-ink">Bottom-up: Section 5 financial model</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="text-xs text-subtle italic mb-4 max-w-3xl">The AVEVA-aligned, Gulf Coast, and GCAP rows are explicitly bottom-up working estimates intended for internal sizing — not the kind of figure to cite externally without further validation. Both the "platform pool" estimate and the territory estimate are conservative ranges, not point forecasts.</p>
+
+  <p class="text-sm text-ink leading-relaxed mb-10 max-w-3xl"><strong>What the table establishes for the underwriter:</strong> the platform thesis lives inside a $300–450M Gulf Coast sub-market that is materially under-consolidated. A $35–60M Year-3 platform represents approximately 10% of the immediate sub-market — well below the "platform dominance" line — meaning the roll-up runway extends past this initial deal without market-share concerns.</p>
+
+  <!-- ====== 1.5 Why most PE-backed SI roll-ups fail ====== -->
+  <h3 class="text-xl font-semibold text-navy mb-3">1.5 Why most PE-backed SI roll-ups fail — and what "the right company" looks like</h3>
+  <p class="text-sm text-ink leading-relaxed mb-5 max-w-3xl">The trade press and industry consultants name the same five failure modes for PE-backed SI roll-ups. The plan is structured deliberately around each one. <em>This is the bridge from Section 1 into Section 2.</em></p>
+
+  <div class="overflow-x-auto mb-6">
+    <table class="w-full text-xs border-collapse">
+      <thead class="bg-navy text-white">
+        <tr>
+          <th class="text-left p-2">Failure mode</th>
+          <th class="text-left p-2">Why it happens</th>
+          <th class="text-left p-2">What the right platform must structurally have</th>
+          <th class="text-left p-2">How this plan answers it</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr><td class="p-2 align-top font-semibold text-navy">Talent walks out the door</td><td class="p-2 align-top">PE cost-cutting at close burns out senior engineers and PMs. Value walks out each evening.</td><td class="p-2 align-top">Operator who is recognizably <em>same-team</em> with the engineering bench. Retention tied to transformation milestones, not cuts.</td><td class="p-2 align-top">25-year SI operator who has been every role at a comparable AVEVA SI (Section 2). Day-1 audit is talent retention, not cost reduction (Section 5).</td></tr>
+        <tr><td class="p-2 align-top font-semibold text-navy">Federated tech stacks — "synergies are PowerPoint only"</td><td class="p-2 align-top">Different methodologies, tech stacks, incentive models. Promised synergies never materialize without genuine standardization.</td><td class="p-2 align-top">Standardization built <em>before</em> close, not promised after. AVEVA-first architecture is the spine.</td><td class="p-2 align-top">Cowork SDA AVEVA knowledge engine + UCWH-proven orchestrator framework already operating. Standardization is a Day-1 deliverable.</td></tr>
+        <tr><td class="p-2 align-top font-semibold text-navy">Vertical cyclicality concentration</td><td class="p-2 align-top">Concentrated upstream O&amp;G or specific OEM exposure during capex pauses kills returns.</td><td class="p-2 align-top">Counter-cyclical mix: petrochem floor + life-sciences validation overlay + recurring services.</td><td class="p-2 align-top">Phase-3 diversification into life sciences (FDA / GxP). Acquired SI's ~35% recurring base is the floor; expansion to ~55% by Y3.</td></tr>
+        <tr><td class="p-2 align-top font-semibold text-navy">Margin compression vs. lean regional shops</td><td class="p-2 align-top">Without IP differentiation, large PE-backed integrators get priced against artisanal regional shops.</td><td class="p-2 align-top">Software-flavored IP that lean regional shops can't replicate on a deal timeline.</td><td class="p-2 align-top">Cowork SDA + ETAP Discovery Skill = explicit IP differentiation (Section 3). 12–18 mo head start.</td></tr>
+        <tr><td class="p-2 align-top font-semibold text-navy">Vendor relationship turning hostile</td><td class="p-2 align-top">Sponsors push proprietary or competitor stacks; AVEVA quietly de-prioritizes the partner.</td><td class="p-2 align-top">Operator with vendor-side relationships at the parent company; aligned to AVEVA's program direction.</td><td class="p-2 align-top">Operator spent 2 yrs 8 mos at Schneider/AVEVA NAM building the IAD program. Vendor-side alignment is structural.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bg-accent/5 border-2 border-accent rounded p-6 mb-6">
+    <p class="font-semibold text-navy mb-3">What "the right company" looks like</p>
+    <p class="text-sm text-ink leading-relaxed mb-3">The platform that wins this market is not the biggest SI, the cheapest acquirer, or the most-funded technology vendor. It is the operator-led platform that, in one combined entity, has:</p>
+    <ol class="text-sm text-ink space-y-2 leading-relaxed list-decimal pl-5">
+      <li>Recognizable operator pedigree from inside an AVEVA SI of the same archetype as the target — so the engineering bench accepts the leadership transition rather than rejects it;</li>
+      <li>Vendor-side relationships at AVEVA's parent company — so the partner program direction is a tailwind, not a risk;</li>
+      <li>AI-augmented delivery IP that is operating in production <em>before</em> the close — so standardization is a Day-1 act, not a Year-2 promise; and</li>
+      <li>Industrial discipline corroborated by an operating P&amp;L <em>outside</em> the AVEVA domain — so the underwriter has independent evidence that the operator can build, debug, and reliably operate the framework.</li>
+    </ol>
+    <p class="text-sm text-ink leading-relaxed mt-3"><strong class="text-navy">Sections 2 and 3 are the structural answer.</strong> Section 2 documents the operator pedigree (1, 2). Section 3 plus Appendices A and E document the IP and the operating P&amp;L (3, 4).</p>
+  </div>
 </section>
 
 <!-- ============================================ THE OPERATOR ============================================ -->
 <section id="operator" class="mb-20">
-  <h2 class="section-title text-3xl font-bold text-navy mb-3">The Operator</h2>
-  <p class="text-subtle text-base mb-8">Why this person, why now</p>
+  <p class="pill bg-navy text-white mb-3">ACT II</p>
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">2. The Operator</h2>
+  <p class="text-subtle text-base mb-6">Who can actually win in this market</p>
+
+  <div class="bg-warmwhite border-l-4 border-navy p-4 rounded-r mb-8">
+    <p class="text-sm text-ink leading-relaxed italic">Section 1 named five failure modes that have made most PE-backed SI roll-ups disappointing. The operator profile that follows is the structural answer to each one. <em>Same-team</em> with the engineering bench (failure mode 1), AVEVA-first by 25 years of repetition (failure mode 2), counter-cyclical by deliberate vertical mix (failure mode 3), software-flavored by IP that already exists (failure mode 4), and vendor-aligned by 2 yrs 8 mos at AVEVA's parent company (failure mode 5).</p>
+  </div>
 
   <p class="text-base leading-relaxed text-ink mb-6 max-w-3xl">
     Jason Bass has spent a quarter century at the operating center of the industrial automation ecosystem — from field-level systems integration through executive leadership of one of AVEVA's most significant regional distribution and services organizations.
@@ -320,7 +506,9 @@
 
 <!-- ============================================ THE FRAMEWORK ============================================ -->
 <section id="framework" class="mb-20">
-  <h2 class="section-title text-3xl font-bold text-navy mb-3">The Framework, Already in Production</h2>
+  <p class="pill bg-navy text-white mb-3">ACT III</p>
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">3. The IP That Compounds the Edge</h2>
+  <p class="text-subtle text-base mb-6">The framework, already in production</p>
   <p class="text-subtle text-base mb-8">This section is the differentiator from a normal SI buyout pitch. The financials are credible because the framework is not theoretical.</p>
 
   <h3 class="text-lg font-semibold text-navy mb-4">Six-layer pipeline (executed in strict order)</h3>
@@ -399,41 +587,9 @@ Layer 6: NOTIFICATION
   </div>
 </section>
 
-<!-- ============================================ MARKET CONTEXT ============================================ -->
-<section id="market" class="mb-20">
-  <h2 class="section-title text-3xl font-bold text-navy mb-3">Market Context</h2>
-  <p class="text-subtle text-base mb-8">Durable, growing, fragmented — and at an AI-compression inflection</p>
-
-  <div class="grid lg:grid-cols-3 gap-6 mb-10">
-    <div class="bg-white border border-gray-200 p-6 rounded">
-      <p class="text-4xl font-serif font-bold text-navy num-tabular">$19B</p>
-      <p class="text-xs text-subtle uppercase tracking-wider mt-1">N. America SI market by 2030</p>
-      <p class="text-xs text-ink mt-3 leading-relaxed">~8.3% CAGR through 2030, driven by Industry 4.0, reshoring, infrastructure modernization<span class="citation" @mouseenter="showCite($event, 'gvr')" @mouseleave="hideCite()">[9]</span>.</p>
-    </div>
-    <div class="bg-white border border-gray-200 p-6 rounded">
-      <p class="text-4xl font-serif font-bold text-navy num-tabular">+37.8%</p>
-      <p class="text-xs text-subtle uppercase tracking-wider mt-1">Industrial PE deal value YoY 2025</p>
-      <p class="text-xs text-ink mt-3 leading-relaxed">$260.6B in industrial PE deal value. Automation and digital manufacturing assets command the highest multiples<span class="citation" @mouseenter="showCite($event, 'cherry-bekaert')" @mouseleave="hideCite()">[10]</span>.</p>
-    </div>
-    <div class="bg-white border border-gray-200 p-6 rounded">
-      <p class="text-4xl font-serif font-bold text-navy num-tabular">75%</p>
-      <p class="text-xs text-subtle uppercase tracking-wider mt-1">New code AI-generated at Google</p>
-      <p class="text-xs text-ink mt-3 leading-relaxed">April 2026, up from 50% prior year<span class="citation" @mouseenter="showCite($event, 'google-ai')" @mouseleave="hideCite()">[16]</span>. Same compression mechanic arriving in AVEVA delivery.</p>
-    </div>
-  </div>
-
-  <h3 class="text-lg font-semibold text-navy mb-4">The AI compression thesis</h3>
-  <p class="text-base text-ink leading-relaxed mb-4 max-w-3xl">
-    AVEVA's own model-driven MES and System Platform workflows are structured around templates, libraries, and reusable engineering objects precisely because repeatability drives delivery efficiency. An operator who layers a mature AI framework on top of AVEVA's native tooling can compress engineering hours by approximately <strong>30–60% on framework-aligned projects in Year 1, ramping to 50–70% by Year 2</strong> — reducing project team size from 6–8 engineers to 2–3 while maintaining or improving delivery quality and schedule<span class="citation" @mouseenter="showCite($event, 'aveva-mes')" @mouseleave="hideCite()">[6]</span>.
-  </p>
-  <p class="text-sm text-ink leading-relaxed italic max-w-3xl">
-    This is not a forecast — it is the same compression mechanic the operator has already realized on knowledge work in a different domain (see Framework section).
-  </p>
-</section>
-
 <!-- ============================================ THE DEAL: ARCHETYPE ============================================ -->
 <section id="archetype" class="mb-20">
-  <h2 class="section-title text-3xl font-bold text-navy mb-3">The Acquisition Archetype</h2>
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">4. The Acquisition Archetype</h2>
   <p class="text-subtle text-base mb-8">Gulf Coast Automation Partners (GCAP) — a representative profile</p>
 
   <div class="bg-highlight border-l-4 border-accent p-5 rounded-r mb-8">
@@ -456,7 +612,7 @@ Layer 6: NOTIFICATION
 
 <!-- ============================================ THE DEAL: TRANSACTION + FINANCIAL ============================================ -->
 <section id="financial" class="mb-20 page-break">
-  <h2 class="section-title text-3xl font-bold text-navy mb-3">The Deal</h2>
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">5. The Deal</h2>
   <p class="text-subtle text-base mb-8">Transaction structure, financial model, and live scenario modeler</p>
 
   <h3 class="text-lg font-semibold text-navy mb-4">Sources and uses (ties at $18.7M)</h3>
@@ -485,7 +641,12 @@ Layer 6: NOTIFICATION
     </div>
   </div>
 
-  <p class="text-xs text-subtle italic mb-10">Year-1 transformation budget (~$2.4M) — working capital top-up, AI framework expansion, additional retention, integration consulting — is funded from operating cash flow, not closing capital.</p>
+  <p class="text-xs text-subtle italic mb-3">Year-1 transformation budget (~$2.4M) — working capital top-up, AI framework expansion, additional retention, integration consulting — is funded from operating cash flow, not closing capital.</p>
+
+  <div class="bg-warmwhite border border-gray-300 rounded p-4 mb-10">
+    <p class="text-xs font-semibold text-navy uppercase tracking-wider mb-2">Debt service treatment (important)</p>
+    <p class="text-xs text-ink leading-relaxed">The $8.1M senior debt is modeled as a 10-year SBA 7(a) at <strong>10.5% APR (conservative mid-range placeholder)</strong>, fully amortizing. <em>Current SBA 7(a) rate caps for loans above $350,001: prime + 3% ≈ 9.75% variable max, prime + 5% ≈ 11.75% fixed max (April 2026). The 10.5% figure sits between the two — slightly above the variable max, well below the fixed max — and is used here in lieu of a specific lender quote.</em> Annual debt service is approximately <strong>$1.32M / year</strong> at the modeled rate (a real variable-rate quote would reduce service by ~$50K). All EBITDA figures shown below and in the sensitivity table are <strong>pre-debt-service</strong>; service is funded from operating cash flow. <strong>All MOIC and IRR figures shown elsewhere are equity-level, post-debt-service returns</strong> — the exit-equity calculation deducts a $5M residual debt balance, which is <strong>conservative against the actual ~$6.3–6.5M amortized balance</strong> after 3 years (i.e., this assumption <em>understates</em> exit equity by ~$1.2–1.5M in each sensitivity scenario).</p>
+  </div>
 
   <!-- ============================ INTERACTIVE SCENARIO MODELER (centerpiece) ============================ -->
   <div class="bg-white border-2 border-navy rounded-lg p-6 lg:p-8 mb-10 no-print">
@@ -503,8 +664,8 @@ Layer 6: NOTIFICATION
             <label class="font-medium text-ink">Engineering hours compression by Year 3</label>
             <span class="font-semibold text-navy num-tabular" x-text="`${model.compression}%`"></span>
           </div>
-          <input type="range" min="0" max="70" step="5" x-model.number="model.compression" class="slider">
-          <div class="flex justify-between text-[10px] text-subtle mt-1"><span>None (0%)</span><span>Plan target (50%)</span><span>Bull (70%)</span></div>
+          <input type="range" min="25" max="70" step="5" x-model.number="model.compression" class="slider">
+          <div class="flex justify-between text-[10px] text-subtle mt-1"><span>Bear (25%)</span><span>Y1 base (40%)</span><span>Y2 base (55%)</span><span>Y3 / Bull (70%)</span></div>
         </div>
 
         <div>
@@ -567,7 +728,7 @@ Layer 6: NOTIFICATION
       </div>
     </div>
 
-    <p class="text-[11px] text-subtle italic mt-8">Modeler computes EBITDA = entry-EBITDA × (1 + compression × 1.7) using a 1.7x leverage between compression and EBITDA expansion (calibrated from the planned 50% compression → 3.5x EBITDA growth in the base case). Recurring revenue mix at exit applies a multiple bonus of up to +1.5x at 70%. IRR computed from MOIC and hold period. Numbers ignore management fees and carry. For modeling discussion only — not investment advice.</p>
+    <p class="text-[11px] text-subtle italic mt-8">Modeler calibrated to the four-driver EBITDA bridge in the financial model section (~9 pts labor compression + ~6 pts revenue mix shift + ~3 pts architect substitution + ~1 pt G&A leverage). Slider range constrained to validated compression band (25%–70%). Recurring-revenue mix at exit applies a multiple-bonus tied to the static sensitivity table. IRR computed as MOIC^(1/3) − 1, equity-level (post-debt-service per Section 6 waterfall). For modeling discussion only — not investment advice.</p>
   </div>
 
   <h3 class="text-lg font-semibold text-navy mb-4">Sensitivity (static reference scenarios)</h3>
@@ -624,7 +785,7 @@ Layer 6: NOTIFICATION
 
 <!-- ============================================ MULTIPLE EXPANSION + INFLEXIONPOINT ============================================ -->
 <section id="multiple" class="mb-20">
-  <h2 class="section-title text-3xl font-bold text-navy mb-3">Why the Multiple Expands</h2>
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">6. Why the Multiple Expands</h2>
   <p class="text-subtle text-base mb-8">Three structural shifts plus a live PE-backed comp</p>
 
   <div class="grid lg:grid-cols-3 gap-5 mb-10">
@@ -687,7 +848,7 @@ Layer 6: NOTIFICATION
 
 <!-- ============================================ MOAT + RISKS ============================================ -->
 <section id="moat" class="mb-20">
-  <h2 class="section-title text-3xl font-bold text-navy mb-3">Competitive Moat</h2>
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">7. Competitive Moat</h2>
   <p class="text-subtle text-base mb-8">Five components, only the combination is rare</p>
 
   <div class="space-y-3">
@@ -708,7 +869,7 @@ Layer 6: NOTIFICATION
 </section>
 
 <section id="risks" class="mb-20">
-  <h2 class="section-title text-3xl font-bold text-navy mb-3">Key Risks and Mitigations</h2>
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">8. Key Risks and Mitigations</h2>
   <p class="text-subtle text-base mb-8">Honest reporting; PE readers value transparency more than confidence</p>
 
   <div class="overflow-x-auto">
@@ -735,7 +896,7 @@ Layer 6: NOTIFICATION
 
 <!-- ============================================ EXIT PATHS ============================================ -->
 <section id="exits" class="mb-20">
-  <h2 class="section-title text-3xl font-bold text-navy mb-3">Strategic Alternatives & Exit Paths</h2>
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">9. Strategic Alternatives &amp; Exit Paths</h2>
   <p class="text-subtle text-base mb-8">Five exit scenarios — genuine optionality</p>
 
   <div class="space-y-4">
@@ -753,7 +914,7 @@ Layer 6: NOTIFICATION
 
 <!-- ============================================ INVESTMENT ASK ============================================ -->
 <section id="ask" class="mb-20">
-  <h2 class="section-title text-3xl font-bold text-navy mb-3">Investment Ask</h2>
+  <h2 class="section-title text-3xl font-bold text-navy mb-3">10. Investment Ask</h2>
   <p class="text-subtle text-base mb-8">A working draft for refinement with a co-investor partner</p>
 
   <div class="bg-navy text-warmwhite rounded-lg p-8 mb-10">
@@ -766,7 +927,7 @@ Layer 6: NOTIFICATION
     <div>
       <p class="text-sm font-semibold text-navy uppercase tracking-wider mb-4">What the operator brings</p>
       <ul class="space-y-3 text-sm text-ink">
-        <li class="flex gap-3"><span class="text-accent">→</span><span>Operator pedigree (25 years, ex-President / GM Wonderware West / Q-mation)</span></li>
+        <li class="flex gap-3"><span class="text-accent">→</span><span>Operator pedigree (25 years, ex-President / GM Wonderware West — ~$50M / 50 emp at acquisition by AVEVA Distributor Q-mation Inc., 2022)</span></li>
         <li class="flex gap-3"><span class="text-accent">→</span><span>The AI delivery framework (12+ months operational, documented in Appendix A)</span></li>
         <li class="flex gap-3"><span class="text-accent">→</span><span>Relationship network across the AVEVA / Wonderware ecosystem</span></li>
         <li class="flex gap-3"><span class="text-accent">→</span><span>Personal capital co-investment (terms to negotiate)</span></li>
@@ -897,16 +1058,62 @@ run-member-health.ps1</code></pre>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
-            <template x-for="row in sortedHoustonShortlist" :key="row.company">
-              <tr class="hover:bg-warmwhite align-top">
-                <td class="p-2 num-tabular" x-text="row.rank"></td>
-                <td class="p-2 font-semibold" x-text="row.company"></td>
-                <td class="p-2" x-text="row.location"></td>
-                <td class="p-2" x-text="row.signals"></td>
-                <td class="p-2" x-text="row.fit"></td>
-                <td class="p-2"><span class="pill" :class="row.priority === 'High' ? 'bg-green-100 text-green-800' : row.priority === 'Medium' ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-700'" x-text="row.priority"></span></td>
-              </tr>
-            </template>
+            <tr class="hover:bg-warmwhite align-top">
+              <td class="p-2 num-tabular">1</td>
+              <td class="p-2 font-semibold">EnerSys Corporation</td>
+              <td class="p-2">Houston, TX</td>
+              <td class="p-2">Registered AVEVA SI since June 2022; proprietary POEMS platform (Pipeline Operations &amp; Emergency Management) built as plug-in for AVEVA Enterprise SCADA; alarm management per API RP 1167; founder Russel Treat (1994 founding). <strong>Naming-collision footnote:</strong> distinct from NYSE:ENS (Reading, PA — battery manufacturer, ~$3.9B rev, founded 2000); domain <code>enersyscorp.com</code>. <em>Diligence note:</em> Russel Treat is also associated with Interact Energy Services / EnerACT Energy Services per his 2024 podcast appearance — confirmatory legal-entity diligence required.</td>
+              <td class="p-2">Cleanest founder-led / succession profile of the three. Proprietary IP moat (POEMS). Pipeline ops vertical maps cleanly to Gulf Coast midstream. AVEVA partnership signals broaden-into-AVEVA strategy.</td>
+              <td class="p-2"><span class="pill bg-green-100 text-green-800">High</span></td>
+            </tr>
+            <tr class="hover:bg-warmwhite align-top">
+              <td class="p-2 num-tabular">2</td>
+              <td class="p-2 font-semibold">Invasystems, Inc.</td>
+              <td class="p-2">Sugar Land, TX</td>
+              <td class="p-2">13+ years AVEVA PI Server / AF Asset Framework SI; multi-site PI deployments (50+ facilities); 101–500 employees per Crunchbase (<strong>FLAG: figure looks high for a boutique</strong> — verify actual delivery-team headcount in diligence); CEO Sagar Chitnis is founder, <strong>ex-NTT DATA SVP, Energy &amp; Process Manufacturing</strong> (previously VP Sales / Client Management at Intelligroup, an NTT Data company)</td>
+              <td class="p-2">Founder-led with energy/process manufacturing pedigree. Sugar Land HQ in petrochem corridor. AVEVA practice narrow to PI — System Platform depth needs diligence verification.</td>
+              <td class="p-2"><span class="pill bg-green-100 text-green-800">High</span></td>
+            </tr>
+            <tr class="hover:bg-warmwhite align-top">
+              <td class="p-2 num-tabular">3</td>
+              <td class="p-2 font-semibold">Mangan Inc. / Mangan Software</td>
+              <td class="p-2">Houston, TX</td>
+              <td class="p-2">REPOSITIONED: deeper research shows core asset is proprietary SLM Platform (SIS / process safety, IEC 61511/61508), not AVEVA SI. Subsidiary ~14–20 employees, ~$5.2M revenue. Parent employee-owned, CEO non-founder.</td>
+              <td class="p-2">Does NOT fit the AVEVA SI thesis. DOES fit a different thesis: acquire vertical process-safety SaaS asset embedded in energy. Valid as adjacent acquisition, not primary platform target.</td>
+              <td class="p-2"><span class="pill bg-gray-100 text-gray-700">Repositioned</span></td>
+            </tr>
+            <tr class="align-top bg-red-50">
+              <td class="p-2 num-tabular text-subtle">4</td>
+              <td class="p-2 font-semibold"><s>NeoMatrix</s></td>
+              <td class="p-2">Andover MA / Portsmouth NH / CO Springs</td>
+              <td class="p-2">Certified AVEVA System Platform integrator. <strong>NOT Gulf Coast.</strong> <strong>Acquired by Ondex Automation Apr 2025</strong> (see Section 1.1 deal table).</td>
+              <td class="p-2"><strong>REMOVED</strong> — geographic mismatch (Northeast/Mountain West) and acquisition closed. Retained in this row for transparency on the round-2 diligence audit trail.</td>
+              <td class="p-2"><span class="pill bg-gray-200 text-subtle">Removed</span></td>
+            </tr>
+            <tr class="hover:bg-warmwhite align-top">
+              <td class="p-2 num-tabular">5</td>
+              <td class="p-2 font-semibold">Quad Plus</td>
+              <td class="p-2">Sugar Land, TX</td>
+              <td class="p-2">Industrial automation; oil & gas + adjacent industries; broader controls/electrical practice</td>
+              <td class="p-2">AVEVA depth weak — historically more electrical/controls-generalist; deprioritized</td>
+              <td class="p-2"><span class="pill bg-gray-100 text-gray-700">Lower</span></td>
+            </tr>
+            <tr class="hover:bg-warmwhite align-top">
+              <td class="p-2 num-tabular">6</td>
+              <td class="p-2 font-semibold">JADE Controls</td>
+              <td class="p-2">DFW HQ + Houston ops</td>
+              <td class="p-2">Petrochemical, hazardous-area, regulatory compliance focus</td>
+              <td class="p-2">Geographic fit weaker (Houston is secondary); deprioritized</td>
+              <td class="p-2"><span class="pill bg-gray-100 text-gray-700">Lower</span></td>
+            </tr>
+            <tr class="hover:bg-warmwhite align-top">
+              <td class="p-2 num-tabular">7</td>
+              <td class="p-2 font-semibold">Kraken Engineering LLC</td>
+              <td class="p-2">Houston, TX</td>
+              <td class="p-2">SCADA, IIoT cloud integration, retrofitting; smaller shop</td>
+              <td class="p-2">Likely too small (bolt-on candidate, not platform); platform-agnostic</td>
+              <td class="p-2"><span class="pill bg-gray-100 text-gray-700">Lower</span></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1157,17 +1364,17 @@ function thesis() {
 
     navLinks: [
       { id: 'hero', label: 'Overview' },
-      { id: 'exec', label: '1. Executive Summary' },
+      { id: 'exec', label: 'Executive Summary' },
+      { id: 'market', label: '1. The Market' },
       { id: 'operator', label: '2. The Operator' },
-      { id: 'framework', label: '3. The Framework' },
-      { id: 'market', label: '4. Market Context' },
-      { id: 'archetype', label: '5. Acquisition Archetype' },
-      { id: 'financial', label: '6. The Deal' },
-      { id: 'multiple', label: '7. Multiple Expansion' },
-      { id: 'moat', label: '8. Moat' },
-      { id: 'risks', label: '9. Risks' },
-      { id: 'exits', label: '10. Exit Paths' },
-      { id: 'ask', label: '11. Investment Ask' },
+      { id: 'framework', label: '3. The IP / Framework' },
+      { id: 'archetype', label: '4. Acquisition Archetype' },
+      { id: 'financial', label: '5. The Deal' },
+      { id: 'multiple', label: '6. Multiple Expansion' },
+      { id: 'moat', label: '7. Moat' },
+      { id: 'risks', label: '8. Risks' },
+      { id: 'exits', label: '9. Exit Paths' },
+      { id: 'ask', label: '10. Investment Ask' },
       { id: 'appendices', label: 'Appendices' },
     ],
 
@@ -1210,7 +1417,7 @@ function thesis() {
     ],
 
     moat: [
-      { label: 'Operator pedigree', score: 'A+', desc: '25-year track record including President / GM of Wonderware West (now Q-mation). Deep AVEVA ecosystem relationships at vendor, partner, and client levels. Not replicable on a deal timeline.' },
+      { label: 'Operator pedigree', score: 'A+', desc: '25-year track record including President / GM of Wonderware West — Standard Automation and Control LP, ~$50M revenue and 50 employees at acquisition by AVEVA Distributor Q-mation Inc., September 2022. Deep AVEVA ecosystem relationships at vendor, partner, and client levels. Not replicable on a deal timeline.' },
       { label: 'Battle-tested AI framework', score: 'A', desc: '12+ months of production operation across 25 orchestrators, 27 active scheduled tasks, 8 audience channels. Documented in Appendix A. Not reproducible in <12 months by an SI starting from scratch.' },
       { label: 'AVEVA stack lock-in', score: 'A', desc: 'Deep, certified AVEVA practice with embedded client relationships. AVEVA program explicitly enables SIs who standardize to command better margins.' },
       { label: 'Gulf Coast domain', score: 'A−', desc: 'Petrochem, terminals, midstream — repeat-pattern industries where standardized frameworks compound fastest.' },
@@ -1236,10 +1443,10 @@ function thesis() {
     ],
 
     houstonShortlist: [
-      { rank: 1, company: 'EnerSys Corporation', location: 'Houston, TX', signals: 'Registered AVEVA SI since June 2022; proprietary POEMS platform (Pipeline Operations & Emergency Management) built as plug-in for AVEVA Enterprise SCADA; alarm management per API RP 1167; founder Russell W. Treat (1994 founding)', fit: 'Cleanest founder-led / succession profile of the three. Proprietary IP moat (POEMS). Pipeline ops vertical maps cleanly to Gulf Coast midstream. AVEVA partnership signals broaden-into-AVEVA strategy.', priority: 'High', priorityRank: 3 },
-      { rank: 2, company: 'Invasystems, Inc.', location: 'Sugar Land, TX', signals: '13+ years AVEVA PI Server / AF Asset Framework SI; multi-site PI deployments (50+ facilities); 101-500 employees per Crunchbase; CEO Sagar Chitnis is founder (ex-NTT DATA Services SVP)', fit: 'Founder-led with energy/process manufacturing pedigree. Sugar Land HQ in petrochem corridor. AVEVA practice narrow to PI - System Platform depth needs diligence verification.', priority: 'High', priorityRank: 3 },
+      { rank: 1, company: 'EnerSys Corp (Houston) — distinct from NYSE:ENS', location: 'Houston, TX', signals: 'Registered AVEVA SI since June 2022; proprietary POEMS platform (Pipeline Operations & Emergency Management) built as plug-in for AVEVA Enterprise SCADA; alarm management per API RP 1167; founder Russell W. Treat (1994 founding); domain enersyscorp.com. NOT the NYSE-listed EnerSys (ENS, battery/energy storage, ~$3.9B rev, founded 2000) — different company despite name overlap. Legal entity name to be verified at diligence.', fit: 'Cleanest founder-led / succession profile of the three. Proprietary IP moat (POEMS). Pipeline ops vertical maps cleanly to Gulf Coast midstream. AVEVA partnership signals broaden-into-AVEVA strategy. Naming-collision risk with NYSE:ENS is cosmetic, not commercial — different industries entirely.', priority: 'High', priorityRank: 3 },
+      { rank: 2, company: 'Invasystems, Inc.', location: 'Sugar Land, TX', signals: '13+ years AVEVA PI Server / AF Asset Framework SI; multi-site PI deployments (50+ facilities); 101-500 employees per Crunchbase (FLAG: figure looks high for a boutique — verify actual delivery-team headcount in diligence); CEO Sagar Chitnis is founder, ex-NTT DATA SVP, Energy & Process Manufacturing (previously VP Sales / Client Management at Intelligroup, an NTT Data company)', fit: 'Founder-led with energy/process manufacturing pedigree. Sugar Land HQ in petrochem corridor. AVEVA practice narrow to PI - System Platform depth needs diligence verification.', priority: 'High', priorityRank: 3 },
       { rank: 3, company: 'Mangan Inc. / Mangan Software', location: 'Houston, TX', signals: 'REPOSITIONED: deeper research shows core asset is proprietary SLM Platform (SIS / process safety, IEC 61511/61508), not AVEVA SI. Subsidiary ~14-20 employees, ~$5.2M revenue. Parent employee-owned, CEO non-founder.', fit: 'Does NOT fit the AVEVA SI thesis. DOES fit a different thesis: acquire vertical process-safety SaaS asset embedded in energy. Valid as adjacent acquisition, not primary platform target.', priority: 'Repositioned', priorityRank: 0 },
-      { rank: 4, company: 'NeoMatrix', location: 'Houston-area', signals: 'Certified AVEVA System Platform integrator', fit: 'AVEVA-certified; size and practice depth need verification - likely smaller than archetype', priority: 'Medium', priorityRank: 2 },
+      { rank: 4, company: 'NeoMatrix (REMOVED — see note)', location: 'Andover MA / Portsmouth NH / CO Springs', signals: 'Certified AVEVA System Platform integrator. NOT Gulf Coast. Acquired by Ondex Automation Apr 2025.', fit: 'INELIGIBLE: geographic mismatch (Northeast/Mountain West, not Gulf Coast) and acquired April 2025 — appears in Section 1.1 deal table as a target. Retained in this row for transparency on the diligence audit trail.', priority: 'Removed', priorityRank: 0 },
       { rank: 5, company: 'Quad Plus', location: 'Sugar Land, TX', signals: 'Industrial automation; oil & gas + adjacent', fit: 'AVEVA depth weak; deprioritized', priority: 'Lower', priorityRank: 1 },
       { rank: 6, company: 'JADE Controls', location: 'DFW HQ + Houston ops', signals: 'Petrochem, hazardous-area, regulatory', fit: 'Geographic fit weaker; deprioritized', priority: 'Lower', priorityRank: 1 },
       { rank: 7, company: 'Kraken Engineering LLC', location: 'Houston, TX', signals: 'SCADA, IIoT, retrofitting; smaller shop', fit: 'Likely too small; potential post-acquisition bolt-on', priority: 'Lower', priorityRank: 1 },
@@ -1300,6 +1507,11 @@ function thesis() {
     init() {
       this.checkProgress();
       window.addEventListener('scroll', () => this.checkProgress());
+      // Local mode: gate is bypassed; trigger counter + chart render
+      this.$nextTick(() => {
+        this.animateCounters();
+        this.renderCharts();
+      });
     },
 
     checkPassword() {
