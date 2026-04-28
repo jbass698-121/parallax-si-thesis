@@ -77,7 +77,7 @@
   <div class="max-w-md w-full bg-warmwhite rounded-lg shadow-2xl p-10">
     <p class="pill bg-accent/10 text-accent mb-6">CONFIDENTIAL · INVESTOR DOCUMENT</p>
     <h1 class="text-3xl font-serif font-bold text-navy mb-2">AI-First Industrial Automation Platform</h1>
-    <p class="text-subtle text-sm mb-1">Business Plan & Investment Thesis · v7 (Three-Act, Market-First)</p>
+    <p class="text-subtle text-sm mb-1">Business Plan & Investment Thesis · v7.1 (Senior-Only Delivery Refinement)</p>
     <p class="text-subtle text-sm mb-8">Prepared by Jason Bass · Managing Consultant, Parallax Private Holdings · April 27, 2026</p>
     <form @submit.prevent="checkPassword()" class="space-y-4">
       <div>
@@ -107,7 +107,7 @@
 <nav class="fixed left-0 top-0 h-screen w-56 px-6 py-10 hidden lg:block no-print overflow-y-auto" style="background: #FAFAF7;">
   <div class="mb-8">
     <p class="text-xs font-semibold text-navy uppercase tracking-wider mb-1">Parallax</p>
-    <p class="text-[10px] text-subtle leading-tight">SI Investment Thesis · v7</p>
+    <p class="text-[10px] text-subtle leading-tight">SI Investment Thesis · v7.1</p>
   </div>
   <ul class="space-y-3 text-sm text-subtle">
     <template x-for="link in navLinks" :key="link.id">
@@ -118,7 +118,7 @@
   </ul>
   <div class="mt-10 pt-6 border-t border-gray-200 text-[10px] text-subtle space-y-1">
     <p>Confidence: MEDIUM-HIGH</p>
-    <p>Updated 2026-04-27 · v7</p>
+    <p>Updated 2026-04-28 · v7.1</p>
     <button @click="window.print()" class="mt-3 text-accent underline hover:text-navy">Print version</button>
   </div>
 </nav>
@@ -146,14 +146,14 @@
       </div>
       <div>
         <p class="text-xs font-semibold uppercase tracking-wider opacity-75 mb-2">Ask</p>
-        <p class="text-sm leading-relaxed opacity-95">~$10.6M equity / ~$8.1M debt / 4-year hold / <strong>7.5x–8.5x MOIC base / 65–71% IRR</strong>. Discovery stage; this is the discussion document, not the LOI.</p>
+        <p class="text-sm leading-relaxed opacity-95">~$10.6M equity / ~$8.1M debt / 4-year hold / <strong>7.5x–8.5x MOIC base / 65–71% IRR</strong> (Floor: 5.9x / 56% IRR). Discovery stage; v7.1 (Senior-Only Delivery Refinement, Apr 28 2026).</p>
       </div>
     </div>
   </div>
 
   <p class="pill bg-accent/10 text-accent mb-6">CONFIDENTIAL · PRIVATE EQUITY CO-INVESTOR / FAMILY OFFICE</p>
   <h1 class="text-5xl lg:text-6xl font-serif font-bold text-navy leading-tight mb-4">AI-First Industrial Automation Platform</h1>
-  <p class="text-2xl text-subtle font-serif mb-8">Business Plan &amp; Investment Thesis · v7 (Three-Act, Market-First)</p>
+  <p class="text-2xl text-subtle font-serif mb-8">Business Plan &amp; Investment Thesis · v7.1 (Senior-Only Delivery Refinement)</p>
   <div class="flex flex-wrap gap-3 text-sm text-subtle mb-12">
     <span><strong class="text-ink">Operator:</strong> Jason Bass</span>
     <span class="text-gray-300">|</span>
@@ -661,6 +661,39 @@
     <p class="text-sm text-ink leading-relaxed mt-3"><strong class="text-navy">Phase-0 demonstration ask:</strong> pick the Baker Hughes brief or any one of the four industry playbooks; ask Jason to run a live SDA session that produces an analogous artifact (e.g., a CEO Meeting Brief for a Gulf Coast SI's largest customer, or a playbook for LNG). The output, produced in minutes-to-hours not weeks, is the most direct test of whether the IP claim survives a real workload.</p>
   </div>
 
+  <h3 class="text-lg font-semibold text-navy mb-4">SDK agent architecture — self-detecting, senior-validated</h3>
+  <p class="text-sm text-ink leading-relaxed mb-4 max-w-3xl">The SDK workflow is a structured, version-controlled engineering process that <strong>mirrors patterns already running in production today on the UCWH operations stack</strong> (Appendix A). Not a "plug-and-play AI gets the SDK" claim — a documented, deterministic-first, AI-second pipeline with a mandatory human gate.</p>
+
+  <div class="overflow-x-auto mb-6">
+    <table class="w-full text-xs border-collapse">
+      <thead class="bg-navy text-white">
+        <tr>
+          <th class="text-left p-2">Layer</th>
+          <th class="text-left p-2">What happens</th>
+          <th class="text-left p-2">UCWH analog (Appendix A) — already running</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr><td class="p-2 align-top"><strong>1. SDK version manifest</strong> <em>(single source of truth)</em></td><td class="p-2 align-top">AVEVA SDK versions (System Platform SDK, AF SDK, ETAP SDK) tracked in version manifest. Agents query the manifest; never hardcode versions.</td><td class="p-2 align-top"><code>Wash-Utils.psm1</code> <code>Get-WashSlackChannel</code> registry — single-source-of-truth for routing</td></tr>
+        <tr><td class="p-2 align-top"><strong>2. Deterministic version check</strong> <em>(first pass)</em></td><td class="p-2 align-top">At task start: deterministic comparison of SDK manifest to agent's loaded SDK markdown memory. Versions match → proceed. Drift detected → HOLD (exit 2).</td><td class="p-2 align-top"><code>run-nightly-index-optimizer.ps1</code> Hybrid v3: Node.js handles 95% deterministically, Claude runs ONLY if unknowns exist (exit 2)</td></tr>
+        <tr><td class="p-2 align-top"><strong>3. AI re-mapping</strong> <em>(only on drift)</em></td><td class="p-2 align-top">When drift detected: AI pass re-maps agent's SDK markdown memory against new SDK documentation (object model changes, deprecated APIs, new cmdlets). Output held for senior review — never auto-promoted.</td><td class="p-2 align-top"><code>run-daily-backup.ps1</code> "Software version drift check" — compares manifests, names drifts, surfaces for review</td></tr>
+        <tr class="bg-accent/5"><td class="p-2 align-top"><strong>4. Mandatory senior validation gate</strong></td><td class="p-2 align-top">Senior engineer reviews AI output before DevTest promotion. DevTest-to-Production Galaxy promotion gate is permanent — not a temporary scaffold to be removed once AI is "trusted."</td><td class="p-2 align-top">UCWH HOLD (exit 2) vs. FATAL (exit 1) — HOLD requires human review before publish</td></tr>
+        <tr><td class="p-2 align-top"><strong>5. Two-surface routing</strong></td><td class="p-2 align-top">Drift detections route to internal ops channel; customer-facing project artifacts route to client-comms only after senior validation.</td><td class="p-2 align-top"><code>run-channel-digest.ps1</code> two-surface model: <code>Send-WashAudience</code> vs. <code>Send-WashOps</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bg-accent/5 border-l-4 border-accent p-5 rounded-r mb-8">
+    <p class="font-semibold text-navy mb-2">Why this matters for diligence — the moat is the validation discipline, not the AI generation itself</p>
+    <p class="text-sm text-ink leading-relaxed mb-2">Most competitors claiming AI-accelerated delivery have no answer to "how do you know the AI output is correct?" This architecture has three answers grounded in production code, not marketing claims:</p>
+    <ol class="text-sm text-ink space-y-1 leading-relaxed list-decimal pl-5">
+      <li><strong>Senior engineer validation is the mandatory gate</strong> — every AI artifact passes through a senior before DevTest promotion (mirrors the UCWH HOLD/FATAL exit-code discipline).</li>
+      <li><strong>Self-detecting version management</strong> means agents never operate against a stale SDK without flagging it (identical to UCWH cache-freshness contracts: daily &lt;24h, weekly &lt;7d, operating today).</li>
+      <li><strong>The DevTest-to-Production Galaxy promotion cycle mirrors AVEVA's own recommended best practice</strong> for multi-developer Galaxy management — the AI pipeline doesn't bypass AVEVA's discipline, it operates inside it.</li>
+    </ol>
+    <p class="text-sm text-ink leading-relaxed mt-3"><em>The validation discipline is the differentiator. The AI generation is a productivity multiplier on top of a discipline that already exists.</em></p>
+  </div>
+
   <h3 class="text-lg font-semibold text-navy mb-4">Six-layer pipeline (executed in strict order)</h3>
   <div class="bg-ink text-warmwhite font-mono text-sm p-5 rounded mb-8 leading-relaxed overflow-x-auto">
 <pre>Layer 1: DATA ACQUISITION
@@ -908,7 +941,7 @@ Layer 6: NOTIFICATION
   <p class="text-sm text-ink leading-relaxed mb-3 max-w-3xl"><strong>The competitive bid-down counter.</strong> Won't competitors match the AI cost savings and bid us down? The bid-down spiral happens in T&amp;M and hours-based fixed-fee — the tiers this transformation moves away from. It does not happen in outcome-based or productized pricing because the comparison frame is different (customer is buying outcomes, not hours). <strong>The pricing transformation IS the defense against bid-down.</strong> The platform ahead on Tier 2 + Tier 3 captures share at the same margin while platforms still on Tier 1 race each other to the bottom on hours.</p>
 
   <div class="bg-accent/5 border border-accent/30 p-5 rounded mb-8">
-    <p class="text-sm text-ink leading-relaxed"><strong class="text-navy">Year-1 PRIMARY KPI — pilot-project compression measurement (the bridge from thesis to evidence):</strong> at least one live AVEVA System Platform project delivered with AI-pipeline engineering hours measured against the baseline FDS estimate, expressed as a single before/after number (e.g., "2,200 baseline hours → 950 actual hours = 57% compression"). This is the single most important Year-1 deliverable for the LP/co-investor relationship — it converts the compression thesis from claim to proof. Target: 30–50% compression on the first factory-aligned project.</p>
+    <p class="text-sm text-ink leading-relaxed"><strong class="text-navy">Year-1 PRIMARY KPI — pilot-project output-per-dollar measurement (the bridge from thesis to evidence):</strong> at least one live AVEVA System Platform project delivered with <strong>scope-delivered measured against the baseline FDS estimate as the primary metric</strong>, plus engineering hours as a secondary tracking metric. Expressed as: <em>"FDS baseline scope X delivered for $Y of project labor; actual scope X+Δ delivered for the same $Y."</em> The Δ is the additional scope captured per project-dollar — the metric that flows to EBITDA under risk-share fixed-fee (Tier 1) and that opens the next outcome-based-MSA conversation under Tier 2. Target: 30–50% additional scope captured on factory-aligned System Platform / SCADA infrastructure work; 20–35% on MES execution-logic work (more conservative because customer-specific business logic compresses less than templated infrastructure).</p>
   </div>
 
   <h3 class="text-lg font-semibold text-navy mb-4">Sensitivity (static reference scenarios)</h3>
@@ -968,6 +1001,26 @@ Layer 6: NOTIFICATION
       <canvas id="bridgeChart"></canvas>
     </div>
     <p class="text-xs text-subtle italic mt-4">The 15% → 31% EBITDA margin expansion decomposes as: <strong>~4–5 pts risk-share fixed-fee productivity capture</strong> (Tier 1; labor savings flow to EBITDA on fixed-price contracts), <strong>~6–8 pts revenue mix shift to outcome-based MSA + Tier-3 productized offerings</strong> (Section 5.4 pricing transformation), <strong>~3–4 pts architect-substitution</strong>, <strong>~1–2 pts G&A leverage</strong>. Drivers are independent and additive; downside cases stress-test what happens if any one delivers half its projected contribution. <em>The 14–17 point recut is materially more conservative than earlier-draft 19-point bridge framing; the earlier framing assumed labor-compression flow-through that does not survive a T&M / hourly fixed-fee contract structure unaltered.</em></p>
+
+  <!-- ============================================ SENIOR-ONLY DELIVERY MODEL CALLOUT ============================================ -->
+  <div class="bg-navy text-warmwhite rounded-lg p-6 mt-8 mb-6">
+    <p class="pill bg-accent text-white mb-3">SENIOR-ONLY DELIVERY MODEL — v7.1 REFINEMENT</p>
+    <p class="text-sm leading-relaxed mb-4 opacity-95">The architect-substitution driver above is the visible accounting line. The operating frame underneath: <strong>the AI framework operates as the junior-engineer layer.</strong> Project delivery is staffed predominantly with senior engineers on the technical-delivery side; AI handles configuration generation, script drafting, tag database construction, FDS-to-object mapping, and SDK tooling that traditional SIs assign to junior engineers. Senior engineers validate AI output, promote artifacts from DevTest to Production Galaxy, and own client relationships. Non-senior staff appear only in PM/coordination, customer training, and field-commissioning roles — not on the configuration-generation engineering bench.</p>
+    <div class="grid lg:grid-cols-3 gap-5 mt-5">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider opacity-75 mb-2">1. Gross margin</p>
+        <p class="text-sm leading-relaxed opacity-95">Direct labor per project-dollar drops materially. Two juniors ($65–85K each, burdened) replaced by one AI-augmented senior ($120–150K). The architect-substitution driver above (3–4 pts) is therefore likely <strong>understated</strong> — flagged as base-case upside, not risk; revisit against Year-1 actuals.</p>
+      </div>
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider opacity-75 mb-2">2. Retention</p>
+        <p class="text-sm leading-relaxed opacity-95">Junior turnover in SI environments runs 25–35% annually — primary driver of delivery risk and rework. Senior turnover ~10–15%. A senior-only technical-delivery team materially closes the talent-walk-out failure mode (Section 1.5).</p>
+      </div>
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider opacity-75 mb-2">3. AVEVA program alignment</p>
+        <p class="text-sm leading-relaxed opacity-95">AVEVA's 2025–2026 SI partner-program restructuring binds certifications to <em>individuals</em>, not company entities — explicitly rewarding certified depth over headcount. Senior-only-with-AI-as-junior-layer is structurally aligned with the direction. <em>(Source: AVEVA Project SyncSI internal SI partner-program review, Sept 2025.)</em></p>
+      </div>
+    </div>
+  </div>
   </div>
 </section>
 
@@ -1665,6 +1718,7 @@ function thesis() {
     moat: [
       { label: 'Operator pedigree', score: 'A+', desc: '25-year track record including President / GM of Wonderware West — Standard Automation and Control LP, ~$50M revenue and 50 employees at acquisition by AVEVA Distributor Q-mation Inc., September 2022. Deep AVEVA ecosystem relationships at vendor, partner, and client levels. Not replicable on a deal timeline.' },
       { label: 'Battle-tested AI framework', score: 'A', desc: '12+ months of production operation across 25 orchestrators, 27 active scheduled tasks, 8 audience channels. Documented in Appendix A. Not reproducible in <12 months by an SI starting from scratch.' },
+      { label: 'Self-detecting SDK agent architecture', score: 'A', desc: 'Compounding moat. Deterministically detects AVEVA SDK version drift, runs AI re-mapping only on drift, routes through mandatory senior-engineer validation before DevTest promotion (mirrors UCWH cache-freshness and HOLD/FATAL exit-code patterns operating today). Competitors with static AI tool libraries face accuracy degradation as AVEVA evolves (System Platform 2023 R2 → 2025, MES PBC expansions, AVEVA Connect roadmap); this architecture is designed to stay current automatically with senior-validated remediation.' },
       { label: 'AVEVA stack lock-in', score: 'A', desc: 'Deep, certified AVEVA practice with embedded client relationships. AVEVA program explicitly enables SIs who standardize to command better margins.' },
       { label: 'Gulf Coast domain', score: 'A−', desc: 'Petrochem, terminals, midstream — repeat-pattern industries where standardized frameworks compound fastest.' },
       { label: 'Incumbent client relationships', score: 'B+', desc: 'Acquired SI\'s existing 15–20 MSA clients represent years of embedded trust that a new entrant cannot recreate quickly.' },
