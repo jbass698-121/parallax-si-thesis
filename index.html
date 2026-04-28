@@ -118,7 +118,9 @@
     </template>
   </ul>
   <div class="mt-10 pt-6 border-t border-gray-200 text-[10px] text-subtle space-y-1">
-    <p>Confidence: MEDIUM-HIGH</p>
+    <p>Confidence: <strong>HIGH</strong> on market / operator / IP</p>
+    <p>MEDIUM on financial projections (pending Y1 actuals)</p>
+    <p>LOW on COO/CTO commitment (disclosed)</p>
     <p>Updated 2026-04-28 · v7.1</p>
     <button @click="window.print()" class="mt-3 text-accent underline hover:text-navy">Print version</button>
   </div>
@@ -996,7 +998,7 @@ Layer 6: NOTIFICATION
       </tbody>
     </table>
   </div>
-  <p class="text-xs text-subtle italic">The bear case still produces a credible PE return (~48% IRR over 4 years) because the entry multiple is conservative and the recurring-revenue floor protects downside. Even at half-credit on the load-bearing pricing-model transformation (Section 5.3), the deal clears typical middle-market services PE thresholds. The base case is materially more defensible than the earlier-draft 9.3x MOIC / 111% IRR framing — the difference is the 4-year hold horizon, the 9.0x exit multiple, the recut bridge, and the explicit pricing-model transformation.</p>
+  <p class="text-xs text-subtle italic">The bear case still produces a credible PE return (~48% IRR over 4 years) because the entry multiple is conservative and the recurring-revenue floor protects downside. Even at half-credit on the load-bearing pricing-model transformation (Section 5.3), the deal clears typical middle-market services PE thresholds. <strong>On the 4.8x MOIC at Bear:</strong> Bear represents <em>simultaneous</em> 50% underdelivery on two structurally independent value drivers — the AI-augmented compression curve <em>and</em> the pricing-model transformation. These drivers do not share a failure mode (compression is an engineering/AI execution risk; pricing transformation is a commercial/customer-renegotiation risk). The joint probability of both underdelivering at half-credit simultaneously is materially lower than the marginal probability of either; even at that joint scenario, 48% IRR clears the typical middle-market services PE return threshold. The base case is materially more defensible than the earlier-draft 9.3x MOIC / 111% IRR framing — the difference is the 4-year hold horizon, the 9.0x exit multiple, the recut bridge, and the explicit pricing-model transformation.</p>
 
   <h3 class="text-lg font-semibold text-navy mt-12 mb-4">5.5 EBITDA margin bridge (Y0 → Y4, 14–19 percentage points — recut)</h3>
   <div class="bg-white border border-gray-200 rounded p-6">
@@ -1020,7 +1022,7 @@ Layer 6: NOTIFICATION
       </div>
       <div>
         <p class="text-xs font-semibold uppercase tracking-wider opacity-75 mb-2">3. AVEVA program alignment</p>
-        <p class="text-sm leading-relaxed opacity-95">AVEVA's 2025–2026 SI partner-program restructuring binds certifications to <em>individuals</em>, not company entities — explicitly rewarding certified depth over headcount. Senior-only-with-AI-as-junior-layer is structurally aligned with the direction. <em>(Source: AVEVA Project SyncSI internal SI partner-program review, Sept 2025 — internal AVEVA strategy document, "For Internal Use Only," not publicly searchable; referenced under the operator's privileged access from his Schneider/AVEVA NAM tenure. Available for diligence-call review with appropriate confidentiality protocol.)</em></p>
+        <p class="text-sm leading-relaxed opacity-95">AVEVA's 2025–2026 SI partner-program restructuring binds certifications to <em>individuals</em>, not company entities — explicitly rewarding certified depth over headcount. Senior-only-with-AI-as-junior-layer is structurally aligned with the direction. <em>(Source: AVEVA Project SyncSI internal SI partner-program review, Sept 2025 — internal AVEVA strategy document, "For Internal Use Only," not publicly searchable; referenced under the operator's privileged access from his Schneider/AVEVA NAM tenure. Available for in-person or secure-link diligence-call review with appropriate confidentiality protocol; not distributed via email.)</em></p>
       </div>
     </div>
   </div>
@@ -1633,7 +1635,7 @@ run-member-health.ps1</code></pre>
 
 <!-- ============================================ FOOTER ============================================ -->
 <footer class="border-t border-gray-200 pt-8 pb-12 text-xs text-subtle leading-relaxed max-w-3xl">
-  <p class="mb-2"><em>This document is a working draft prepared for refinement with a co-investor partner. All financial figures for the GCAP archetype are illustrative based on public market data. Confidence: MEDIUM-HIGH — operator pedigree publicly verifiable; AI framework operating in production today (Appendix A); financial model rests on industry-standard comparables.</em></p>
+  <p class="mb-2"><em>This document is a working draft prepared for refinement with a co-investor partner. All financial figures for the GCAP archetype are illustrative based on public market data. <strong>Confidence (per-domain):</strong> HIGH on market dynamics, operator pedigree, and IP / SDK architecture (Sections 1–3, Appendix A and E — operator pedigree publicly verifiable; AI framework operating in production today; market consolidation pattern documented in public M&amp;A record). MEDIUM on financial projections (Sections 5–6) — model rests on industry-standard comparables and the bridge math is internally consistent, but actuals begin in Year 1. LOW on COO / CTO commitment status — neither has formally committed; pipeline depth is the disclosed mitigation (Section 2).</em></p>
   <p>Prepared April 28, 2026 by Jason Bass, Managing Consultant, Parallax Private Holdings.</p>
 </footer>
 
@@ -1741,7 +1743,7 @@ function thesis() {
     exits: [
       { title: 'PE Platform Sale', tag: 'PRIMARY', desc: 'A scaled, AI-native, recurring-revenue SI platform on the Gulf Coast is a compelling add-on or standalone platform for PE firms executing industrial automation roll-ups. Target buyers include firms already active around E Tech Group, ENTRUST Solutions, or similar consolidation platforms.' },
       { title: 'Strategic Sale to OEM / Vendor', tag: 'STRATEGIC', desc: 'Rockwell (via Maverick), Siemens, Schneider Electric, or Emerson periodically acquire high-quality regional SIs. An AI-native AVEVA-focused platform with proven frameworks would be particularly attractive to Schneider/AVEVA as it validates and distributes their own model-driven MES roadmap.' },
-      { title: 'Strategic Sale to PE-backed AI-native SI Platform', tag: 'INFLEXIONPOINT', desc: 'InflexionPoint (Sverica Capital portfolio company) is the most explicit current example: AVEVA-aligned, AI-positioned, US-headquartered, with no listed Gulf Coast or petrochem/midstream presence. A transformed Gulf Coast platform fills a clear geographic and vertical gap.' },
+      { title: 'Strategic Sale to PE-backed AI-native SI Platform', tag: 'INFLEXIONPOINT', desc: 'InflexionPoint (Sverica Capital portfolio company) is the most explicit current example: AVEVA-aligned, AI-positioned, US-headquartered, with no public Gulf Coast or petrochem/midstream delivery footprint as of April 2026. A transformed Gulf Coast platform fills a clear geographic and vertical gap. Date-bound: this gap closes if InflexionPoint executes a Gulf Coast bolt-on before exit; reassess at Year-2 board review.' },
       { title: 'Continued Platform Roll-Up', tag: 'COMPOUND', desc: 'Use the transformed acquired SI as a platform for 2–3 additional Houston-area SI acquisitions, scaling revenue toward $60–80M before a larger exit at higher multiples.' },
       { title: 'IP Licensing', tag: 'LONG-TERM', desc: 'The AI frameworks and AVEVA delivery tooling can eventually be productized and licensed to other SIs nationally — converting delivery IP into a SaaS-adjacent revenue stream.' },
     ],
